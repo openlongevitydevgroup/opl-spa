@@ -1,0 +1,16 @@
+.statbar{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 1px;
+}
+
+.statbar :global .MuiPaper-root{
+    display: flex; 
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.stats p{
+    margin: auto;
+}

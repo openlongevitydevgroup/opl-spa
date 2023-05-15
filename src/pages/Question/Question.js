@@ -1,6 +1,6 @@
 import {Fragment, useState, useContext} from 'react'
-import { useLoaderData } from 'react-router-dom';
-import QuestionListTree from './components/QuestionList'
+import { useLoaderData, useActionData } from 'react-router-dom';
+import QuestionView from './components/QuestionList'
 import PermanentDrawer from './Drawer/PermanentDrawer';
 import QuestionForm from './components/QuestionForm';
 import Statbar from '../../pages/Question/components/Statbar';
@@ -16,6 +16,7 @@ const DIV_STYLES = {
     width:'100%', 
     paddingBottom:'1rem'
 }
+
 
 
 function Question(props){
@@ -35,6 +36,15 @@ function Question(props){
     
     }
 
+    //State to switch between table and tree view: 
+    const [viewType, setViewType] = useState('tree'); 
+    const treeButtonClickHandler = () => {
+        setViewType('tree');
+    }
+    const tableButtonClickHandler = () => {
+        setViewType('table');
+    }
+
     //For form details modal 
     const [modalOpen, setModalOpen] = useState({
         open:false, 
@@ -46,25 +56,35 @@ function Question(props){
     }
     const onModalClose = () => {
         setModalOpen({open:false})
-        
     }
+
+    //Search bar lifting data - now need to create a table view 
+    const [searchInput, setSearchInput] = useState(''); 
+    const onChangeSearch = (e) => {
+        setSearchInput(e.target.value)
+    } 
+    //Search bar - dealing with submitted query - basic functionality. 
+    const searchFunction = () => {
+        if(searchInput.trim().length ===0) return; 
+        if (searchInput.length > 0){
+            const filteredQuestions = questions.filter((entry) => entry.title.toLowerCase().includes(searchInput.toLowerCase())
+            )
+            console.log(filteredQuestions)
+        }
+    }
+
 
     return(
     <Fragment>
-        <SearchBar/>
-        <Statbar className='statbar' length={questions.length} submitQuestion={onSubmitHandler}/>
+        <SearchBar questions = {questions} searchFunctions = {{onChange:onChangeSearch, state:searchInput, onSubmit:searchFunction}}/>
+        <Statbar className='statbar' length={questions.length} submitQuestion={onSubmitHandler} viewClickHandlers = {{treeButton: treeButtonClickHandler, tableButton:tableButtonClickHandler}}/>
         <div style={DIV_STYLES}>
             <PermanentDrawer/>
             <div className='questions-container'>
             {submitOpen.open ? <QuestionForm questions={questions}exit={exitSubmitHandler} parent={submitOpen.chosenParent ? submitOpen.chosenParent : null}/> :   
-            <QuestionListTree onSubmitHandler={onSubmitHandler} onModalOpen = {onModalOpen} onModalClose = {onModalClose} questions={recursiveQuestions} />}
-        
+            <QuestionView state={viewType} onSubmitHandler={onSubmitHandler} onModalOpen={onModalOpen} onModalClose={onModalClose} questions={{recursive: recursiveQuestions, nonRecursive: questions}} searchQuery={searchInput}></QuestionView>}
             </div>
             {modalOpen.question && <ModalInstance open={modalOpen.open} close={onModalClose} content={modalOpen.question}/>}
-
-
-
-
         </div>
 
 
@@ -72,6 +92,9 @@ function Question(props){
 
 )
 }
+
+
+
 
 export default Question; 
 

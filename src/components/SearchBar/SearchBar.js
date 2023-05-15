@@ -1,27 +1,16 @@
-import { TextField, InputAdornment} from '@mui/material'
-import {Fragment, useState} from 'react'
+import { TextField} from '@mui/material'
 import {Form} from 'react-router-dom'
-import SearchIcon from '@mui/icons-material/Search';
-
 
 const STYLES = {
 
     
 }
 
-function SearchBar(props){
-
-    //Search functionality
-    const [searchInput, setSearchInput] = useState(''); 
-    const onChangeSearch = (e) => {
-        setSearchInput(e.target.value)
-    } 
-
-    //Search submission 
-    
+function SearchBar(props){    
+    const {state:searchInput, onChange, onSubmit} = props.searchFunctions
     return(
-    <Form>
-    <TextField label="Search for a question" value={searchInput} onChange={onChangeSearch} fullWidth={true} sx={STYLES} size='small' variant='filled' margin='normal'/>
+    <Form onSubmit={onSubmit}>
+            <TextField name='search-query' label="Search for a question" value={searchInput} onChange={onChange} fullWidth={true} sx={STYLES} size='small' variant='filled' margin='normal'/>
     </Form>
 
     )

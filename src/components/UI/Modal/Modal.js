@@ -1,4 +1,4 @@
-import {Modal, Box, Typography, Paper, Card} from '@mui/material'
+import {Modal, Box,Paper, Card} from '@mui/material'
 
 const CARD_STYLES = {
     position: 'fixed',

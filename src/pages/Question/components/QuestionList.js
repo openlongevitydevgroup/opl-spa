@@ -5,7 +5,10 @@ import {useSpring, animated} from '@react-spring/web'
 import Collapse from '@mui/material/Collapse'
 import { PropTypes } from 'prop-types';
 import QuestionDetail from './QuestionDetail';
+import { Fragment } from 'react';
+import { useActionData } from 'react-router-dom';
 
+//Transitions for the hierarchical list component
 function TransitionComponent(props){
     const style = useSpring({
         from: {opacity: 0, 
@@ -29,7 +32,10 @@ TransitionComponent.propTypes = {
      */
     in: PropTypes.bool,
   };
+
+//Hierarchical list to be rendered in the tree view function below   
 function QuestionListTree(props){
+    const {onSubmitHandler, onModalOpen, onModalClose} = props.handlers
 
     return(
         <TreeView defaultEndIcon={<IndeterminateCheckBoxOutlinedIcon/>} defaultExpandIcon={<AddBoxOutlinedIcon/>} defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon></IndeterminateCheckBoxOutlinedIcon>}>
@@ -37,9 +43,9 @@ function QuestionListTree(props){
             {props.questions.map(question => {
                 return(
                     <TreeItem key={question.question_id}sx={{borderLeft: '1px dashed', paddingTop:'5px'}} TransitionComponent={TransitionComponent} nodeId={question.question_id.toString()} label={question.title}>
-                        <QuestionDetail onSubmitHandler={props.onSubmitHandler} onModalOpen = {props.onModalOpen} question={question}/>
+                        <QuestionDetail onSubmitHandler={onSubmitHandler} onModalOpen = {onModalOpen} question={question}/>
                         {question.children ? question.children.map(child => <TreeItem label={child.title} key={child.question_id} nodeId={child.question_id.toString()} sx={{borderLeft:'1px dashed', paddingTop:'5px'}}> 
-                        <QuestionDetail onSubmitHandler={props.onSubmitHandler} question={question} onModalOpen={props.onModalOpen}/>
+                        <QuestionDetail onSubmitHandler={onSubmitHandler} question={question} onModalOpen={onModalOpen}/>
 
                         </TreeItem>) : null}
                     </TreeItem> 
@@ -53,8 +59,56 @@ function QuestionListTree(props){
     )
 }
 
+
+//Table view showing a list of questions to be rendered in the tree view function below
 function QuestionListTable(props){
-    return;
+    const allQuestions = props.questions
+    return(
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Parent Question</th>
+                <th>Species</th>
+                <th>Organ</th>
+            </tr>
+            {allQuestions.map((question) => {
+                return(
+                    <tr>
+                        <td>{question.title}</td>
+                    </tr>
+                )
+            })}
+        </table>
+    )
 }
 
-export default QuestionListTree;
+
+function QuestionView(props){
+    const viewState = props.state; 
+
+    const handlers = {
+        onModalOpen : props.onModalOpen, 
+        onModalClose : props.onModalClose,
+        onSubmitHandler : props.onSubmitHandler,
+    }
+    
+
+    if(viewState === 'tree'){
+        const questions = props.questions.recursive 
+        return (
+            <Fragment>
+            <QuestionListTree handlers ={handlers} questions={questions}/>
+            </Fragment>
+        )
+    }else{
+        const questions = props.questions.nonRecursive
+        return(
+            <Fragment>
+                <QuestionListTable questions={questions}/>
+            </Fragment>
+        )
+    }
+
+}
+
+export default QuestionView

@@ -10,7 +10,7 @@ import Question, {loader as getQuestions} from "./pages/Question/Question";
 const router = createBrowserRouter([{path: '/', element: <RootLayout/> ,children:[
   {path: '', index: true, element: <Home/>},
   {path: 'About', element: <About/>}]},
-  {path: 'question', element:<RootQuestion/> ,children:[
+  {path: 'question', element:<RootQuestion/>,children:[
     {index: true, element: <Question/>, loader:getQuestions}
   ]},])
 

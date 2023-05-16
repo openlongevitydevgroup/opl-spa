@@ -2,9 +2,16 @@ import { Box, Paper,ToggleButton, ToggleButtonGroup, Typography, Button } from "
 import TableViewIcon from '@mui/icons-material/TableView';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { useDispatch, useSelector } from "react-redux";
+import { formActions } from "../../../state/Question/questionFormReducer";
 import styles from './Statbar.module.css'
 // This functon is for the statbar that allows the user to select whether to view the questions as a table or as a tree view instead
 function Statbar(props){ 
+    const formOpenState = useSelector(state => state.form.submitFormOpen)
+    const dispatch = useDispatch();
+    const submitQuestionHandler = () => {
+        dispatch(formActions.toggleFormOpen())
+    }
     const {treeButton, tableButton} = props.viewClickHandlers
     return (
         <Box className={styles.statbar}>
@@ -20,8 +27,7 @@ function Statbar(props){
                     </Typography>
 
                 </div>
-
-                <Button onClick={() => {props.submitQuestion(null)}} variant='contained' endIcon={<FileDownloadIcon/>}> Submit a question </Button> 
+                {formOpenState ? <Button onClick={submitQuestionHandler} variant='contained' endIcon={<FileDownloadIcon/>} disabled > Submit a question </Button> : <Button onClick={submitQuestionHandler} variant='contained' endIcon={<FileDownloadIcon/>}> Submit a question </Button> }
 
             </Paper>
         </Box>

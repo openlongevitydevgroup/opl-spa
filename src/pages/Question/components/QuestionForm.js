@@ -1,53 +1,56 @@
 import {Form} from 'react-router-dom'; 
 import {useReducer, useState } from 'react';
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
 import { Typography, StyledEngineProvider,Button, Select , MenuItem, TextField} from '@mui/material';
 import ModalInstance from '../../../components/UI/Modal/Modal';
 import styles from './QuestionForm.module.css'
-import formReducer from '../../../utils/formReducer'
-import initialFormState from '../../../utils/formstate';
-import axios from 'axios'
+import { formActions } from '../../../state/Question/questionFormReducer';
 
 
 function QuestionForm(props) {
-    const initialState = initialFormState;
-    initialState.parentQuestion = props.parent ? props.parent : 'None';
-    const [formState, formDispatch] = useReducer(formReducer, initialState)
-    
-    //Submission model 
+    const dispatch = useDispatch();
+    const formDetailsState = useSelector(state => state.form.formDetails)
+    //Will not need - will be replaced by redux state
+    //Submission modal 
     const [submitModalOpen, setSubmitModalOpen] = useState(false)
     const onSubmitModalClose = () => {
         setSubmitModalOpen(false)
     }
 
-
-
     const selectOnChange = (e, id) => {
         if(e.target.value === "None"){
-            formDispatch({type: 'USER_SELECT', value: null})
-        }
-        formDispatch({type:'USER_SELECT', value:e.target.value, parentQuestionId: id.props.id})
-    }
+            dispatch(formActions.chooseParent({
+                chosenParentTitle: '', 
+                parentId: null,
+            }))
+        }else{
+            dispatch(formActions.chooseParent({
+                chosenParentTitle: e.target.value, 
+                parentId: id.props.id
+            }))
+        }    }
 
     const inputOnChange = (e,key) => {
-        formDispatch({type:'USER_INPUT', value:e.target.value, key:key})
+        dispatch(formActions.inputChange({id:key, value:e.target.value}))
     }
 
     const onSubmitHandler = async (e) => {
+        console.log(formDetailsState)
         e.preventDefault(); 
-
-        //Reset Inputs
-        formDispatch({type:"USER_SUBMIT"})
-        const data={title: formState.title, 
-            description: formState.description, 
-            parent_question: formState.parentQuestionId,}
-        
         //Send request 
         try{
-            const response = await axios.post('http://localhost:8000/questions/submit', {data: data, headers: {'Content-Type': 'application/json', 'Accept':'application/json'}})
-            console.log(response.status)
-            console.log(submitModalOpen)
+            const response = await axios.post('http://localhost:8000/questions/submit', {
+                title: formDetailsState.title,
+                excerpt: formDetailsState.description, 
+                parent_question: formDetailsState.parentId,
+                species: formDetailsState.species, 
+                citation: formDetailsState.citation
+            }, {headers: {'Content-Type': 'application/json', 'Accept':'application/json'}})
             if(response.status === 201){
                 setSubmitModalOpen(true);
+                dispatch(formActions.resetForm()) //Reset form after sucessfull submission
+
             }
         } catch(error){
             throw error
@@ -56,24 +59,20 @@ function QuestionForm(props) {
 
     }
 
+    //Exit button handler 
+    const exitButtonHandler = () => {
+        dispatch(formActions.toggleFormClose())
+        dispatch(formActions.resetForm())
+    }
+
     return(
         <StyledEngineProvider injectFirst>
             <Typography variant='h3'> Submit a question </Typography>
             <Form className={styles.form} onSubmit={onSubmitHandler}>
-                <div className={styles.inputs}>
-                <label htmlFor="title"> <Typography variant='body1'>Title:</Typography> </label>
-                <input id='title' onChange={(e) => inputOnChange(e,'title')} value={formState.title}></input>
-                </div>
 
-                <div className={styles.inputs}>
-                <label htmlFor="description"><Typography>Description:</Typography></label>
-                <TextField onChange={(e) => inputOnChange(e, 'description')} id='description' multiline rows={4} value={formState.description}></TextField> 
-                </div>
-
-                <div className={styles.inputs}>
+            <div className={styles.inputs}>
                     <label htmlFor="Parent-Question"> <Typography>Parent question</Typography> </label>
-
-                    <Select sx={{width:'80%', marginLeft:'1.5rem'}}label='Parent Question' onChange={(e,id) => selectOnChange(e, id)} value={formState.parentQuestion}>
+                    <Select sx={{width:'80%', marginLeft:'1.5rem'}}label='Parent Question' onChange={(e,id) => selectOnChange(e, id)} value={formDetailsState.parentTitle}>
                         <MenuItem key='0' id={0} value='None'> None</MenuItem>
                         {props.questions.map((question) => {
                             return(
@@ -83,25 +82,30 @@ function QuestionForm(props) {
                         </Select>
                 </div>
 
-{/* Need to refactor this bit due to repeats */}
                 <div className={styles.inputs}>
-                    <label htmlFor="species"> <Typography>Species (If applicable)</Typography> </label>
-                    <input onChange={(e) => inputOnChange(e, 'species')} name="species" id="species" type="text" value={formState.species}/>
+                <label htmlFor="title"> <Typography variant='body1'>Title:</Typography> </label>
+                <input id='title' onChange={(e) => inputOnChange(e,'title')} value={formDetailsState.title}></input>
                 </div>
 
                 <div className={styles.inputs}>
-                    <label htmlFor="organ"> <Typography> Organ (If applicable)</Typography> </label>
-                    <input onChange={(e) => inputOnChange(e, 'organ')} name="organ" id="organ" type="text" value={formState.organ} />
+                <label htmlFor="description"><Typography>Description:</Typography></label>
+                <TextField onChange={(e) => inputOnChange(e, 'description')} id='description' multiline rows={4} value={formDetailsState.description}></TextField> 
+                </div>
+
+{/* Need to refactor this bit due to repeats */}
+                <div className={styles.inputs}>
+                    <label htmlFor="species"> <Typography>Species (If applicable)</Typography> </label>
+                    <input onChange={(e) => inputOnChange(e, 'species')} name="species" id="species" type="text" value={formDetailsState.species}/>
                 </div>
 
                 <div className={styles.inputs}>
                     <label htmlFor="references"> <Typography> References (optional)</Typography> </label>
-                    <textarea onChange={(e) => inputOnChange(e, 'citations')} name="references" id="references" rows={5} value={formState.citations} />
+                    <textarea onChange={(e) => inputOnChange(e, 'citation')} name="references" id="references" rows={5} value={formDetailsState.citation} />
                 </div>
 
                 <div className={styles.buttons}>
                     <Button type='submit'> Submit </Button>
-                    <Button onClick={props.exit}>Exit</Button>
+                    <Button onClick={exitButtonHandler}>Exit</Button>
                 </div>
 
                 {submitModalOpen &&<ModalInstance open={submitModalOpen} close={onSubmitModalClose} width={300} height={150}>

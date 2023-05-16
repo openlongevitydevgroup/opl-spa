@@ -7,7 +7,7 @@ const {Container, StyledEngineProvider, Typography, Box, Button, Paper} = requir
 function Header(){
     return(
         <StyledEngineProvider injectFirst>
-        <Paper variant='outlined' elevation={3}>
+        <Paper variant='outlined' elevation={0}>
         <Container maxWidth='md'>
             <Box className={styles.header_description}>
             <Typography variant='h1' className={styles.header_title}>Open Longevity Project</Typography>

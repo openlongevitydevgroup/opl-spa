@@ -6,7 +6,8 @@ import Collapse from '@mui/material/Collapse'
 import { PropTypes } from 'prop-types';
 import QuestionDetail from './QuestionDetail';
 import { Fragment } from 'react';
-import { useActionData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 //Transitions for the hierarchical list component
 function TransitionComponent(props){
@@ -35,6 +36,7 @@ TransitionComponent.propTypes = {
 
 //Hierarchical list to be rendered in the tree view function below   
 function QuestionListTree(props){
+    //Replace with dispatches from redux
     const {onSubmitHandler, onModalOpen, onModalClose} = props.handlers
 
     return(
@@ -42,9 +44,9 @@ function QuestionListTree(props){
 
             {props.questions.map(question => {
                 return(
-                    <TreeItem key={question.question_id}sx={{borderLeft: '1px dashed', paddingTop:'5px'}} TransitionComponent={TransitionComponent} nodeId={question.question_id.toString()} label={question.title}>
+                    <TreeItem key={question.question_id} id={question.question_id.toString()} sx={{borderLeft: '1px dashed', paddingTop:'5px'}} TransitionComponent={TransitionComponent} nodeId={question.question_id.toString()} label={question.title}>
                         <QuestionDetail onSubmitHandler={onSubmitHandler} onModalOpen = {onModalOpen} question={question}/>
-                        {question.children ? question.children.map(child => <TreeItem label={child.title} key={child.question_id} nodeId={child.question_id.toString()} sx={{borderLeft:'1px dashed', paddingTop:'5px'}}> 
+                        {question.children ? question.children.map(child => <TreeItem label={child.title} key={child.question_id} id={child.question_id.toString()} nodeId={child.question_id.toString()} sx={{borderLeft:'1px dashed', paddingTop:'5px'}}> 
                         <QuestionDetail onSubmitHandler={onSubmitHandler} question={question} onModalOpen={onModalOpen}/>
 
                         </TreeItem>) : null}
@@ -84,24 +86,26 @@ function QuestionListTable(props){
 
 
 function QuestionView(props){
+    //Replace with redux store state 
     const viewState = props.state; 
+    const {recursiveData: recursiveQuestions, data:questions } = useLoaderData()
 
-    const handlers = {
+    // Replace this with dispatch 
+    const handlers = { 
         onModalOpen : props.onModalOpen, 
         onModalClose : props.onModalClose,
         onSubmitHandler : props.onSubmitHandler,
     }
+
     
 
     if(viewState === 'tree'){
-        const questions = props.questions.recursive 
         return (
             <Fragment>
-            <QuestionListTree handlers ={handlers} questions={questions}/>
+            <QuestionListTree handlers ={handlers} questions={recursiveQuestions}/>
             </Fragment>
         )
     }else{
-        const questions = props.questions.nonRecursive
         return(
             <Fragment>
                 <QuestionListTable questions={questions}/>

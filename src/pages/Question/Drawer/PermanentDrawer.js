@@ -3,7 +3,7 @@ import { Drawer,List,ListItem, ListItemButton, StyledEngineProvider, Typography 
 import DrawerItem from './DrawerItem'
 import ArrowDropDownOutlinedIcon from'@mui/icons-material/ArrowDropDownOutlined';
 import styles from './PermanentDrawer.module.css'
-function PermanentDrawer(){
+function PermanentDrawer(){ //Needs to be smaller on small screens
     const arrowDown = <ArrowDropDownOutlinedIcon/>
     const drawerWidth = 240;
     return(

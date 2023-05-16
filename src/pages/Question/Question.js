@@ -1,5 +1,7 @@
-import {Fragment, useState, useContext} from 'react'
-import { useLoaderData, useActionData } from 'react-router-dom';
+import {Fragment, useState} from 'react'
+import { useLoaderData} from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
+import { formActions } from '../../state/Question/questionFormReducer';
 import QuestionView from './components/QuestionList'
 import PermanentDrawer from './Drawer/PermanentDrawer';
 import QuestionForm from './components/QuestionForm';
@@ -21,20 +23,13 @@ const DIV_STYLES = {
 
 function Question(props){
     const {recursiveData: recursiveQuestions, data:questions } = useLoaderData()
-    
+    const formState = useSelector(state => state.form)
+    const dispatch = useDispatch()
+
     //States to handle opening form 
-    const [submitOpen, setSubmitOpen] = useState({
-        open:false, 
-        chosenParent:null,
-    })
-    const onSubmitHandler = (parent) => {
-        setSubmitOpen({open:true, chosenParent:parent})
-    }
-    const exitSubmitHandler = (e) => {
-        e.preventDefault();
-        setSubmitOpen({open:false, chosenParent:null})
-    
-    }
+
+
+
 
     //State to switch between table and tree view: 
     const [viewType, setViewType] = useState('tree'); 
@@ -77,12 +72,12 @@ function Question(props){
     return(
     <Fragment>
         <SearchBar questions = {questions} searchFunctions = {{onChange:onChangeSearch, state:searchInput, onSubmit:searchFunction}}/>
-        <Statbar className='statbar' length={questions.length} submitQuestion={onSubmitHandler} viewClickHandlers = {{treeButton: treeButtonClickHandler, tableButton:tableButtonClickHandler}}/>
+        <Statbar className='statbar' length={questions.length} viewClickHandlers = {{treeButton: treeButtonClickHandler, tableButton:tableButtonClickHandler}}/>
         <div style={DIV_STYLES}>
             <PermanentDrawer/>
             <div className='questions-container'>
-            {submitOpen.open ? <QuestionForm questions={questions}exit={exitSubmitHandler} parent={submitOpen.chosenParent ? submitOpen.chosenParent : null}/> :   
-            <QuestionView state={viewType} onSubmitHandler={onSubmitHandler} onModalOpen={onModalOpen} onModalClose={onModalClose} questions={{recursive: recursiveQuestions, nonRecursive: questions}} searchQuery={searchInput}></QuestionView>}
+            {formState.submitFormOpen ? <QuestionForm questions={questions} parent={formState.chosenParent ? formState.formDetails.parentTitle : 'None'}/> :   
+            <QuestionView state={viewType} onModalOpen={onModalOpen} onModalClose={onModalClose} questions={{recursive: recursiveQuestions, nonRecursive: questions}} searchQuery={searchInput}></QuestionView>}
             </div>
             {modalOpen.question && <ModalInstance open={modalOpen.open} close={onModalClose} content={modalOpen.question}/>}
         </div>

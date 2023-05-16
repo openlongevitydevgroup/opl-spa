@@ -6,7 +6,6 @@ import RootQuestion from "./pages/Root/RootQuestion";
 import Question, {loader as getQuestions} from "./pages/Question/Question";
 
 
-
 const router = createBrowserRouter([{path: '/', element: <RootLayout/> ,children:[
   {path: '', index: true, element: <Home/>},
   {path: 'About', element: <About/>}]},

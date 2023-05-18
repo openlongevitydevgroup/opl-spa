@@ -2,12 +2,12 @@ import { Form } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Typography,
-    StyledEngineProvider,
-    Button,
-    Select,
-    MenuItem,
-    TextField,
+  Typography,
+  StyledEngineProvider,
+  Button,
+  Select,
+  MenuItem,
+  TextField,
 } from "@mui/material";
 import ModalInstance from "../../../components/UI/Modal/Modal";
 import styles from "./QuestionForm.module.css";
@@ -15,13 +15,17 @@ import { formActions } from "../../../state/Question/questionFormReducer";
 import { formValidationActions } from "../../../state/Question/formValidationSlice";
 
 const validateForm = (validationState, formDetailsState, dispatch) => {
-    dispatch(formValidationActions.checkTitle({title: formDetailsState.title}));
-    dispatch(formValidationActions.checkDescription({description: formDetailsState.description}));
-    if (validationState.title && validationState.description) {
-        return true;
-    } else {
-        return false;
-    }
+  dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
+  dispatch(
+    formValidationActions.checkDescription({
+      description: formDetailsState.description,
+    })
+  );
+  if (validationState.title && validationState.description) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 function QuestionForm(props) {
@@ -227,37 +231,36 @@ function QuestionForm(props) {
           <Button onClick={exitButtonHandler}>Exit</Button>
         </div>
 
-                {formModalState && (
-                    <ModalInstance
-                        open={formModalState}
-                        close={onSubmitModalClose}
-                        width={300}
-                        height={"max-content"}
-                    >
-                        <Typography variant="h5" sx={{ paddingTop: "3rem" }}>
-                            {" "}
-                            {formStatus.title}{" "}
-                        </Typography>
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                paddingTop: "2rem",
-                            }}
-                        >
-                            {" "}
-                            {formStatus.message}{" "}
-                        </Typography>
-                        <Button
-                            onClick={onSubmitModalClose}
-                            sx={{ padding: "1.5rem" }}
-                        >
-                            Exit
-                        </Button>
-                    </ModalInstance>
-                )}
-            </Form>
-        </StyledEngineProvider>
-    );
+        {formModalState && (
+          <ModalInstance
+            open={formModalState}
+            close={onSubmitModalClose}
+            width={300}
+            height={"max-content"}
+          >
+            <div className="p-2">
+              <Typography variant="h5" sx={{ paddingTop: "3rem" }}>
+                {" "}
+                {formStatus.title}{" "}
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  paddingTop: "2rem",
+                }}
+              >
+                {" "}
+                {formStatus.message}{" "}
+              </Typography>
+              <Button onClick={onSubmitModalClose} sx={{ padding: "1.5rem" }}>
+                Exit
+              </Button>
+            </div>
+          </ModalInstance>
+        )}
+      </Form>
+    </StyledEngineProvider>
+  );
 }
 
 export default QuestionForm;

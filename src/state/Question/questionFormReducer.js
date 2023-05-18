@@ -2,17 +2,21 @@ import {createSlice} from '@reduxjs/toolkit'
 
 /// This slice and actions are related to the question form.
 
-export const DEFAULT_STATE = {
+const DEFAULT_STATE = {
     submitFormOpen: false, 
     chosenParent: false,
     formDetails: {
         title: '', 
-        description: '', 
+        description: 'Please add a description for your question title', 
         parentTitle: 'None',
         parentId: 0,
         species: '', 
         citation: '', 
 
+    },
+    description: {
+        blur: false,
+        focus: false
     },
     submitModalOpen: false,
     submitStatus : {

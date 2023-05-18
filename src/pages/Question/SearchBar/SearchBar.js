@@ -30,7 +30,6 @@ function SearchBar(props){
             const filteredQuestions = questions.filter((entry) => entry.title.toLowerCase().includes(queryState.toLowerCase())
             )
             dispatch(questionActions.setSearchResults({results:filteredQuestions}))
-            console.log(results)
         }
     }
     

@@ -6,12 +6,20 @@ import ModalInstance from '../../../components/UI/Modal/Modal';
 import styles from './QuestionForm.module.css'
 import { formActions } from '../../../state/Question/questionFormReducer';
 
+function additionalText(props){
+    return(
+        <p>
+            {props.message}
+        </p>
+    )
+}
+
 function QuestionForm(props) {
     const dispatch = useDispatch();
     const formDetailsState = useSelector(state => state.form.formDetails)
     const formStatus = useSelector(state => state.form.submitStatus) 
     const formModalState = useSelector(state => state.form.submitModalOpen)
-
+    const descriptionState = useSelector(state => state.form.description)
     //Parent question selection input 
     const selectOnChange = (e, id) => {
         if(e.target.value === "None"){
@@ -34,9 +42,6 @@ function QuestionForm(props) {
       const onSubmitModalClose = () => {
         dispatch(formActions.toggleModalClose())
         dispatch(formActions.resetForm())
-    }
-    const onFocusHandler = () => {
-    
     }
 
     //Form submission handler - submits to database in the submitted questions database
@@ -82,14 +87,10 @@ function QuestionForm(props) {
         dispatch(formActions.resetForm())
     }
 
-    const onBlurHandler = (text) => {
-        console.log(true)
-    }
-
     return(
         <StyledEngineProvider injectFirst>
             <Typography variant='h3'> Submit a question </Typography>
-            <Form className='w-full' onSubmit={onSubmitHandler}>
+            <Form className='w-full flex flex-col' onSubmit={onSubmitHandler}>
 
             <div className={styles.inputs}>
                     <label htmlFor="Parent-Question"> <Typography>Parent question</Typography> </label>
@@ -112,6 +113,7 @@ function QuestionForm(props) {
                 <label htmlFor="description"><Typography>Description:</Typography></label>
                 <TextField onChange={(e) => inputOnChange(e, 'description')} id='description' multiline rows={4} value={formDetailsState.description}></TextField> 
                 </div>
+
 
 {/* Need to refactor this bit due to repeats */}
                 <div className={styles.inputs}>

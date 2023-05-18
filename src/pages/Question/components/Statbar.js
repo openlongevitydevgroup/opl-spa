@@ -24,7 +24,7 @@ function Statbar(props){
         <Box className={styles.statbar}>
             <Paper>
                 <ToggleButtonGroup>
-                <ToggleButton><FilterAltIcon/></ToggleButton>
+                <ToggleButton value='filter'><FilterAltIcon/></ToggleButton>
                     <ToggleButton value="table" onClick={toggleTableHandler} ><TableViewIcon/></ToggleButton>
                     <ToggleButton value="tree" onClick={toggleTreeHandler}> <AccountTreeIcon/></ToggleButton>
                 </ToggleButtonGroup>

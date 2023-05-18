@@ -1,40 +1,45 @@
 import { Box, Paper,ToggleButton, ToggleButtonGroup, Typography, Button } from "@mui/material";
-import {useDispatch} from 'react-redux'
 import TableViewIcon from '@mui/icons-material/TableView';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import styles from './Statbar.module.css'
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { useDispatch, useSelector } from "react-redux";
+import { formActions } from "../../../state/Question/questionFormReducer";
 import { questionActions } from "../../../state/Question/questionSlice";
+import styles from './Statbar.module.css'
 // This functon is for the statbar that allows the user to select whether to view the questions as a table or as a tree view instead
 function Statbar(props){ 
-    const dispatch = useDispatch(); 
-    const treeButtonHandler = () => {
+    const formOpenState = useSelector(state => state.form.submitFormOpen)
+    const questionState = useSelector(state => state.question)
+    const dispatch = useDispatch();
+    const submitQuestionHandler = () => {
+        dispatch(formActions.toggleFormOpen())
+    }
+    const toggleTreeHandler = () => {
         dispatch(questionActions.toggleTreeState())
-    }; 
-    const listButtonHandler = () => {
-        dispatch(questionActions.toggleListState())
+    }
+    const toggleTableHandler = () => {
+        dispatch(questionActions.toggleTableState())
     }
     return (
         <Box className={styles.statbar}>
             <Paper>
                 <ToggleButtonGroup>
-                    <ToggleButton value="list" onClick={listButtonHandler} ><TableViewIcon/></ToggleButton>
-                    <ToggleButton value="tree" onClick={treeButtonHandler}> <AccountTreeIcon/></ToggleButton>
+                <ToggleButton><FilterAltIcon/></ToggleButton>
+                    <ToggleButton value="table" onClick={toggleTableHandler} ><TableViewIcon/></ToggleButton>
+                    <ToggleButton value="tree" onClick={toggleTreeHandler}> <AccountTreeIcon/></ToggleButton>
                 </ToggleButtonGroup>
 
                 <div className="stats">
-                    <Typography>
+                    <Typography className="pt-1">
                         {props.length} results
                     </Typography>
 
                 </div>
-
-                <Button onClick={() => {props.submitQuestion(null)}} variant='contained' endIcon={<FileDownloadIcon/>}> Submit a question </Button> 
-
+                {/* {formOpenState ? <Button onClick={submitQuestionHandler} variant='contained' endIcon={<FileDownloadIcon/>} disabled > Submit a question </Button> : <Button onClick={submitQuestionHandler} variant='contained' endIcon={<FileDownloadIcon/>}> Submit a question </Button> } */}
+                <button onClick={submitQuestionHandler} className="w-1/6 bg-white rounded-md shadow-lg shadow-inner border border-solid h-full hover:bg-blue-500 hover:font-bold">Submit Question</button>
             </Paper>
         </Box>
     )
 }; 
-
 
 export default Statbar;

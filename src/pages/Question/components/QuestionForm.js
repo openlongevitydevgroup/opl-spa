@@ -35,6 +35,9 @@ function QuestionForm(props) {
         dispatch(formActions.toggleModalClose())
         dispatch(formActions.resetForm())
     }
+    const onFocusHandler = () => {
+    
+    }
 
     //Form submission handler - submits to database in the submitted questions database
     const onSubmitHandler = async (e) => {
@@ -77,6 +80,10 @@ function QuestionForm(props) {
     const exitButtonHandler = () => {
         dispatch(formActions.toggleFormClose())
         dispatch(formActions.resetForm())
+    }
+
+    const onBlurHandler = (text) => {
+        console.log(true)
     }
 
     return(

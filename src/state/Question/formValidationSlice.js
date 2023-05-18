@@ -1,4 +1,4 @@
-import {createSlice} from 'react-redux'
+import {createSlice} from '@reduxjs/toolkit'
 
 const DEFAULT_STATE = {
     title: false, 
@@ -6,19 +6,27 @@ const DEFAULT_STATE = {
 }
 
 const reducers = {
-    checkTitle(state){
-        if(state.title.trim().length > 0){
+    checkTitle(state, actions){
+        if(actions.title.trim().length > 0){
             state.title = true
+        }else{
+            state.title = false
         }
     }, 
-    checkDescription(state){
-        if(state.description.trim().length > 0){
+    checkDescription(state, actions){
+        if(actions.description.trim().length > 0 && actions.description !== 'Please add a description for your question title'){
             state.description = true
-        } 
+        }else{
+            state.description = false
+        }
     }
 } 
 
 const formValidationSlice = createSlice({
-    name: 'validation', 
+    name: 'validation',
+    initialState: DEFAULT_STATE, 
     reducers : reducers
 })
+
+export default formValidationSlice; 
+export const formValidationActions = formValidationSlice.actions;

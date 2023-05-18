@@ -7,16 +7,12 @@ const DEFAULT_STATE = {
     chosenParent: false,
     formDetails: {
         title: '', 
-        description: 'Please add a description for your question title', 
+        description: 'Please add a description for your question title for clarity.', 
         parentTitle: 'None',
         parentId: 0,
         species: '', 
         citation: '', 
 
-    },
-    description: {
-        blur: false,
-        focus: false
     },
     submitModalOpen: false,
     submitStatus : {

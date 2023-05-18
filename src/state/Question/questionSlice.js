@@ -6,6 +6,7 @@ const DEFAULT_STATE = {
     viewType: 'tree', 
     searchQuery: '',
     filteredResults: null,
+    filterOpen: false,
 
 }
 
@@ -21,8 +22,13 @@ const reducers = {
     },
     setSearchResults(state, actions){
         state.filteredResults = actions.payload.results
+    },
+    toggleFilterDraw(state){
+        state.filterOpen = !state.filterOpen
     }
 }
+
+
 
 const questionSlice = createSlice({
     name: 'question', 

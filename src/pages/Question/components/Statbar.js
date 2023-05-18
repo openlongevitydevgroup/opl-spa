@@ -32,12 +32,16 @@ function Statbar(props) {
   const toggleTableHandler = () => {
     dispatch(questionActions.toggleTableState());
   };
+  const toggleFilterHandler = () => {
+    dispatch(questionActions.toggleFilterDraw()); 
+  };
+
   return (
     <Box className={styles.statbar}>
       <Paper>
         <ToggleButtonGroup>
           <TooltipWrapper message="Show filter menu">
-            <ToggleButton value="filter">
+            <ToggleButton value="filter" onClick={toggleFilterHandler}>
               <FilterAltIcon />
             </ToggleButton>
           </TooltipWrapper>

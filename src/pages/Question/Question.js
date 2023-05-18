@@ -26,7 +26,7 @@ function Question(props){
     const formState = useSelector(state => state.form)
     const questionState = useSelector(state => state.question)
 
-    //For form details modal 
+    //For form details modal - to replace with redux 
     const [modalOpen, setModalOpen] = useState({
         open:false, 
         question: null,

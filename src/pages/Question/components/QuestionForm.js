@@ -82,7 +82,6 @@ function QuestionForm(props) {
     return(
         <StyledEngineProvider injectFirst>
             <Typography variant='h3'> Submit a question </Typography>
-            <h1 className='font-bold'>TEST</h1>
             <Form className='w-full' onSubmit={onSubmitHandler}>
 
             <div className={styles.inputs}>
@@ -99,7 +98,7 @@ function QuestionForm(props) {
 
                 <div className={styles.inputs}>
                 <label htmlFor="title"> <Typography variant='body1'>Title:</Typography> </label>
-                <input id='title' onChange={(e) => inputOnChange(e,'title')} value={formDetailsState.title}></input>
+                <TextField id='title' onChange={(e) => inputOnChange(e,'title')} value={formDetailsState.title}></TextField>
                 </div>
 
                 <div className={styles.inputs}>
@@ -110,12 +109,12 @@ function QuestionForm(props) {
 {/* Need to refactor this bit due to repeats */}
                 <div className={styles.inputs}>
                     <label htmlFor="species"> <Typography>Species (If applicable)</Typography> </label>
-                    <input onChange={(e) => inputOnChange(e, 'species')} name="species" id="species" type="text" value={formDetailsState.species}/>
+                    <TextField onChange={(e) => inputOnChange(e, 'species')} name="species" id="species" type="text" value={formDetailsState.species}/>
                 </div>
 
                 <div className={styles.inputs}>
                     <label htmlFor="references"> <Typography> References (optional)</Typography> </label>
-                    <textarea onChange={(e) => inputOnChange(e, 'citation')} name="references" id="references" rows={4} value={formDetailsState.citation} />
+                    <TextField onChange={(e) => inputOnChange(e, 'citation')} name="references" id="references" multiline rows={4} value={formDetailsState.citation} />
                 </div>
 
                 <div className={styles.buttons}>

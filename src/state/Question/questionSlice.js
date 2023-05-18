@@ -13,7 +13,7 @@ const reducers = {
     toggleTreeState(state){
         state.viewType = 'tree'
     }, 
-    toggleTableState(state){
+    toggleListState(state){
         state.viewType = 'table' 
     },
     setQuery(state, actions){

@@ -4,7 +4,7 @@ import Home from './pages/Home/Home'
 import About from './pages/About/About'
 import RootQuestion from "./pages/Root/RootQuestion";
 import Question, {loader as getQuestions} from "./pages/Question/Question";
-
+import './index.css'
 
 const router = createBrowserRouter([{path: '/', element: <RootLayout/> ,children:[
   {path: '', index: true, element: <Home/>},
@@ -15,7 +15,7 @@ const router = createBrowserRouter([{path: '/', element: <RootLayout/> ,children
 
 function App() {
   return (
-    <div className="App" style={{display: 'flex', flexDirection:'column'}}>
+    <div>
     <RouterProvider router={router}/>
     </div>
   );

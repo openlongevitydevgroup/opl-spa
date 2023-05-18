@@ -16,7 +16,7 @@ return(
                 <Typography variant='h3' sx={{textAlign:'center'}}>Questions</Typography>
             </Container>
         </section>
-    <main>
+    <main className='w-full p-8'>
         <Container>
         <Outlet/>
         </Container>

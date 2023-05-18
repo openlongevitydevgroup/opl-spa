@@ -8,6 +8,7 @@ import QuestionDetail from './QuestionDetail';
 import { Fragment } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Box } from '@mui/material';
 
 //Transitions for the hierarchical list component
 function TransitionComponent(props){
@@ -62,26 +63,45 @@ function QuestionListTree(props){
 }
 
 
-//Table view showing a list of questions to be rendered in the tree view function below
-function QuestionListTable(props){
-    const allQuestions = props.questions
+///////Table view showing a list of questions to be rendered in the tree view function below//////
+//List component 
+
+function ListComponent(props){
     return(
-        <table>
-            <tr>
-                <th>Title</th>
-                <th>Parent Question</th>
-                <th>Species</th>
-                <th>Organ</th>
-            </tr>
-            {allQuestions.map((question) => {
-                return(
-                    <tr>
-                        <td>{question.title}</td>
-                    </tr>
-                )
-            })}
-        </table>
+        <div className='shadow shadow-slate-500 bg-white mb-2'>
+            <li className='py-2 pl-2'>
+            <button>
+                {props.children}
+            </button>
+            </li>
+        </div>
+
     )
+}
+
+function QuestionList(props){
+    const allQuestions = props.questions
+    const filteredQuestions = useSelector(state => state.question.filteredResults)
+    
+    if(filteredQuestions && filteredQuestions.length > 0){
+        return(
+            <ul>
+                {filteredQuestions.map(question => (
+                 <ListComponent>{question.title}</ListComponent>
+                ))}
+            </ul>
+        )}
+    if(!filteredQuestions){
+        return(
+            <ul>
+            {allQuestions.map(question => (
+                <ListComponent>
+                    {question.title}
+                </ListComponent>
+            ))}
+        </ul>
+        )
+    }
 }
 
 
@@ -108,7 +128,7 @@ function QuestionView(props){
     }else{
         return(
             <Fragment>
-                <QuestionListTable questions={questions}/>
+                <QuestionList questions={questions}/>
             </Fragment>
         )
     }

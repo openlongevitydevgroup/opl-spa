@@ -14,9 +14,7 @@ export const DEFAULT_STATE = {
         citation: '', 
 
     },
-    submitModal:{
-        open:false,
-    },
+    submitModalOpen: false,
     submitStatus : {
         status: null, 
         title: null, 
@@ -44,6 +42,12 @@ const reducers = {
         state.formDetails.parentId =  action.payload.id
     },
     resetForm: () => DEFAULT_STATE,
+    toggleModalOpen(state){
+        state.submitModalOpen = true
+    },
+    toggleModalClose(state){
+        state.submitModalOpen = false
+    },
     setSubmitStatus(state, action){
         state.submitStatus = {
             status : action.payload.status, 

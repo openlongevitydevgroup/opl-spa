@@ -7,27 +7,34 @@ const DEFAULT_STATE = {
     searchQuery: '',
     filteredResults: null,
     filterOpen: false,
+    filters: {
+        species: false,
+    }
 
 }
 
 const reducers = {
-    toggleTreeState(state){
+    toggleTreeState(state){//Set the view type of the question to a hierarchical list 
         state.viewType = 'tree'
     }, 
-    toggleListState(state){
+    toggleListState(state){//Set the view type of the question as a list 
         state.viewType = 'table' 
     },
-    setQuery(state, actions){
+    setQuery(state, actions){//Sets the search query from search bar 
         state.searchQuery = actions.payload.query
     },
-    setSearchResults(state, actions){
+    setSearchResults(state, actions){//Gets the search results from the database using the query 
         state.filteredResults = actions.payload.results
     },
-    toggleFilterDraw(state){
+    toggleFilter(state){//Opens filter draw
         state.filterOpen = !state.filterOpen
+    },
+    toggleFilterState(state, actions){//Changes state of filters
+        const chosenState = actions.payload.filter; 
+        state.filters[chosenState] = !state.filters[chosenState];
     }
-}
 
+}
 
 
 const questionSlice = createSlice({

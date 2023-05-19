@@ -33,7 +33,7 @@ function Statbar(props) {
     dispatch(questionActions.toggleTableState());
   };
   const toggleFilterHandler = () => {
-    dispatch(questionActions.toggleFilterDraw()); 
+    dispatch(questionActions.toggleFilter()); 
   };
 
   return (

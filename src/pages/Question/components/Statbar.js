@@ -9,7 +9,9 @@ import {
 import TableViewIcon from "@mui/icons-material/TableView";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useDispatch, useSelector } from "react-redux";
+import {useLoaderData} from 'react-router-dom'
 import { formActions } from "../../../state/Question/questionFormReducer";
 import { questionActions } from "../../../state/Question/questionSlice";
 import styles from "./Statbar.module.css";
@@ -18,10 +20,8 @@ function TooltipWrapper(props) {
   const message = props.message;
   return <Tooltip title={message}>{props.children}</Tooltip>;
 }
-
 function Statbar(props) {
-  const formOpenState = useSelector((state) => state.form.submitFormOpen);
-  const questionState = useSelector((state) => state.question);
+  const {data:questions} = useLoaderData()
   const dispatch = useDispatch();
   const submitQuestionHandler = () => {
     dispatch(formActions.toggleFormOpen());
@@ -60,13 +60,12 @@ function Statbar(props) {
 
         </ToggleButtonGroup>
 
-        <div className="stats">
-          <Typography className="pt-1">{props.length} results</Typography>
+        <div className="items-center">
+          <Typography className="pt-1">{questions.length} results</Typography>
         </div>
-        {/* {formOpenState ? <Button onClick={submitQuestionHandler} variant='contained' endIcon={<FileDownloadIcon/>} disabled > Submit a question </Button> : <Button onClick={submitQuestionHandler} variant='contained' endIcon={<FileDownloadIcon/>}> Submit a question </Button> } */}
         <button
           onClick={submitQuestionHandler}
-          className="w-1/6 bg-white rounded-md shadow-lg shadow-inner border border-solid h-full hover:bg-blue-500 hover:font-bold"
+          className="w-1/6 bg-white rounded-md shadow-lg border border-solid h-full hover:bg-blue-500 active:bg-blue-500 hover:font-bold"
         >
           Submit Question
         </button>

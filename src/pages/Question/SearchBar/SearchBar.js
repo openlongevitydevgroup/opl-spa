@@ -1,5 +1,5 @@
 import { TextField} from '@mui/material'
-import {Form} from 'react-router-dom'
+import {Form, useLoaderData} from 'react-router-dom'
 import { questionActions } from '../../../state/Question/questionSlice'
 import { formActions } from '../../../state/Question/questionFormReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,10 +9,8 @@ const STYLES = {
 }
 
 function SearchBar(props){    
-    // const {state:searchInput, onChange, onSubmit} = props.searchFunctions
-    const questions = props.questions
+    const {data:questions} = useLoaderData()
     const queryState = useSelector( state => state.question.searchQuery)
-    const results = useSelector(state => state.question.filteredResults)
 
     const dispatch = useDispatch()
     const searchOnChange = (e) => {
@@ -35,7 +33,7 @@ function SearchBar(props){
     
     return(
     <Form onSubmit={searchFunction}>
-            <TextField name='search-query' label="Search for a question" onChange={searchOnChange} fullWidth={true} sx={STYLES} size='small' variant='filled' margin='normal'/>
+            <TextField className='z-0' name='search-query' label="Search for a question" onChange={searchOnChange} fullWidth={true} sx={STYLES} size='small' variant='filled' margin='normal'/>
     </Form>
 
     )

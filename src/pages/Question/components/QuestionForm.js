@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,10 +16,13 @@ import { formValidationActions } from "../../../state/Question/formValidationSli
 
 function QuestionForm(props) {
   const dispatch = useDispatch();
+  const {data:questions} = useLoaderData();
+  
   const formDetailsState = useSelector((state) => state.form.formDetails);
   const formStatus = useSelector((state) => state.form.submitStatus);
   const formModalState = useSelector((state) => state.form.submitModalOpen);
   const validationState = useSelector((state) => state.validation);
+
   //Parent question selection input
   const selectOnChange = (e, id) => {
     if (e.target.value === "None") {
@@ -95,7 +98,7 @@ function QuestionForm(props) {
             <MenuItem key="0" id={0} value="None">
               None
             </MenuItem>
-            {props.questions.map((question) => {
+            {questions.map((question) => {
               return (
                 <MenuItem
                   key={question.question_id}

@@ -8,7 +8,6 @@ import QuestionDetail from './QuestionDetail';
 import { Fragment } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Box } from '@mui/material';
 
 //Transitions for the hierarchical list component
 function TransitionComponent(props){
@@ -37,19 +36,15 @@ TransitionComponent.propTypes = {
 
 //Hierarchical list to be rendered in the tree view function below   
 function QuestionListTree(props){
-    //Replace with dispatches from redux
-    const {onSubmitHandler, onModalOpen, onModalClose} = props.handlers
-
+    const questions = props.questions
     return(
         <TreeView defaultEndIcon={<IndeterminateCheckBoxOutlinedIcon/>} defaultExpandIcon={<AddBoxOutlinedIcon/>} defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon></IndeterminateCheckBoxOutlinedIcon>}>
-
-            {props.questions.map(question => {
+            {questions.map(question => {
                 return(
                     <TreeItem key={question.question_id} id={question.question_id.toString()} sx={{borderLeft: '1px dashed', paddingTop:'5px'}} TransitionComponent={TransitionComponent} nodeId={question.question_id.toString()} label={question.title}>
-                        <QuestionDetail onSubmitHandler={onSubmitHandler} onModalOpen = {onModalOpen} question={question}/>
+                        <QuestionDetail  question={question}/>
                         {question.children ? question.children.map(child => <TreeItem label={child.title} key={child.question_id} id={child.question_id.toString()} nodeId={child.question_id.toString()} sx={{borderLeft:'1px dashed', paddingTop:'5px'}}> 
-                        <QuestionDetail onSubmitHandler={onSubmitHandler} question={question} onModalOpen={onModalOpen}/>
-
+                        <QuestionDetail question={question} />
                         </TreeItem>) : null}
                     </TreeItem> 
                 )
@@ -109,20 +104,10 @@ function QuestionView(props){
     //Replace with redux store state 
     const viewState = props.state; 
     const {recursiveData: recursiveQuestions, data:questions } = useLoaderData()
-
-    // Replace this with dispatch 
-    const handlers = { 
-        onModalOpen : props.onModalOpen, 
-        onModalClose : props.onModalClose,
-        onSubmitHandler : props.onSubmitHandler,
-    }
-
-    
-
     if(viewState === 'tree'){
         return (
             <Fragment>
-            <QuestionListTree handlers ={handlers} questions={recursiveQuestions}/>
+            <QuestionListTree questions={recursiveQuestions}/>
             </Fragment>
         )
     }else{

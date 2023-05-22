@@ -41,9 +41,11 @@ function Question(props){
 
 
 
-
     return(
     <Fragment>
+        <div className='text-center'>
+            <p>This is our initial selection of high level open questions in longevity and ageing science. We invite you to submit your questions to help us improve our database, classify questions and to develop an ontology for these question. </p>
+        </div>
         <SearchBar questions = {questions}/>
         <Statbar className='statbar' length={questions.length}/>
         <div className='flex flex-row w-full pb-2'>

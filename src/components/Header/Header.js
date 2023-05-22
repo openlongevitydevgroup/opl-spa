@@ -8,7 +8,7 @@ function Header(){
     return(
         <StyledEngineProvider injectFirst>
         <Paper variant='outlined' elevation={0}>
-        <Container maxWidth='md'>
+        <Container maxWidth='md' className='py-2'>
             <Box className={styles.header_description}>
             <Typography variant='h1' className={styles.header_title}>Open Longevity Project</Typography>
             <Typography variant='h5' sx={{textAlign:'center'}}> A compilation of open questions and challenges in longevity science, driven by researchers in the field.</Typography>

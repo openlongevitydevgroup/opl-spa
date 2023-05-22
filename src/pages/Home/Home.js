@@ -22,7 +22,7 @@ const CONTAINER_STYLES = {
 
 function Home(){
     return(
-        <div>
+        <div className='h-4/5'>
             <Header /> 
             <section className='statistics'>
 

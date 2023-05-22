@@ -137,21 +137,19 @@ function QuestionForm(props) {
 
   return (
     <StyledEngineProvider injectFirst>
-      <Typography variant="h3"> Submit a question </Typography>
+      <Typography variant="h3" className="text-center"> Submit a question </Typography>
+      <p className="py-4">If you believe that a question you are submitting falls, as a category, under one of our high-level questions please select it as a parent question. If not, select None. Additionally, a parent question, title and description are required to submit your question.</p>
       <Form className="w-full flex flex-col" onSubmit={onSubmitHandler}>
         <div className={styles.inputs}>
           <label htmlFor="Parent-Question:">
-            {" "}
             <Typography>Parent question</Typography>{" "}
           </label>
           <Select
             sx={{ width: "80%", marginLeft: "1.5rem" }}
-            label="Parent Question"
             onChange={(e, id) => selectOnChange(e, id)}
             value={formDetailsState.parentTitle}
           >
             <MenuItem key="0" id={0} value="None">
-              {" "}
               None
             </MenuItem>
             {props.questions.map((question) => {
@@ -193,6 +191,7 @@ function QuestionForm(props) {
             multiline
             rows={4}
             value={formDetailsState.description}
+            label="required"
           ></TextField>
         </div>
 
@@ -200,7 +199,7 @@ function QuestionForm(props) {
         <div className={styles.inputs}>
           <label htmlFor="species">
             {" "}
-            <Typography>Species (If applicable)</Typography>{" "}
+            <Typography>Species (if applicable):</Typography>{" "}
           </label>
           <TextField
             onChange={(e) => inputOnChange(e, "species")}
@@ -214,7 +213,7 @@ function QuestionForm(props) {
         <div className={styles.inputs}>
           <label htmlFor="references">
             {" "}
-            <Typography> References (optional)</Typography>{" "}
+            <Typography> References (optional):</Typography>{" "}
           </label>
           <TextField
             onChange={(e) => inputOnChange(e, "citation")}

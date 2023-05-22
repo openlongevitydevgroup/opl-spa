@@ -1,36 +1,29 @@
-import logo from './logo.svg'
-import styles from './NavMenu.module.css'
-import {Link} from 'react-router-dom'
-const {Toolbar, Typography, StyledEngineProvider, Box} = require("@mui/material");
+import { Fragment } from "react";
 
 
 
-
-function NavMenu() {
-    const menuList = [{title:'Home', route:'/'}, {title:'About', route:'/about'}, {title:'Search', route:'/question'}]
-    return (
-        <StyledEngineProvider injectFirst> 
-                    <Toolbar className={styles.Nav}>
-                <Box className={styles.logo_container}>
-                    <img className={styles.logo} src={logo} alt="" />
-                    <Typography> Open Longevity</Typography>
-                </Box>
-
-                <Box className={styles.Nav_menu}>
- 
-                {menuList.map(item => {
-                return (
-                    <Link key={item.title} to={item.route}><Typography className={styles.Nav_items}> {item.title}</Typography></Link>
-                )
-            })}
-</Box>
-
-        </Toolbar>
-        </StyledEngineProvider>
-
-
-    ) 
-
+function NavMenu2() {
+  const menuList = [
+    { title: "Home", route: "/" },
+    { title: "About", route: "/about" },
+    { title: "Search", route: "/question" },
+  ];
+  return (
+    <Fragment>
+      <a href="">
+        <h1 className="nav-title text-xl font-bold">Open Longevity</h1>
+      </a>
+      <ul className="nav-list list-none flex flex-row items-center gap-6 h-full">
+        {menuList.map((item) => {
+          return (
+            <li className="h-full">
+              <a href={item.route} className="hover:bg-slate-200 px-2 flex items-center h-full transition-colors duration-250">{item.title}</a>
+            </li>
+          );
+        })}
+      </ul>
+    </Fragment>
+  );
 }
 
-export default NavMenu
+export default NavMenu2;

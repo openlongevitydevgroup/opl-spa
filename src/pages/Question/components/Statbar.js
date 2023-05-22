@@ -30,7 +30,7 @@ function Statbar(props) {
     dispatch(questionActions.toggleTreeState());
   };
   const toggleTableHandler = () => {
-    dispatch(questionActions.toggleTableState());
+    dispatch(questionActions.toggleListState());
   };
   const toggleFilterHandler = () => {
     dispatch(questionActions.toggleFilter()); 

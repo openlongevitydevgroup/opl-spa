@@ -3,14 +3,13 @@ import {Outlet} from 'react-router-dom'
 import {Fragment} from 'react'
 import { Container,Typography } from '@mui/material'
 
-import Nav from '../../components/UI/Nav/Nav'
-
+import {Nav2} from '../../components/UI/Nav/Nav'
 
 function RootQuestion(){
 return(
     
 <Fragment>
-        <Nav/>
+        <Nav2/>
         <section>
             <Container className='root-container'>
                 <Typography variant='h3' sx={{textAlign:'center'}}>Questions</Typography>

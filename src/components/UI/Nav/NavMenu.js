@@ -1,7 +1,5 @@
 import { Fragment } from "react";
 
-
-
 function NavMenu2() {
   const menuList = [
     { title: "Home", route: "/" },

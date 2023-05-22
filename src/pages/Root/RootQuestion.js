@@ -12,7 +12,7 @@ return(
         <Nav2/>
         <section>
             <Container className='root-container'>
-                <Typography variant='h3' sx={{textAlign:'center'}}>Questions</Typography>
+                <h1 className='text-center text-3xl md:text-5xl'> Questions </h1>
             </Container>
         </section>
     <main className='w-full p-8'>

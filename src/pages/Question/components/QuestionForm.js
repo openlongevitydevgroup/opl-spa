@@ -14,20 +14,6 @@ import styles from "./QuestionForm.module.css";
 import { formActions } from "../../../state/Question/questionFormReducer";
 import { formValidationActions } from "../../../state/Question/formValidationSlice";
 
-const validateForm = (validationState, formDetailsState, dispatch) => {
-  dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
-  dispatch(
-    formValidationActions.checkDescription({
-      description: formDetailsState.description,
-    })
-  );
-  if (validationState.title && validationState.description) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 function QuestionForm(props) {
   const dispatch = useDispatch();
   const formDetailsState = useSelector((state) => state.form.formDetails);
@@ -71,53 +57,11 @@ function QuestionForm(props) {
       formDetailsState,
       dispatch
     );
-    //Send request
-    if (isValidated) {
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/questions/submit",
-          {
-            title: formDetailsState.title,
-            excerpt: formDetailsState.description,
-            parent_question:
-              formDetailsState.parentTitle === "None"
-                ? null
-                : formDetailsState.parentId,
-            species: formDetailsState.species,
-            citation: formDetailsState.citation,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
-        if (response.status === 201) {
-          //Creates a success status
-          dispatch(
-            formActions.setSubmitStatus({
-              status: "success",
-              title: "Submitted",
-              message: "Question information was submitted successfully.",
-            })
-          );
-          //Toggle modal to display success status
-          dispatch(formActions.toggleModalOpen());
-          console.log(formModalState);
-        }
-      } catch (error) {
-        dispatch(formActions.toggleModalOpen());
-        dispatch(
-          formActions.setSubmitStatus({
-            status: "failed",
-            title: "Unsuccessful submission",
-            message: error.message,
-          })
-        );
-        throw error;
-      }
-    } else {
+
+    if(isValidated){
+      //Send request if valid
+      sendRequest(isValidated, formDetailsState, dispatch);
+    }else{
       dispatch(formActions.toggleModalOpen());
       dispatch(
         formActions.setSubmitStatus({
@@ -131,18 +75,17 @@ function QuestionForm(props) {
 
   //Exit button handler
   const exitButtonHandler = () => {
-    dispatch(formActions.toggleFormClose());
     dispatch(formActions.resetForm());
   };
 
   return (
     <StyledEngineProvider injectFirst>
-      <Typography variant="h3" className="text-center"> Submit a question </Typography>
-      <p className="py-4">If you believe that a question you are submitting falls, as a category, under one of our high-level questions please select it as a parent question. If not, select None. Additionally, a parent question, title and description are required to submit your question.</p>
-      <Form className="w-full flex flex-col" onSubmit={onSubmitHandler}>
+      <h1 className="text-center text-xl md:text-2xl">Submit a question</h1>
+      <p className="py-4 text-sm md:text-base">If you believe that a question you are submitting falls, as a category, under one of our high-level questions please select it as a parent question. If not, select None. Additionally, a parent question, title and description are required to submit your question.</p>
+      <Form className="w-full flex flex-col text-sm md:text-base" onSubmit={onSubmitHandler}>
         <div className={styles.inputs}>
-          <label htmlFor="Parent-Question:">
-            <Typography>Parent question</Typography>{" "}
+          <label htmlFor="Parent-Question:" className="py-2">
+            <p>Parent question:</p>
           </label>
           <Select
             sx={{ width: "80%", marginLeft: "1.5rem" }}
@@ -168,8 +111,7 @@ function QuestionForm(props) {
 
         <div className={styles.inputs}>
           <label htmlFor="title">
-            {" "}
-            <Typography variant="body1">Title:</Typography>{" "}
+            <p>Title:</p>
           </label>
           <TextField
             required={true}
@@ -182,7 +124,7 @@ function QuestionForm(props) {
 
         <div className={styles.inputs}>
           <label htmlFor="description">
-            <Typography>Description:</Typography>
+            <p>Description:</p>
           </label>
           <TextField
             required
@@ -197,9 +139,9 @@ function QuestionForm(props) {
 
         {/* Need to refactor this bit due to repeats */}
         <div className={styles.inputs}>
-          <label htmlFor="species">
+          <label htmlFor="species" className="">
             {" "}
-            <Typography>Species (if applicable):</Typography>{" "}
+            <p>Species (if applicable):</p>{" "}
           </label>
           <TextField
             onChange={(e) => inputOnChange(e, "species")}
@@ -213,7 +155,7 @@ function QuestionForm(props) {
         <div className={styles.inputs}>
           <label htmlFor="references">
             {" "}
-            <Typography> References (optional):</Typography>{" "}
+            <p> References (optional):</p>{" "}
           </label>
           <TextField
             onChange={(e) => inputOnChange(e, "citation")}
@@ -261,5 +203,69 @@ function QuestionForm(props) {
     </StyledEngineProvider>
   );
 }
+
+const validateForm = (validationState, formDetailsState, dispatch) => {
+  console.log(validationState);
+  dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
+  dispatch(
+    formValidationActions.checkDescription({
+      description: formDetailsState.description,
+    })
+  );
+  if (validationState.title && validationState.description) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+//Send request to the database using formData
+const sendRequest = async (formDetailsState, dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/questions/submit",
+        {
+          title: formDetailsState.title,
+          excerpt: formDetailsState.description,
+          parent_question:
+            formDetailsState.parentTitle === "None"
+              ? null
+              : formDetailsState.parentId,
+          species: formDetailsState.species,
+          citation: formDetailsState.citation,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      if (response.status === 201) {
+        //Creates a success status
+        dispatch(
+          formActions.setSubmitStatus({
+            status: "success",
+            title: "Submitted",
+            message: "Question information was submitted successfully.",
+          })
+        );
+        //Toggle modal to display success status
+        dispatch(formActions.toggleModalOpen());
+      }
+    } catch (error) {
+      dispatch(formActions.toggleModalOpen());
+      dispatch(
+        formActions.setSubmitStatus({
+          status: "failed",
+          title: "Unsuccessful submission",
+          message: error.message,
+        })
+      );
+    }}
+
+
+
+
 
 export default QuestionForm;

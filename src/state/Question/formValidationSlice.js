@@ -7,14 +7,15 @@ const DEFAULT_STATE = {
 
 const reducers = {
     checkTitle(state, actions){
-        if(actions.title.trim().length > 0){
+        console.log(actions.payload.title)
+        if(actions.payload.title.trim().length > 0){
             state.title = true
         }else{
             state.title = false
         }
     }, 
     checkDescription(state, actions){
-        if(actions.description.trim().length > 0 && actions.description !== 'Please add a description for your question title'){
+        if(actions.payload.description.trim().length > 0 && actions.payload.description.trim() !== 'Please add a description for your question title'){
             state.description = true
         }else{
             state.description = false

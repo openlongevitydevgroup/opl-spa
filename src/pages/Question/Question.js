@@ -11,13 +11,7 @@ import './Question.css'
 import ModalInstance from '../../components/UI/Modal/Modal'; 
 import SearchBar from './SearchBar/SearchBar';
 import DrawerTailwind from './Drawer/DrawerTailwind';
-const DIV_STYLES = {
-    display:'flex', 
-    flexDirection: 'row', 
-    alignItems:'start',  
-    width:'100%', 
-    paddingBottom:'1rem'
-}
+
 
 
 
@@ -43,8 +37,12 @@ function Question(props){
 
     return(
     <Fragment>
-        <div className='text-center'>
-            <p>This is our initial selection of high level open questions in longevity and ageing science. We invite you to submit your questions to help us improve our database, classify questions and to develop an ontology for these question. </p>
+        <div className='text-center py-2 pb-6 text-sm md:text-lg'>
+            <p><strong>This is our initial selection of high level open questions in longevity and ageing science. We invite you to submit your questions to help us improve our database, classify questions and to develop an ontology for these question.</strong> </p>
+        </div>
+        <div>
+        <p className='text-sm md:text-base'> If you want to add a question that falls under the high-level questions provided, select the question and click submit question. Otherwise use the submit question button in the bar below.</p>
+
         </div>
         <SearchBar questions = {questions}/>
         <Statbar className='statbar' length={questions.length}/>

@@ -10,14 +10,13 @@ import './Question.css'
 import {ModalT} from '../../components/UI/Modal/Modal'; 
 import SearchBar from './SearchBar/SearchBar';
 import DrawerTailwind from './Drawer/DrawerTailwind';
-
+import QuestionInterface from './QuestionsInterface/QuestionsInterface';
 
 function Question(props){
     const formState = useSelector(state => state.form)
     const questionState = useSelector(state => state.question)
     const modalState = useSelector(state => state.question.modalOpen)
     const questionDetails = useSelector(state => state.question.modalDetails)
-    console.log(questionDetails)
     const dispatch = useDispatch()
     const modalCloseHandler = () =>{dispatch(questionActions.toggleModalClose())}
     return(
@@ -31,13 +30,14 @@ function Question(props){
         </div>
         <SearchBar/>
         <Statbar className='statbar'/>
-        <div className='flex flex-row w-full pb-2'>
+        <QuestionInterface/>
+        {/* <div className='flex flex-row w-full pb-2'>
             <DrawerTailwind/>
             <div className='questions-container'>
             {formState.submitFormOpen ? <QuestionForm parent={formState.chosenParent ? formState.formDetails.parentTitle : 'None'}/> :   
             <QuestionView state={questionState.viewType}></QuestionView>}
             </div>
-        </div>
+        </div> */}
         <ModalT open={modalState} close={modalCloseHandler}>
             <ModalContent questionDetails={questionDetails} close={modalCloseHandler}/>
         </ModalT>

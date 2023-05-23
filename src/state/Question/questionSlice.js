@@ -16,7 +16,8 @@ const DEFAULT_STATE = {
     description: null, 
     species: null, 
     citation: null,
-  }
+  }, 
+  viewWidth: null,
 };
 
 const reducers = {
@@ -55,7 +56,10 @@ const reducers = {
   },
   setModalDetails(state, actions){
     state.modalDetails = actions.payload.modalDetails;
-  }
+  },
+  setWidth(state, actions){
+    state.viewWidth = actions.payload.viewWidth
+  },
 };
 
 const questionSlice = createSlice({

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { Fragment, useState, useEffect } from "react";
+// import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { Fragment, useState} from "react";
 import { questionActions } from "../../../state/Question/questionSlice";
 function ListCheckBox(props) {
   const { name, id } = props;
@@ -15,27 +15,32 @@ function ListCheckBox(props) {
   );
 }
 
+function getHeight(el) {
+  const element = document.querySelector(el);
+  const height = element.scrollHeight;
+  return height;
+}
 
 function FilterGroup(props) {
   const filterStates = useSelector((state) => state.question.filters);
-  const [listHeight, setListHeight] = useState("0");
+  const [listHeight, setListHeight] = useState(0);
   const dispatch = useDispatch();
+
   const toggleFilterDropdown = (e) => {
     //Generic handler to toggle filter states
     const filter = e.target.value;
-    const doc = document.querySelector(`.${filter}`);
-    const height = doc.scrollHeight; //Get the height of the element
-
-    dispatch(questionActions.toggleFilterState({ filter }));
-    if (filterStates[filter]) {
-      setListHeight(height.toString());
-    } else {
-      setListHeight("0");
-    }
+    filterStates[filter]
+      ? dispatch(
+          questionActions.toggleFilterState({ filter: filter, bool: false })
+        )
+      : dispatch(
+          questionActions.toggleFilterState({ filter: filter, bool: true })
+        );
+    const height = getHeight(`.${filter}`); //Get height of element
+    setListHeight(height + 500); //To set the max height for transition, any lower the transition does not work
   };
   const { filterTitle, valueList } = props;
   const title = filterTitle.toLowerCase();
-
   return (
     <div className="overflow-hidden">
       <button value={title} onClick={toggleFilterDropdown}>
@@ -44,7 +49,7 @@ function FilterGroup(props) {
       </button>
       <ul
         className={`${
-          filterStates[title] ? `max-h-[500px]` : "max-h-0"
+          filterStates[title] ? `max-h-[${listHeight}px]` : "max-h-0"
         } ${title} w-full transition-max-height duration-300 ease-in-out`}
       >
         <ListCheckBox name={valueList}></ListCheckBox>
@@ -66,9 +71,14 @@ function DrawerTailwind() {
   const drawerState = useSelector((state) => state.question.filterOpen);
   const viewWidthState = useSelector((state) => state.question.viewWidth);
 
+
   if (viewWidthState < 450) {
     return (
-      <div className={`sidebar ${drawerState  ? "h-1/5" : "h-0"} transition-height duration-300 ease-in-out overflow-hidden bg-white text-center shadow`}>
+      <div
+        className={`sidebar ${
+          drawerState ? `max-h-[500px]` : "max-h-0"
+        } overflow-hidden bg-white text-center shadow transition-max-height duration-300 ease-in-out`}
+      >
         <FilterContent />
       </div>
     );

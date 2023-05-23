@@ -43,8 +43,8 @@ const reducers = {
   },
   toggleFilterState(state, actions) {
     //Changes state of filters
-    const chosenState = actions.payload.filter;
-    state.filters[chosenState] = !state.filters[chosenState];
+    state.filters[actions.payload.filter] = actions.payload.bool
+
   },
 
   //Turn on and off question modal

@@ -1,5 +1,5 @@
 import Header from '../../components/Header/Header'
-import {Box, Container, Typography, Paper, IconButton} from '@mui/material'
+import {Box, Container, Typography,IconButton} from '@mui/material'
 import StatUI from '../../components/UI/Card/CardUI'
 import StorageIcon from '@mui/icons-material/Storage';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -10,9 +10,6 @@ const BOX_STYLES = {
     justifyContent: 'space-between',
 }
 
-const CARD_STYLES = {
-    width:'250px', 
-}
 
 const CONTAINER_STYLES = {
     display:'flex', 

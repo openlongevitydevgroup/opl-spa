@@ -1,8 +1,6 @@
 import React from 'react'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import CategoryIcon from '@mui/icons-material/Category';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-import icon from '../../../../src/noun-phylogenetics-3088702.svg'
 const {StyledEngineProvider,Box ,Typography} = require('@mui/material')
 const BOX_STYLES = {
     display: 'flex', 
@@ -35,6 +33,8 @@ function RenderIcon(props){
                 <Typography variant='subtitle1'> Categories</Typography>
                 </Box>
             )
+        default: 
+            return(null)
 
 
     }

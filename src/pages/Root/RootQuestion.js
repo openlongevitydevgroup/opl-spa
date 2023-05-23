@@ -1,7 +1,7 @@
 import './RootQuestion.css'
 import {Outlet} from 'react-router-dom'
 import {Fragment} from 'react'
-import { Container,Typography } from '@mui/material'
+import { Container} from '@mui/material'
 
 import {Nav2} from '../../components/UI/Nav/Nav'
 

@@ -1,6 +1,7 @@
 import { Form, useLoaderData } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useRef, useEffect } from "react";
 import {
   Typography,
   StyledEngineProvider,
@@ -16,12 +17,21 @@ import { formValidationActions } from "../../../state/Question/formValidationSli
 
 function QuestionForm(props) {
   const dispatch = useDispatch();
-  const {data:questions} = useLoaderData();
-  
+  const { data: questions } = useLoaderData();
+
   const formDetailsState = useSelector((state) => state.form.formDetails);
   const formStatus = useSelector((state) => state.form.submitStatus);
   const formModalState = useSelector((state) => state.form.submitModalOpen);
   const validationState = useSelector((state) => state.validation);
+
+  //Scroll to element on load;
+  const ref = useRef(null);
+  const scrollTo = () => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollTo();
+  }, []);
 
   //Parent question selection input
   const selectOnChange = (e, id) => {
@@ -61,10 +71,10 @@ function QuestionForm(props) {
       dispatch
     );
 
-    if(isValidated){
+    if (isValidated) {
       //Send request if valid
       sendRequest(isValidated, formDetailsState, dispatch);
-    }else{
+    } else {
       dispatch(formActions.toggleModalOpen());
       dispatch(
         formActions.setSubmitStatus({
@@ -83,9 +93,19 @@ function QuestionForm(props) {
 
   return (
     <StyledEngineProvider injectFirst>
-      <h1 className="text-center text-xl md:text-2xl">Submit a question</h1>
-      <p className="py-4 text-sm md:text-base">If you believe that a question you are submitting falls, as a category, under one of our high-level questions please select it as a parent question. If not, select None. Additionally, a parent question, title and description are required to submit your question.</p>
-      <Form className="w-full flex flex-col text-sm md:text-base" onSubmit={onSubmitHandler}>
+      <h1 ref={ref} className="form-title text-center text-xl md:text-2xl">
+        Submit a question
+      </h1>
+      <p className="py-4 text-sm md:text-base">
+        If you believe that a question you are submitting falls, as a category,
+        under one of our high-level questions please select it as a parent
+        question. If not, select None. Additionally, a parent question, title
+        and description are required to submit your question.
+      </p>
+      <Form
+        className="flex w-full flex-col text-sm md:text-base"
+        onSubmit={onSubmitHandler}
+      >
         <div className={styles.inputs}>
           <label htmlFor="Parent-Question:" className="py-2">
             <p>Parent question:</p>
@@ -157,8 +177,7 @@ function QuestionForm(props) {
 
         <div className={styles.inputs}>
           <label htmlFor="references">
-            {" "}
-            <p> References (optional):</p>{" "}
+            <p> References (optional):</p>
           </label>
           <TextField
             onChange={(e) => inputOnChange(e, "citation")}
@@ -224,51 +243,48 @@ const validateForm = (validationState, formDetailsState, dispatch) => {
 
 //Send request to the database using formData
 const sendRequest = async (formDetailsState, dispatch) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/questions/submit",
-        {
-          title: formDetailsState.title,
-          excerpt: formDetailsState.description,
-          parent_question:
-            formDetailsState.parentTitle === "None"
-              ? null
-              : formDetailsState.parentId,
-          species: formDetailsState.species,
-          citation: formDetailsState.citation,
+  try {
+    const response = await axios.post(
+      "http://localhost:8000/questions/submit",
+      {
+        title: formDetailsState.title,
+        excerpt: formDetailsState.description,
+        parent_question:
+          formDetailsState.parentTitle === "None"
+            ? null
+            : formDetailsState.parentId,
+        species: formDetailsState.species,
+        citation: formDetailsState.citation,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      if (response.status === 201) {
-        //Creates a success status
-        dispatch(
-          formActions.setSubmitStatus({
-            status: "success",
-            title: "Submitted",
-            message: "Question information was submitted successfully.",
-          })
-        );
-        //Toggle modal to display success status
-        dispatch(formActions.toggleModalOpen());
       }
-    } catch (error) {
-      dispatch(formActions.toggleModalOpen());
+    );
+    if (response.status === 201) {
+      //Creates a success status
       dispatch(
         formActions.setSubmitStatus({
-          status: "failed",
-          title: "Unsuccessful submission",
-          message: error.message,
+          status: "success",
+          title: "Submitted",
+          message: "Question information was submitted successfully.",
         })
       );
-    }}
-
-
-
-
+      //Toggle modal to display success status
+      dispatch(formActions.toggleModalOpen());
+    }
+  } catch (error) {
+    dispatch(formActions.toggleModalOpen());
+    dispatch(
+      formActions.setSubmitStatus({
+        status: "failed",
+        title: "Unsuccessful submission",
+        message: error.message,
+      })
+    );
+  }
+};
 
 export default QuestionForm;

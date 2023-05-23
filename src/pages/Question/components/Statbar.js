@@ -25,6 +25,11 @@ function Statbar(props) {
   const dispatch = useDispatch();
   const submitQuestionHandler = () => {
     dispatch(formActions.toggleFormOpen());
+    const element = document.querySelector('.form-title');
+    if(element){
+      element.scrollIntoView({behavior: 'smooth'})
+    }
+
   };
   const toggleTreeHandler = () => {
     dispatch(questionActions.toggleTreeState());
@@ -46,12 +51,12 @@ function Statbar(props) {
             </ToggleButton>
           </TooltipWrapper>
 
+
           <TooltipWrapper message='View questions as flat list'>
             <ToggleButton value="table" onClick={toggleTableHandler}>
               <TableViewIcon />
             </ToggleButton>
           </TooltipWrapper>
-
           <TooltipWrapper message="View questions as hierarchical list">
           <ToggleButton value="tree" onClick={toggleTreeHandler}>
             <AccountTreeIcon />

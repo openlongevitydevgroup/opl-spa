@@ -1,15 +1,15 @@
 import {Fragment} from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import { questionActions } from '../../state/Question/questionSlice';
-import ModalContent from './components/ModalContent';
-import Statbar from '../../pages/Question/components/Statbar';
+import ModalContent from './QuestionsInterface/ModalContent';
+import Statbar from './Statbar/Statbar';
 import axios from 'axios'
 import './Question.css'
 import {ModalT} from '../../components/UI/Modal/Modal'; 
 import SearchBar from './SearchBar/SearchBar';
 import QuestionInterface from './QuestionsInterface/QuestionsInterface';
 
-function Question(props){
+function Question(){
     const modalState = useSelector(state => state.question.modalOpen)
     const questionDetails = useSelector(state => state.question.modalDetails)
     const dispatch = useDispatch()

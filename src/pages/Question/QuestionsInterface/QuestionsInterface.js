@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import DrawerTailwind from "../Drawer/DrawerTailwind";
 import { questionActions } from "../../../state/Question/questionSlice";
-import QuestionView from "../components/QuestionList";
-import QuestionForm from "../components/QuestionForm";
+import QuestionView from "./QuestionList";
+import QuestionForm from "../Form/QuestionForm";
 
 function QuestionInterface(){
     const formState = useSelector(state =>  state.form)

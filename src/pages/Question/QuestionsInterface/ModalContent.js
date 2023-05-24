@@ -1,16 +1,19 @@
 import { Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../../../state/Question/questionFormReducer";
 
 function ModalContent(props) {
   const annotations = ["description", "species", "citations"];
   const details = props.questionDetails;
   const modalClose = props.close;
+  const viewWidthState = useSelector(state => state.question.viewWidth)
   const dispatch = useDispatch()
 
   const openFormHandler = ()=>{
     modalClose();
     dispatch(formActions.toggleFormOpen())}
+  
+  const smallViewCss = ''
   return (
     <div className="h-full flex flex-col justify-evenly">
       <div className="header">
@@ -29,11 +32,11 @@ function ModalContent(props) {
           );
         })}
       </div>
-      <div className="buttons m-auto px-2">
-        <Button onClick={modalClose}>
+      <div className="buttons m-auto p-2 flex flex-col">
+        <Button onClick={modalClose} size={viewWidthState < 450 ? 'small' : 'medium'}>
           Exit
         </Button>
-        <Button onClick={openFormHandler}> Submit a subquestion </Button>
+        <Button onClick={openFormHandler} size={viewWidthState < 450 ? 'small' : 'medium'}> Submit a subquestion </Button>
       </div>
     </div>
   );

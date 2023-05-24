@@ -3,16 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { formActions } from "../../../state/Question/questionFormReducer";
 import { questionActions } from "../../../state/Question/questionSlice";
 import { Fragment } from "react";
-const BUTTON_CONTAINER_STYLES ={
-   display: 'flex',
-   flexDirection: 'row',
-   justifyContent: 'space-evenly',
-}
 
 function Details(props){
     const question = props.question
     const formState = useSelector(state => state.form)
     const dispatch = useDispatch()
+    const viewWidthState = useSelector(state => state.question.viewWidth)
     const onSubmitHandler = (parentTitle, parentId) => {
         dispatch(formActions.toggleFormOpen())
         dispatch(formActions.chooseParent({chosenParentTitle:parentTitle, parentId:parentId}))
@@ -30,12 +26,12 @@ function Details(props){
         <div>
             {formState.description && <p className="text-center text-sm md:text-base">{formState.description}</p>}
 
-    <div className="buttons py-2" style={BUTTON_CONTAINER_STYLES}>
-        <Button onClick={modalOpenHandler}>Question details</Button>
-        <Button onClick={() => {onSubmitHandler(question.title, question.id)}}> Submit a subquestion</Button>
+    <div className="buttons flex flex-row py-2">
+        <Button onClick={modalOpenHandler} size={viewWidthState < 450 ? 'small' : 'medium'}>Question details</Button>
+        <Button onClick={() => {onSubmitHandler(question.title, question.id)}} size={viewWidthState < 450 ? 'small' : 'medium'}> Submit a subquestion</Button>
     </div>
         </div>
-    )
+    ) 
 
 }
 

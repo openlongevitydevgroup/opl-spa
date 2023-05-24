@@ -15,7 +15,7 @@ import styles from "./QuestionForm.module.css";
 import { formActions } from "../../../state/Question/questionFormReducer";
 import { formValidationActions } from "../../../state/Question/formValidationSlice";
 
-function QuestionForm(props) {
+function QuestionForm() {
   const dispatch = useDispatch();
   const { data: questions } = useLoaderData();
 

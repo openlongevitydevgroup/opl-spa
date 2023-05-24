@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { formActions } from "../../../state/Question/questionFormReducer";
+import { formActions } from "../../../state/Question/questionFormSlice";
 
 function ModalContent(props) {
   const annotations = ["description", "species", "citations"];

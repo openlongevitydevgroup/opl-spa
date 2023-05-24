@@ -1,23 +1,19 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form} from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
 import {
   Typography,
-  StyledEngineProvider,
   Button,
-  Select,
-  MenuItem,
-  TextField,
 } from "@mui/material";
 import ModalInstance from "../../../components/UI/Modal/Modal";
 import styles from "./QuestionForm.module.css";
-import { formActions } from "../../../state/Question/questionFormReducer";
+import { formActions } from "../../../state/Question/questionFormSlice";
 import { formValidationActions } from "../../../state/Question/formValidationSlice";
+import FormContent from "./FormContent";
 
 function QuestionForm() {
   const dispatch = useDispatch();
-  const { data: questions } = useLoaderData();
 
   const formDetailsState = useSelector((state) => state.form.formDetails);
   const formStatus = useSelector((state) => state.form.submitStatus);
@@ -33,29 +29,7 @@ function QuestionForm() {
     scrollTo();
   }, []);
 
-  //Parent question selection input
-  const selectOnChange = (e, id) => {
-    if (e.target.value === "None") {
-      dispatch(
-        formActions.chooseParent({
-          chosenParentTitle: "",
-          parentId: null,
-        })
-      );
-    } else {
-      dispatch(
-        formActions.chooseParent({
-          chosenParentTitle: e.target.value,
-          parentId: id.props.id,
-        })
-      );
-    }
-  };
 
-  //Text input change
-  const inputOnChange = (e, key) => {
-    dispatch(formActions.inputChange({ id: key, value: e.target.value }));
-  };
   //Submission modal
   const onSubmitModalClose = () => {
     dispatch(formActions.toggleModalClose());
@@ -73,7 +47,7 @@ function QuestionForm() {
 
     if (isValidated) {
       //Send request if valid
-      sendRequest(isValidated, formDetailsState, dispatch);
+      sendRequest(formDetailsState, dispatch);
     } else {
       dispatch(formActions.toggleModalOpen());
       dispatch(
@@ -85,14 +59,13 @@ function QuestionForm() {
       );
     }
   };
-
   //Exit button handler
   const exitButtonHandler = () => {
     dispatch(formActions.resetForm());
   };
 
   return (
-    <StyledEngineProvider injectFirst>
+    <div className="form items-center">
       <h1 ref={ref} className="form-title text-center text-xl md:text-2xl">
         Submit a question
       </h1>
@@ -103,91 +76,10 @@ function QuestionForm() {
         and description are required to submit your question.
       </p>
       <Form
-        className="flex w-full flex-col text-sm md:text-base"
+        className="flex w-full flex-col items-center text-center text-sm md:text-base"
         onSubmit={onSubmitHandler}
       >
-        <div className={styles.inputs}>
-          <label htmlFor="Parent-Question:" className="py-2">
-            <p>Parent question:</p>
-          </label>
-          <Select
-            sx={{ width: "80%", marginLeft: "1.5rem" }}
-            onChange={(e, id) => selectOnChange(e, id)}
-            value={formDetailsState.parentTitle}
-          >
-            <MenuItem key="0" id={0} value="None">
-              None
-            </MenuItem>
-            {questions.map((question) => {
-              return (
-                <MenuItem
-                  key={question.question_id}
-                  id={question.question_id}
-                  value={question.title}
-                >
-                  {question.title}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </div>
-
-        <div className={styles.inputs}>
-          <label htmlFor="title">
-            <p>Title:</p>
-          </label>
-          <TextField
-            required={true}
-            id="title"
-            label="required"
-            onChange={(e) => inputOnChange(e, "title")}
-            value={formDetailsState.title}
-          ></TextField>
-        </div>
-
-        <div className={styles.inputs}>
-          <label htmlFor="description">
-            <p>Description:</p>
-          </label>
-          <TextField
-            required
-            onChange={(e) => inputOnChange(e, "description")}
-            id="description"
-            multiline
-            rows={4}
-            value={formDetailsState.description}
-            label="required"
-          ></TextField>
-        </div>
-
-        {/* Need to refactor this bit due to repeats */}
-        <div className={styles.inputs}>
-          <label htmlFor="species" className="">
-            {" "}
-            <p>Species (if applicable):</p>{" "}
-          </label>
-          <TextField
-            onChange={(e) => inputOnChange(e, "species")}
-            name="species"
-            id="species"
-            type="text"
-            value={formDetailsState.species}
-          />
-        </div>
-
-        <div className={styles.inputs}>
-          <label htmlFor="references">
-            <p> References (optional):</p>
-          </label>
-          <TextField
-            onChange={(e) => inputOnChange(e, "citation")}
-            name="references"
-            id="references"
-            multiline
-            rows={4}
-            value={formDetailsState.citation}
-          />
-        </div>
+        <FormContent/>
 
         <div className={styles.buttons}>
           <Button type="submit"> Submit </Button>
@@ -222,12 +114,12 @@ function QuestionForm() {
           </ModalInstance>
         )}
       </Form>
-    </StyledEngineProvider>
+    </div>
   );
 }
 
 const validateForm = (validationState, formDetailsState, dispatch) => {
-  console.log(validationState);
+  console.log(formDetailsState);
   dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
   dispatch(
     formValidationActions.checkDescription({
@@ -243,6 +135,7 @@ const validateForm = (validationState, formDetailsState, dispatch) => {
 
 //Send request to the database using formData
 const sendRequest = async (formDetailsState, dispatch) => {
+  console.log(dispatch)
   try {
     const response = await axios.post(
       "http://localhost:8000/questions/submit",

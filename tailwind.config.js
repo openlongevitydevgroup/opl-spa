@@ -23,6 +23,9 @@ module.exports = {
         fadein: 'fadein 0.5s ease-in', 
         fadeout: 'fadeout 0.5 ease-out'
         
+      }, 
+      colors: {
+        'bg-grey': '#f5f5f5'
       }
     },
 

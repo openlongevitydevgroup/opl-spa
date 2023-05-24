@@ -10,16 +10,16 @@ function QuestionInterface(){
     const questionState = useSelector(state => state.question)
     const viewWidth = useSelector(state => state.question.viewWidth)
     const dispatch = useDispatch(); 
-
     useEffect(()=>{ // Handle resizing of window and keep track of the inner width
       const handleResize = () => {
         dispatch(questionActions.setWidth({viewWidth: window.innerWidth}))
+        dispatch(questionActions.setIsMobile())
       }
       window.addEventListener('resize', handleResize); 
       return () => {
         window.removeEventListener('resize', handleResize) //Cleanup function to prevent memory leak 
       }
-    }, [dispatch])
+    }, [dispatch, viewWidth])
 
     return(
         <div className={`flex ${viewWidth < 450 ? 'flex-col' : 'flex-row'} w-full pb-2`}>

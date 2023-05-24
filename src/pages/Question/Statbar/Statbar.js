@@ -12,7 +12,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 // import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useDispatch} from "react-redux";
 import {useLoaderData} from 'react-router-dom'
-import { formActions } from "../../../state/Question/questionFormReducer";
+import { formActions } from "../../../state/Question/questionFormSlice";
 import { questionActions } from "../../../state/Question/questionSlice";
 import styles from "./Statbar.module.css";
 // This functon is for the statbar that allows the user to select whether to view the questions as a table or as a tree view instead

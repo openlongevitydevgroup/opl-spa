@@ -1,7 +1,7 @@
 import { TextField} from '@mui/material'
 import {Form, useLoaderData} from 'react-router-dom'
 import { questionActions } from '../../../state/Question/questionSlice'
-import { formActions } from '../../../state/Question/questionFormReducer'
+import { formActions } from '../../../state/Question/questionFormSlice'
 import { useDispatch, useSelector } from 'react-redux'
 const STYLES = {
 

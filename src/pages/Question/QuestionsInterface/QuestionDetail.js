@@ -1,6 +1,6 @@
 import { Box,Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { formActions } from "../../../state/Question/questionFormReducer";
+import { formActions } from "../../../state/Question/questionFormSlice";
 import { questionActions } from "../../../state/Question/questionSlice";
 import { Fragment } from "react";
 

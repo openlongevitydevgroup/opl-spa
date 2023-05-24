@@ -18,6 +18,7 @@ const DEFAULT_STATE = {
     citation: null,
   }, 
   viewWidth: null,
+  isMobile: false,
 };
 
 const reducers = {
@@ -59,6 +60,9 @@ const reducers = {
   },
   setWidth(state, actions){
     state.viewWidth = actions.payload.viewWidth
+  },
+  setIsMobile(state){
+    state.isMobile = state.viewWidth < 450 ? true : false;
   },
 };
 

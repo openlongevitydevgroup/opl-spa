@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import formSlice from "../state/Question/questionFormReducer";
+import formSlice from "../state/Question/questionFormSlice";
 import questionSlice from "../state/Question/questionSlice";
 import formValidationSlice from "../state/Question/formValidationSlice"
 

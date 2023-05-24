@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../../../../state/Question/questionFormSlice";
 
@@ -9,6 +8,7 @@ function TextInput(props) {
   const onChangeHandler = (e, key) => {
     dispatch(formActions.inputChange({ id: key, value: e.target.value }));
   };
+  const defaultSize = props.size
 
 
   return (
@@ -23,7 +23,7 @@ function TextInput(props) {
       </label>
       <input onChange={(e) => onChangeHandler(e, props.id)}
         type="text"
-        className={`h-fit-content h-auto ${isMobileState ? 'w-full' : 'w-4/5'} rounded border border-slate-500 bg-bg-grey p-4`} required={props.required}
+        className={`h-fit-content h-auto ${isMobileState ? 'w-full' : 'w-4/5'} rounded border border-slate-500 bg-bg-grey p-2`} required={props.required}
        value={formDetailsState[props.id]} placeholder={props.label} name={props.id}/>
     </div>
   );

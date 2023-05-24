@@ -66,7 +66,7 @@ function QuestionForm() {
 
   return (
     <div className="form items-center">
-      <h1 ref={ref} className="form-title text-center text-xl md:text-2xl">
+      <h1 ref={ref} className="form-title text-center text-xl md:text-2xl font-bold">
         Submit a question
       </h1>
       <p className="py-4 text-sm md:text-base">

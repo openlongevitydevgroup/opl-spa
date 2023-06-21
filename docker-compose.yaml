@@ -6,8 +6,7 @@ services:
     image: opl-front-dev 
     stdin_open: true
     tty: true
-    build: 
-      context: . 
+    build: .
     ports: 
       - '0.0.0.0:3000:3000'
     volumes:

@@ -12,7 +12,7 @@ services:
     volumes:
       - ./src:/app/src
     environment:
-     - NODE_ENV: 'development'
+     - NODE_ENV='development'
 
 
 

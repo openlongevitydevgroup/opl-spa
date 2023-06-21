@@ -14,7 +14,7 @@ services:
     environment:
      - NODE_ENV='development'
     networks:
-      - opl-backend_deployment
+      - deployment
 
 
 

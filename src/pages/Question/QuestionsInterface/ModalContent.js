@@ -13,7 +13,6 @@ function ModalContent(props) {
     modalClose();
     dispatch(formActions.toggleFormOpen())}
   
-  const smallViewCss = ''
   return (
     <div className="h-full flex flex-col justify-evenly">
       <div className="header">

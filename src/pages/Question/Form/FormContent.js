@@ -37,6 +37,7 @@ function FormContent() {
         rows={6}
       />
       <div className="contact-information w-full pt-4 text-center">
+        <hr/>
       <ContactForm/>
       </div>
     </div>

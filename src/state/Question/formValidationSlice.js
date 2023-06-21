@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 const DEFAULT_STATE = {
     title: false, 
     description: false,
+    email: false,
 }
 
 const reducers = {
@@ -18,6 +19,14 @@ const reducers = {
             state.description = true
         }else{
             state.description = false
+        }
+    }, 
+    checkEmail(state, actions){
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if(emailRegex.test(actions.payload.email.trim())){
+            state.email = true
+        }else{
+            state.email = false
         }
     }
 } 

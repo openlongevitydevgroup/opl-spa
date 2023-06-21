@@ -119,13 +119,13 @@ function QuestionForm() {
 }
 
 const validateForm = (validationState, formDetailsState, dispatch) => {
-  console.log(formDetailsState);
   dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
   dispatch(
     formValidationActions.checkDescription({
       description: formDetailsState.description,
     })
   );
+  dispatch(formValidationActions.checkEmail({email: formDetailsState.email}))
   if (validationState.title && validationState.description) {
     return true;
   } else {
@@ -135,7 +135,7 @@ const validateForm = (validationState, formDetailsState, dispatch) => {
 
 //Send request to the database using formData
 const sendRequest = async (formDetailsState, dispatch) => {
-  console.log(dispatch)
+  console.log(formDetailsState)
   try {
     const response = await axios.post(
       "http://localhost:8000/questions/submit",
@@ -148,6 +148,11 @@ const sendRequest = async (formDetailsState, dispatch) => {
             : formDetailsState.parentId,
         species: formDetailsState.species,
         citation: formDetailsState.citation,
+        first_name: formDetailsState.firstName, 
+        last_name: formDetailsState.lastName, 
+        email: formDetailsState.email, 
+        organisation: formDetailsState.organisation, 
+        job_field: formDetailsState.jobfield
       },
       {
         headers: {
@@ -169,6 +174,7 @@ const sendRequest = async (formDetailsState, dispatch) => {
       dispatch(formActions.toggleModalOpen());
     }
   } catch (error) {
+    console.log(formDetailsState)
     dispatch(formActions.toggleModalOpen());
     dispatch(
       formActions.setSubmitStatus({

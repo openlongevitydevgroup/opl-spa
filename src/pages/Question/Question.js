@@ -42,7 +42,7 @@ function Question(){
 export default Question; 
 
 export async function loader(){
-    const {data:recursiveData} = await axios.get("http://localhost:8000/questions/recursive")
-    const {data} = await axios.get("http://localhost:8000/questions")
+    const {data:recursiveData} = await axios.get("http://localhost:8000/questions/root")
+    const {data} = await axios.get("http://localhost:8000/questions/")
     return {recursiveData, data}
 }

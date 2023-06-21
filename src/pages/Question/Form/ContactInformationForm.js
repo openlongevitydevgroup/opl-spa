@@ -1,6 +1,19 @@
 import { Fragment } from "react";
 import TextInput from "./Inputs/TextInput";
+import { useDispatch } from "react-redux";
+import { formActions } from "../../../state/Question/questionFormSlice";
 function ContactForm() {
+  const dispatch = useDispatch();
+  const firstNameChangeHandler = (e) => {
+    dispatch(
+      formActions.inputChange({ id: "firstName", value: e.target.value })
+    );
+  };
+  const lastNameChangeHandler = (e) => {
+    dispatch(
+      formActions.inputChange({ id: "lastName", value: e.target.value })
+    );
+  };
   return (
     <Fragment>
       <h1 className="p-8 text-lg font-bold md:text-xl">
@@ -15,20 +28,23 @@ function ContactForm() {
         <div className="last-name flex w-4/5 flex-row justify-evenly">
           <input
             type="text"
-            id="f-name"
+            id="firstName"
             className="mr-2 w-full rounded border border-slate-500 bg-bg-grey p-2"
             placeholder="First name"
+            onChange={firstNameChangeHandler}
           />
           <input
             type="text"
-            id="f-name"
+            id="firstName"
             className="ml-2 w-full rounded border border-slate-500 bg-bg-grey p-2"
             placeholder="Last name"
+            onChange={lastNameChangeHandler}
           />
         </div>
       </div>
       <TextInput id="email" label="" labelText="Email:" />
-      <TextInput id="affiliation" label="" labelText="Affiliation:" />
+      <TextInput id="organisation" label="" labelText="Affiliation:" />
+      <TextInput id="jobfield" label="" labelText="Job Field:" />
     </Fragment>
   );
 }

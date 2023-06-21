@@ -12,7 +12,11 @@ const DEFAULT_STATE = {
         parentId: 0,
         species: '', 
         citation: '', 
-
+        firstName:'',
+        lastName:'',
+        email:'', 
+        organisation: '', 
+        jobfield: '',
     },
     submitModalOpen: false,
     submitStatus : {

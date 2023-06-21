@@ -8,8 +8,6 @@ function TextInput(props) {
   const onChangeHandler = (e, key) => {
     dispatch(formActions.inputChange({ id: key, value: e.target.value }));
   };
-  const defaultSize = props.size
-
 
   return (
     <div

@@ -5,6 +5,7 @@ services:
     container_name: opl-front-dev
     image: opl-front-dev 
     stdin_open: true
+    tty: true
     build: 
       context: . 
     ports: 

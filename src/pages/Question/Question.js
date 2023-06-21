@@ -8,7 +8,6 @@ import './Question.css'
 import {ModalT} from '../../components/UI/Modal/Modal'; 
 import SearchBar from './SearchBar/SearchBar';
 import QuestionInterface from './QuestionsInterface/QuestionsInterface';
-require('dotenv').config()
 
 
 function Question(){
@@ -38,12 +37,9 @@ function Question(){
 )
 }
 
-
-
-
 export default Question; 
 export async function loader(){
-    const {data:recursiveData} = await axios.get(`http://${process.env.DB_REQUEST}:8000/questions/root`)
-    const {data} = await axios.get(`http://${process.env.DB_REQUEST}:8000/questions/`)
+    const {data:recursiveData} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}:8000/questions/root`)
+    const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}:8000/questions/`)
     return {recursiveData, data}
 }

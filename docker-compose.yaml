@@ -16,7 +16,7 @@ services:
     environment:
      - NODE_ENV='development'
     networks:
-      - development
+      - font-development
 
 
 

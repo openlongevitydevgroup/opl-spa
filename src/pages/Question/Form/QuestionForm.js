@@ -138,7 +138,7 @@ const sendRequest = async (formDetailsState, dispatch) => {
   console.log(formDetailsState)
   try {
     const response = await axios.post(
-      "http://79.99.42.79:8000/api/questions/submit",
+      `http://${process.env.REACT_APP_POST_REQUEST}/api/questions/root`,
       {
         title: formDetailsState.title,
         excerpt: formDetailsState.description,

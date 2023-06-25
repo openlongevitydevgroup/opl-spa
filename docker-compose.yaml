@@ -15,6 +15,7 @@ services:
       - ./src:/app/src
     environment:
      - NODE_ENV='development'
+     - CHOKIDAR_USEPOLLING=true
     networks:
       - development
 

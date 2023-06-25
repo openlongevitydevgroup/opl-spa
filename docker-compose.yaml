@@ -9,6 +9,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    command: npm start
     ports: 
       - '0.0.0.0:3000:3000'
     volumes:

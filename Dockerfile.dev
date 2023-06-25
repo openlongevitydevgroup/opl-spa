@@ -14,7 +14,7 @@ EXPOSE 3000
 
 FROM  nginx:latest 
 
-COPY --from=build ./build/  /usr/share/nginx/html 
+COPY --from=build /app/build/  /usr/share/nginx/html 
 COPY nginx/opl-front-dev.conf /etc/nginx/conf.d/opl-front-dev.conf
 
 EXPOSE 80 

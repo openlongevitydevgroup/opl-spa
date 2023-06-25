@@ -138,7 +138,7 @@ const sendRequest = async (formDetailsState, dispatch) => {
   console.log(formDetailsState)
   try {
     const response = await axios.post(
-      "http://localhost:8000/api/questions/submit",
+      "http://79.99.42.79:8000/api/questions/submit",
       {
         title: formDetailsState.title,
         excerpt: formDetailsState.description,

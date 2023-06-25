@@ -11,6 +11,7 @@ import QuestionInterface from './QuestionsInterface/QuestionsInterface';
 
 
 function Question(){
+    console.log(process.env.REACT_APP_DB_REQUEST);
     const modalState = useSelector(state => state.question.modalOpen)
     const questionDetails = useSelector(state => state.question.modalDetails)
     const dispatch = useDispatch()

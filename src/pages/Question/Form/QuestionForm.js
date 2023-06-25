@@ -136,6 +136,7 @@ const validateForm = (validationState, formDetailsState, dispatch) => {
 //Send request to the database using formData
 const sendRequest = async (formDetailsState, dispatch) => {
   console.log(formDetailsState)
+  console.log(process.env.REACT_APP_POST_REQUEST)
   try {
     const response = await axios.post(
       `http://${process.env.REACT_APP_POST_REQUEST}/api/questions/submit`,
@@ -174,7 +175,6 @@ const sendRequest = async (formDetailsState, dispatch) => {
       dispatch(formActions.toggleModalOpen());
     }
   } catch (error) {
-    console.log(formDetailsState)
     dispatch(formActions.toggleModalOpen());
     dispatch(
       formActions.setSubmitStatus({

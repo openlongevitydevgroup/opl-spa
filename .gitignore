@@ -17,3 +17,5 @@ sketch
 
 .env
 build/
+
+Dockerfile.prod

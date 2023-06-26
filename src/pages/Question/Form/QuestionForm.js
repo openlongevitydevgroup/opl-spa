@@ -126,6 +126,7 @@ const validateForm = (validationState, formDetailsState, dispatch) => {
     })
   );
   dispatch(formValidationActions.checkEmail({email: formDetailsState.email}))
+  console.log(validationState.title, validationState.description)
   if (validationState.title && validationState.description) {
     return true;
   } else {

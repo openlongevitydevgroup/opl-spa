@@ -1,11 +1,8 @@
-import { Form} from "react-router-dom";
+import { Form } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
-import {
-  Typography,
-  Button,
-} from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import ModalInstance from "../../../components/UI/Modal/Modal";
 import styles from "./QuestionForm.module.css";
 import { formActions } from "../../../state/Question/questionFormSlice";
@@ -29,7 +26,6 @@ function QuestionForm() {
     scrollTo();
   }, []);
 
-
   //Submission modal
   const onSubmitModalClose = () => {
     dispatch(formActions.toggleModalClose());
@@ -39,25 +35,33 @@ function QuestionForm() {
   //Form submission handler - submits to database in the submitted questions database
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const isValidated = validateForm(
-      validationState,
-      formDetailsState,
-      dispatch
-    );
-
-    if (isValidated) {
-      //Send request if valid
-      sendRequest(formDetailsState, dispatch);
-    } else {
-      dispatch(formActions.toggleModalOpen());
-      dispatch(
-        formActions.setSubmitStatus({
-          status: "failed",
-          title: "Incomplete submission",
-          message: "Please enter required fields (title and description)",
-        })
-      );
-    }
+    validateForm(dispatch, formDetailsState, validationState)
+      .then(() => sendRequest(formDetailsState, dispatch))
+      .catch(() => {
+        dispatch(formActions.toggleModalOpen());
+        dispatch(
+          formActions.setSubmitStatus({
+            status: "failed",
+            title: "Incomplete submission",
+            message:
+              "Please enter required fields (title and description) and ensure that you have entered a valid email address.",
+          })
+        );
+      });
+    // if (isValidated) {
+    //   //Send request if valid
+    //   sendRequest(formDetailsState, dispatch);
+    // } else {
+    //   dispatch(formActions.toggleModalOpen());
+    //   dispatch(
+    //     formActions.setSubmitStatus({
+    //       status: "failed",
+    //       title: "Incomplete submission",
+    //       message:
+    //         "Please enter required fields (title and description) and ensure that you have entered a valid email address.",
+    //     })
+    //   );
+    // }
   };
   //Exit button handler
   const exitButtonHandler = () => {
@@ -66,7 +70,10 @@ function QuestionForm() {
 
   return (
     <div className="form items-center">
-      <h1 ref={ref} className="form-title text-center text-xl md:text-2xl font-bold">
+      <h1
+        ref={ref}
+        className="form-title text-center text-xl font-bold md:text-2xl"
+      >
         Submit a question
       </h1>
       <p className="py-4 text-sm md:text-base">
@@ -79,7 +86,7 @@ function QuestionForm() {
         className="flex w-full flex-col items-center text-center text-sm md:text-base"
         onSubmit={onSubmitHandler}
       >
-        <FormContent/>
+        <FormContent />
 
         <div className={styles.buttons}>
           <Button type="submit"> Submit </Button>
@@ -118,26 +125,8 @@ function QuestionForm() {
   );
 }
 
-const validateForm = (validationState, formDetailsState, dispatch) => {
-  dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
-  dispatch(
-    formValidationActions.checkDescription({
-      description: formDetailsState.description,
-    })
-  );
-  dispatch(formValidationActions.checkEmail({email: formDetailsState.email}))
-  console.log(validationState.title, validationState.description)
-  if (validationState.title && validationState.description) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 //Send request to the database using formData
 const sendRequest = async (formDetailsState, dispatch) => {
-  console.log(formDetailsState)
-  console.log(process.env.REACT_APP_POST_REQUEST)
   try {
     const response = await axios.post(
       `http://${process.env.REACT_APP_POST_REQUEST}/api/questions/submit`,
@@ -150,11 +139,11 @@ const sendRequest = async (formDetailsState, dispatch) => {
             : formDetailsState.parentId,
         species: formDetailsState.species,
         citation: formDetailsState.citation,
-        first_name: formDetailsState.firstName, 
-        last_name: formDetailsState.lastName, 
-        email: formDetailsState.email, 
-        organisation: formDetailsState.organisation, 
-        job_field: formDetailsState.jobfield
+        first_name: formDetailsState.firstName,
+        last_name: formDetailsState.lastName,
+        email: formDetailsState.email,
+        organisation: formDetailsState.organisation,
+        job_field: formDetailsState.jobfield,
       },
       {
         headers: {
@@ -185,6 +174,27 @@ const sendRequest = async (formDetailsState, dispatch) => {
       })
     );
   }
+};
+
+const validateForm = (dispatch, formDetailsState, validationState) => {
+  return new Promise((resolve, reject) => {
+    dispatch(
+      formValidationActions.checkTitle({ title: formDetailsState.title })
+    );
+    dispatch(
+      formValidationActions.checkDescription({
+        description: formDetailsState.description,
+      })
+    );
+    dispatch(
+      formValidationActions.checkEmail({ email: formDetailsState.email })
+    );
+    validationState.title &&
+    validationState.description &&
+    validationState.email
+      ? resolve()
+      : reject();
+  });
 };
 
 export default QuestionForm;

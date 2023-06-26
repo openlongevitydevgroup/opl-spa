@@ -11,7 +11,6 @@ import QuestionInterface from './QuestionsInterface/QuestionsInterface';
 
 
 function Question(){
-    console.log(process.env.REACT_APP_DB_REQUEST);
     const modalState = useSelector(state => state.question.modalOpen)
     const questionDetails = useSelector(state => state.question.modalDetails)
     const dispatch = useDispatch()
@@ -37,8 +36,6 @@ function Question(){
 
 )
 }
-
-
 export default Question; 
 export async function loader(){
     const {data:recursiveData} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/questions/root`)

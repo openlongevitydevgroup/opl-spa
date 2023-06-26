@@ -1,10 +1,9 @@
 import { Fragment } from "react";
-
 function NavMenu2() {
   const menuList = [
-    { title: "Home", route: "/" },
-    { title: "About", route: "/about" },
-    { title: "Search", route: "/question" },
+    { title: "Home", route: "https://www.longevityknowledge.com" }
+    // { title: "About", route: "/about" },
+    // { title: "Search", route: "/question" },
   ];
   return (
     <Fragment>
@@ -15,7 +14,7 @@ function NavMenu2() {
         {menuList.map((item) => {
           return (
             <li className="h-full">
-              <a href={item.route} className="hover:bg-slate-200 px-2 flex items-center h-full transition-colors duration-250">{item.title}</a>
+              <a href={item.route} rel='noreferrer' target="_blank" className="hover:bg-slate-200 px-2 flex items-center h-full transition-colors duration-250">{item.title}</a>
             </li>
           );
         })}

@@ -23,7 +23,7 @@ const reducers = {
     }, 
     checkEmail(state, actions){
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-        if(emailRegex.test(actions.payload.email.trim())){
+        if(emailRegex.test(actions.payload.email)){
             state.email = true
         }else{
             state.email = false

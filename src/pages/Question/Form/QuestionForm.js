@@ -177,24 +177,27 @@ const sendRequest = async (formDetailsState, dispatch) => {
 };
 
 const validateForm = (dispatch, formDetailsState, validationState) => {
+  dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
+  dispatch(
+    formValidationActions.checkDescription({
+      description: formDetailsState.description,
+    })
+  );
+  dispatch(formValidationActions.checkEmail({ email: formDetailsState.email }));
+  if (formDetailsState.email) {
+    return new Promise((resolve, reject) => {
+      validationState.title && validationState.description
+        ? resolve()
+        : reject();
+    });
+  }else{
   return new Promise((resolve, reject) => {
-    dispatch(
-      formValidationActions.checkTitle({ title: formDetailsState.title })
-    );
-    dispatch(
-      formValidationActions.checkDescription({
-        description: formDetailsState.description,
-      })
-    );
-    dispatch(
-      formValidationActions.checkEmail({ email: formDetailsState.email })
-    );
     validationState.title &&
     validationState.description &&
     validationState.email
       ? resolve()
       : reject();
-  });
+  });}
 };
 
 export default QuestionForm;

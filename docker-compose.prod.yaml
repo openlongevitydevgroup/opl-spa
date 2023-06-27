@@ -12,11 +12,15 @@ services:
       - '0.0.0.0:3001:3000'
     volumes:
       - ./src:/app/src
+      - react_volume:/app/build/
     environment:
      - NODE_ENV='development'
      - CHOKIDAR_USEPOLLING=true
     networks:
       - production
+
+volumes:
+  - react_volume:
 
 
 

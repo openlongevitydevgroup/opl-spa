@@ -4,6 +4,7 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../../../state/Question/questionSlice";
+import { formActions } from "../../../state/Question/questionFormSlice";
 function TooltipWrapper(props) {
     const message = props.message;
     return <Tooltip title={message}>{props.children}</Tooltip>;
@@ -12,9 +13,11 @@ function StatbarButtonGroup(){
     const dispatch = useDispatch();
     const isMobileState = useSelector(state => state.question.isMobile);
     const toggleTreeHandler = () => {
+        dispatch(formActions.toggleFormClose());
         dispatch(questionActions.toggleTreeState());
       };
       const toggleTableHandler = () => {
+        dispatch(formActions.toggleFormClose());
         dispatch(questionActions.toggleListState());
       };
       const toggleFilterHandler = () => {

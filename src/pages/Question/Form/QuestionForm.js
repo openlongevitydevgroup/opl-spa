@@ -2,12 +2,12 @@ import { Form } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
-import { Typography, Button } from "@mui/material";
-import ModalInstance from "../../../components/UI/Modal/Modal";
+import { Button } from "@mui/material";
 import styles from "./QuestionForm.module.css";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import { formValidationActions } from "../../../state/Question/formValidationSlice";
 import FormContent from "./FormContent";
+import ModalT from "../../../components/UI/Modal/Modal";
 
 function QuestionForm() {
   const dispatch = useDispatch();
@@ -48,20 +48,6 @@ function QuestionForm() {
           })
         );
       });
-    // if (isValidated) {
-    //   //Send request if valid
-    //   sendRequest(formDetailsState, dispatch);
-    // } else {
-    //   dispatch(formActions.toggleModalOpen());
-    //   dispatch(
-    //     formActions.setSubmitStatus({
-    //       status: "failed",
-    //       title: "Incomplete submission",
-    //       message:
-    //         "Please enter required fields (title and description) and ensure that you have entered a valid email address.",
-    //     })
-    //   );
-    // }
   };
   //Exit button handler
   const exitButtonHandler = () => {
@@ -94,31 +80,22 @@ function QuestionForm() {
         </div>
 
         {formModalState && (
-          <ModalInstance
+          <ModalT
             open={formModalState}
             close={onSubmitModalClose}
-            width={300}
-            height={"max-content"}
+            height={350}
+            width={350}
           >
             <div className="p-2">
-              <Typography variant="h5" sx={{ paddingTop: "3rem" }}>
-                {" "}
-                {formStatus.title}{" "}
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{
-                  paddingTop: "2rem",
-                }}
-              >
-                {" "}
-                {formStatus.message}{" "}
-              </Typography>
-              <Button onClick={onSubmitModalClose} sx={{ padding: "1.5rem" }}>
-                Exit
-              </Button>
+              <h1 className="text-center text-lg font-bold md:text-2xl">
+                {formStatus.title}
+              </h1>
+              <p className="text-md pt-4 md:text-lg">{formStatus.message}</p>
+              <div className="flex flex-row justify-center p-2">
+                <Button onClick={onSubmitModalClose}>Exit</Button>
+              </div>
             </div>
-          </ModalInstance>
+          </ModalT>
         )}
       </Form>
     </div>
@@ -190,14 +167,15 @@ const validateForm = (dispatch, formDetailsState, validationState) => {
         ? resolve()
         : reject();
     });
-  }else{
-  return new Promise((resolve, reject) => {
-    validationState.title &&
-    validationState.description &&
-    validationState.email
-      ? resolve()
-      : reject();
-  });}
+  } else {
+    return new Promise((resolve, reject) => {
+      validationState.title &&
+      validationState.description &&
+      validationState.email
+        ? resolve()
+        : reject();
+    });
+  }
 };
 
 export default QuestionForm;

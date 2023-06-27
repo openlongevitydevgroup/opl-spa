@@ -5,10 +5,9 @@ import ModalContent from './QuestionsInterface/ModalContent';
 import Statbar from './Statbar/Statbar';
 import axios from 'axios'
 import './Question.css'
-import {ModalT} from '../../components/UI/Modal/Modal'; 
 import SearchBar from './SearchBar/SearchBar';
 import QuestionInterface from './QuestionsInterface/QuestionsInterface';
-
+import ModalT from '../../components/UI/Modal/Modal';
 
 function Question(){
     const modalState = useSelector(state => state.question.modalOpen)

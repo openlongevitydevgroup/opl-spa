@@ -1,17 +1,19 @@
 import { Form } from "react-router-dom";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
 import { Button } from "@mui/material";
 import styles from "./QuestionForm.module.css";
 import { formActions } from "../../../state/Question/questionFormSlice";
-import { formValidationActions } from "../../../state/Question/formValidationSlice";
 import FormContent from "./FormContent";
 import ModalT from "../../../components/UI/Modal/Modal";
-
+import sendRequest from "./functions/sendRequest";
+import validateForm from "./functions/validateForm";
+import ReCAPTCHA from "react-google-recaptcha";
+import verifyToken from "./functions/verifyToken";
 function QuestionForm() {
+  // States for recaptcha
+  const captchaRef = useRef(null);
   const dispatch = useDispatch();
-
   const formDetailsState = useSelector((state) => state.form.formDetails);
   const formStatus = useSelector((state) => state.form.submitStatus);
   const formModalState = useSelector((state) => state.form.submitModalOpen);
@@ -35,19 +37,46 @@ function QuestionForm() {
   //Form submission handler - submits to database in the submitted questions database
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    validateForm(dispatch, formDetailsState, validationState)
-      .then(() => sendRequest(formDetailsState, dispatch))
-      .catch(() => {
+    const token = captchaRef.current.getValue();
+    captchaRef.current.reset();
+    if (!token) {
+      dispatch(formActions.toggleModalOpen());
+      dispatch(
+        formActions.setSubmitStatus({
+          status: "failed",
+          title: "Incomplete submission",
+          message: "Please complete recaptcha.",
+        })
+      );
+    } else {
+      const validToken = await verifyToken(token);
+      const successResponse = JSON.parse(validToken[0]);
+      console.log(successResponse);
+      if (successResponse.success === true) {
+        validateForm(dispatch, formDetailsState, validationState)
+          .then(() => sendRequest(formDetailsState, dispatch))
+          .catch(() => {
+            dispatch(formActions.toggleModalOpen());
+            dispatch(
+              formActions.setSubmitStatus({
+                status: "failed",
+                title: "Incomplete submission",
+                message:
+                  "Please enter required fields (title and description) and ensure that you have entered a valid email address.",
+              })
+            );
+          });
+      } else {
         dispatch(formActions.toggleModalOpen());
         dispatch(
           formActions.setSubmitStatus({
             status: "failed",
-            title: "Incomplete submission",
-            message:
-              "Please enter required fields (title and description) and ensure that you have entered a valid email address.",
+            title: "Failed Recaptcha",
+            message: "Failed recaptcha test.",
           })
         );
-      });
+      }
+    }
   };
   //Exit button handler
   const exitButtonHandler = () => {
@@ -73,7 +102,11 @@ function QuestionForm() {
         onSubmit={onSubmitHandler}
       >
         <FormContent />
-
+        <ReCAPTCHA
+          className="recaptcha"
+          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+          ref={captchaRef}
+        />
         <div className={styles.buttons}>
           <Button type="submit"> Submit </Button>
           <Button onClick={exitButtonHandler}>Exit</Button>
@@ -101,81 +134,5 @@ function QuestionForm() {
     </div>
   );
 }
-
-//Send request to the database using formData
-const sendRequest = async (formDetailsState, dispatch) => {
-  try {
-    const response = await axios.post(
-      `http://${process.env.REACT_APP_POST_REQUEST}/api/questions/submit`,
-      {
-        title: formDetailsState.title,
-        excerpt: formDetailsState.description,
-        parent_question:
-          formDetailsState.parentTitle === "None"
-            ? null
-            : formDetailsState.parentId,
-        species: formDetailsState.species,
-        citation: formDetailsState.citation,
-        first_name: formDetailsState.firstName,
-        last_name: formDetailsState.lastName,
-        email: formDetailsState.email,
-        organisation: formDetailsState.organisation,
-        job_field: formDetailsState.jobfield,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
-    if (response.status === 201) {
-      //Creates a success status
-      dispatch(
-        formActions.setSubmitStatus({
-          status: "success",
-          title: "Submitted",
-          message: "Question information was submitted successfully.",
-        })
-      );
-      //Toggle modal to display success status
-      dispatch(formActions.toggleModalOpen());
-    }
-  } catch (error) {
-    dispatch(formActions.toggleModalOpen());
-    dispatch(
-      formActions.setSubmitStatus({
-        status: "failed",
-        title: "Unsuccessful submission",
-        message: error.message,
-      })
-    );
-  }
-};
-
-const validateForm = (dispatch, formDetailsState, validationState) => {
-  dispatch(formValidationActions.checkTitle({ title: formDetailsState.title }));
-  dispatch(
-    formValidationActions.checkDescription({
-      description: formDetailsState.description,
-    })
-  );
-  dispatch(formValidationActions.checkEmail({ email: formDetailsState.email }));
-  if (!formDetailsState.email.trim()) {
-    return new Promise((resolve, reject) => {
-      validationState.title && validationState.description
-        ? resolve()
-        : reject();
-    });
-  } else {
-    return new Promise((resolve, reject) => {
-      validationState.title &&
-      validationState.description &&
-      validationState.email
-        ? resolve()
-        : reject();
-    });
-  }
-};
 
 export default QuestionForm;

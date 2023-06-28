@@ -10,8 +10,11 @@ function TextInput(props) {
     switch (key){
       case 'title': 
         dispatch(formValidationActions.checkTitle({title:e.target.value}))
+        break;
       case 'email':
         dispatch(formValidationActions.checkEmail({email:e.target.value}))
+        break;
+      default:
     } 
   };
 

@@ -51,7 +51,6 @@ function QuestionForm() {
     } else {
       const validToken = await verifyToken(token);
       const successResponse = JSON.parse(validToken[0]);
-      console.log(successResponse);
       if (successResponse.success === true) {
         validateForm(dispatch, formDetailsState, validationState)
           .then(() => sendRequest(formDetailsState, dispatch))

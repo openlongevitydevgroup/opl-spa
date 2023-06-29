@@ -37,7 +37,7 @@ function Question(){
 }
 export default Question; 
 export async function loader(){
-    const {data:recursiveData} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/questions/root`)
-    const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/questions/`)
+    const {data:recursiveData} = await axios.get(`https://${process.env.REACT_APP_DB_REQUEST}/api/questions/root`)
+    const {data} = await axios.get(`https://${process.env.REACT_APP_DB_REQUEST}/api/questions/`)
     return {recursiveData, data}
 }

@@ -5,7 +5,7 @@ import axios from "axios";
 const sendRequest = async (formDetailsState, dispatch) => {
     try {
       const response = await axios.post(
-        `http://${process.env.REACT_APP_POST_REQUEST}/api/questions/submit`,
+        `https://${process.env.REACT_APP_POST_REQUEST}/api/questions/submit`,
         {
           title: formDetailsState.title,
           excerpt: formDetailsState.description,

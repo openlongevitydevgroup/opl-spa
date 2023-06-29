@@ -7,7 +7,7 @@ function NavMenu2() {
   ];
   return (
     <Fragment>
-      <a href="/">
+      <a href="/question">
         <h1 className="nav-title text-xl font-bold">Open Longevity</h1>
       </a>
       <ul className="nav-list list-none flex flex-row items-center gap-6 h-full">

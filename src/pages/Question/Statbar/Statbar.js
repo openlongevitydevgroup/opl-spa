@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import StatbarButtonGroup from "./StatbarButtonGroup";
+import scrollToView from "../functions/scrollToView";
 // This functon is for the statbar that allows the user to select whether to view the questions as a table or as a tree view instead
 
 function Statbar(props) {
@@ -12,10 +13,7 @@ function Statbar(props) {
   const dispatch = useDispatch();
   const submitQuestionHandler = () => {
     dispatch(formActions.toggleFormOpen());
-    const element = document.querySelector(".form-title");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToView('.form-title')
   };
 
   return (

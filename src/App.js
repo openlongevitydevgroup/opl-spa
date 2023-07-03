@@ -7,7 +7,7 @@ import Question, {loader as getQuestions} from "./pages/Question/Question";
 import './index.css'
 
 const router = createBrowserRouter([
-  {path: 'question', element:<RootQuestion/>,children:[
+  {path: 'open-problems', element:<RootQuestion/>,children:[
     {index: true, element: <Question/>, loader:getQuestions}
   ]}])
 //Uncompleted home pages:

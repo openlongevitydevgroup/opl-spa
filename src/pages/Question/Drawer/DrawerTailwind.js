@@ -71,13 +71,12 @@ function DrawerTailwind() {
   const drawerState = useSelector((state) => state.question.filterOpen);
   const viewWidthState = useSelector((state) => state.question.viewWidth);
 
-
   if (viewWidthState < 450) {
     return (
       <div
-        className={`sidebar ${
+        className={`sidebar py-2 bg-grey-100 ${
           drawerState ? `max-h-[500px]` : "max-h-0"
-        } overflow-hidden bg-white text-center shadow transition-max-height duration-300 ease-in-out`}
+        } overflow-hidden bg-white text-center shadow transition-max-height duration-300 ease-in-out mt-1`}
       >
         <FilterContent />
       </div>
@@ -85,12 +84,11 @@ function DrawerTailwind() {
   } else {
     return (
       <div
-        className={`sidebar h-full transition-width ${
+        className={`sidebar py-2 bg-grey-100 h-full transition-width ${
           drawerState ? "w-1/5" : "w-0"
-        } bg-white text-center shadow duration-300 ease-in-out`}
+        } bg-white text-center shadow duration-300 ease-in-out mt-1`}
       >
-        {/* {drawerState ? <FilterContent /> : null} */}
-        <FilterContent />
+        {drawerState ? <FilterContent /> : null}
       </div>
     );
   }

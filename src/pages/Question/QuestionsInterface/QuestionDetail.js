@@ -8,7 +8,7 @@ function Details(props){
     const question = props.question
     const formState = useSelector(state => state.form)
     const dispatch = useDispatch()
-    const viewWidthState = useSelector(state => state.question.viewWidth)
+    // const viewWidthState = useSelector(state => state.question.viewWidth)
     const onSubmitHandler = (parentTitle, parentId) => {
         dispatch(formActions.toggleFormOpen())
         dispatch(formActions.chooseParent({chosenParentTitle:parentTitle, parentId:parentId}))
@@ -28,7 +28,7 @@ function Details(props){
 
     <div className="buttons flex flex-row py-2">
         {/* <Button onClick={modalOpenHandler} size={viewWidthState < 450 ? 'small' : 'medium'}>Question details</Button> */}
-        <Button onClick={() => {onSubmitHandler(question.title, question.id)}} size={viewWidthState < 450 ? 'small' : 'medium'}> Submit a subquestion</Button>
+        <Button onClick={() => {onSubmitHandler(question.title, question.id)}} size='small'> Submit a subquestion</Button>
     </div>
         </div>
     ) 

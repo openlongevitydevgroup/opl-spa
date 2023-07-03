@@ -1,99 +1,45 @@
-import Button from '@mui/material/Button';
-import { TreeView, TreeItem} from "@mui/lab";
-import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import { useSpring, animated } from "@react-spring/web";
-import Collapse from "@mui/material/Collapse";
-import { PropTypes } from "prop-types";
-import QuestionDetail from "./QuestionDetail";
-import { Fragment } from "react";
-import { useLoaderData } from "react-router-dom";
+import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
-import { formActions } from '../../../state/Question/questionFormSlice';
-import { useDispatch } from 'react-redux';
-//Transitions for the hierarchical list component
-function TransitionComponent(props) {
-  const style = useSpring({
-    from: { opacity: 0, transform: "translated3d(20px,0,0)" },
-    to: {
-      opacity: props.in ? 1 : 0,
-      transform: `translated3d(${props.in ? 0 : 20}px,0,0)`,
-    },
-  });
-  return (
-    <animated.div style={style}>
-      <Collapse {...props} />
-    </animated.div>
-  );
-}
-
-TransitionComponent.propTypes = {
-  /**
-   * Show the component; triggers the enter or exit states
-   */
-  in: PropTypes.bool,
-};
-
-//Hierarchical list to be rendered in the tree view function below
-function QuestionListTree(props) {
-  const questions = props.questions;
-  return (
-    <TreeView
-      defaultEndIcon={<IndeterminateCheckBoxOutlinedIcon />}
-      defaultExpandIcon={<AddBoxOutlinedIcon />}
-      defaultCollapseIcon={
-        <IndeterminateCheckBoxOutlinedIcon></IndeterminateCheckBoxOutlinedIcon>
-      }
-    >
-      {questions.map((question) => {
-        return (
-          <TreeItem
-            key={question.question_id}
-            id={question.question_id.toString()}
-            sx={{ borderLeft: "1px dashed", paddingTop: "5px" }}
-            TransitionComponent={TransitionComponent}
-            nodeId={question.question_id.toString()}
-            label={question.title}
-          >
-            <QuestionDetail question={question} />
-            {question.children
-              ? question.children.map((child) => (
-                  <TreeItem
-                    label={child.title}
-                    key={child.question_id}
-                    id={child.question_id.toString()}
-                    nodeId={child.question_id.toString()}
-                    sx={{ borderLeft: "1px dashed", paddingTop: "5px" }}
-                  >
-                    <QuestionDetail question={question} />
-                  </TreeItem>
-                ))
-              : null}
-          </TreeItem>
-        );
-      })}
-    </TreeView>
-  );
-}
-
+import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import QuestionAccordion from "./UI/QuestionAccordion";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 ///////Table view showing a list of questions to be rendered in the tree view function below//////
 //List component
 
 function ListComponent(props) {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [accordionOpen, setAccordionOpen] = useState(false);
   const onClickHandler = (parentTitle, parentId) => {
-    dispatch(formActions.toggleFormOpen())
-    dispatch(formActions.chooseParent({chosenParentTitle:parentTitle, parentId:parentId}))
+    // dispatch(formActions.toggleFormOpen());
+    // dispatch(
+    //   formActions.chooseParent({
+    //     chosenParentTitle: parentTitle,
+    //     parentId: parentId,
+    //   })
+    // );
+    setAccordionOpen(!accordionOpen);
   };
-  const title = props.title 
-  const id = props.id
+  const id = props.id;
   return (
-    <div className="mb-2  bg-white shadow shadow-slate-500">
-      <li className="py-2 pl-2 flex flex-row justify-between" key={id}>
-        <button className="text-sm md:text-lg hover:text-blue-500">{props.children}</button>
-        <Button onClick={() => onClickHandler(title, id)}><ArrowCircleUpIcon/></Button>
+    <div className="flex h-full flex-col">
+      <li
+        className="flex flex-row justify-between bg-white py-2  pl-2 shadow shadow-slate-500"
+        key={id}
+      >
+        <button className="text-sm hover:text-blue-500 md:text-lg">
+          {props.children}
+        </button>
+        <Button onClick={onClickHandler}> <ArrowDropDownIcon/></Button>
       </li>
+      <div
+        key={id}
+        className={`accordion-wrapper overflow-hidden py-2 pl-2 ${
+          accordionOpen ? "max-h-[500px]" : "max-h-0"
+        } duration-500 ease-in-out`}
+      >
+        {accordionOpen ? <QuestionAccordion /> : null}
+      </div>
     </div>
   );
 }
@@ -108,7 +54,9 @@ function QuestionList(props) {
     return (
       <ul>
         {filteredQuestions.map((question) => (
-          <ListComponent id={question.question_id} title={question.title}>{question.title}</ListComponent>
+          <ListComponent id={question.question_id} title={question.title}>
+            {question.title}
+          </ListComponent>
         ))}
       </ul>
     );
@@ -117,31 +65,13 @@ function QuestionList(props) {
     return (
       <ul>
         {allQuestions.map((question) => (
-          <ListComponent id={question.question_id} title={question.title}>{question.title}</ListComponent>
-          ))}
+          <ListComponent id={question.question_id} title={question.title}>
+            {question.title}
+          </ListComponent>
+        ))}
       </ul>
     );
   }
 }
 
-function QuestionView(props) {
-  //Replace with redux store state
-  const viewState = props.state;
-  const { recursiveData: recursiveQuestions, data: questions } =
-    useLoaderData();
-  if (viewState === "tree") {
-    return (
-      <Fragment>
-        <QuestionListTree questions={recursiveQuestions} />
-      </Fragment>
-    );
-  } else {
-    return (
-      <Fragment>
-        <QuestionList questions={questions} />
-      </Fragment>
-    );
-  }
-}
-
-export default QuestionView;
+export default QuestionList;

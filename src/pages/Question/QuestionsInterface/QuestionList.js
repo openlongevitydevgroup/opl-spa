@@ -1,44 +1,50 @@
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import React, { useState } from "react";
-import QuestionAccordion from "./UI/QuestionAccordion";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import QuestionAccordion from "./Accordion/QuestionAccordion";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import getDetails from "../functions/getDetails";
 ///////Table view showing a list of questions to be rendered in the tree view function below//////
 //List component
 
 function ListComponent(props) {
-  const dispatch = useDispatch();
   const [accordionOpen, setAccordionOpen] = useState(false);
-  const onClickHandler = (parentTitle, parentId) => {
-    // dispatch(formActions.toggleFormOpen());
-    // dispatch(
-    //   formActions.chooseParent({
-    //     chosenParentTitle: parentTitle,
-    //     parentId: parentId,
-    //   })
-    // );
+  const [accordionData, setAccordionData] = useState(null);
+
+  const onClickHandler = async () => {
+    const {data:question_details} = await getDetails(props.question.question_id);
+    setAccordionData(question_details);
     setAccordionOpen(!accordionOpen);
   };
-  const id = props.id;
+  const id = props.question.question_id;
+  const title = props.question.title;
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col" key={`d-${id}`}>
       <li
-        className="flex flex-row justify-between bg-white py-2  pl-2 shadow shadow-slate-500"
+        className="flex flex-row justify-between bg-white px-2 py-2 shadow shadow-slate-500"
         key={id}
       >
-        <button className="text-sm hover:text-blue-500 md:text-lg">
+        <h1 key={`h1-${id}`} className="text-md py-2 pl-2 md:text-lg">
+          {id}: {title}
+        </h1>
+        <button
+          key={`but-${id}`}
+          className="text-sm hover:text-blue-500 md:text-lg"
+        >
           {props.children}
         </button>
-        <Button onClick={onClickHandler}> <ArrowDropDownIcon/></Button>
+        <Button onClick={onClickHandler} key={`but2-${id}`}>
+          {" "}
+          <ArrowDropDownIcon />
+        </Button>
       </li>
       <div
-        key={id}
-        className={`accordion-wrapper overflow-hidden py-2 pl-2 ${
+        key={`d2-${id}`}
+        className={`accordion-wrapper overflow-hidden pt-1 ${
           accordionOpen ? "max-h-[500px]" : "max-h-0"
         } duration-500 ease-in-out`}
       >
-        {accordionOpen ? <QuestionAccordion /> : null}
+        {accordionOpen ? <QuestionAccordion data={accordionData} /> : null}
       </div>
     </div>
   );
@@ -54,9 +60,7 @@ function QuestionList(props) {
     return (
       <ul>
         {filteredQuestions.map((question) => (
-          <ListComponent id={question.question_id} title={question.title}>
-            {question.title}
-          </ListComponent>
+          <ListComponent question={question}></ListComponent>
         ))}
       </ul>
     );
@@ -65,9 +69,7 @@ function QuestionList(props) {
     return (
       <ul>
         {allQuestions.map((question) => (
-          <ListComponent id={question.question_id} title={question.title}>
-            {question.title}
-          </ListComponent>
+          <ListComponent question={question} key={question.question_id} />
         ))}
       </ul>
     );

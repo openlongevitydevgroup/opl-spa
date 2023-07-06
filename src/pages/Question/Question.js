@@ -29,15 +29,13 @@ function Question(){
         <ModalT open={modalState} close={modalCloseHandler}>
             <ModalContent questionDetails={questionDetails} close={modalCloseHandler}/>
         </ModalT>
-
-
     </Fragment>
 
 )
 }
 export default Question; 
 export async function loader(){
-    const {data:recursiveData} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/questions/root`)
-    const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/questions/`)
+    const {data:recursiveData} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/root`)
+    const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/`)
     return {recursiveData, data}
 }

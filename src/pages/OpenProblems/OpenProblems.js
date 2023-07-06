@@ -3,7 +3,6 @@ import { useSelector,useDispatch } from 'react-redux';
 import { questionActions } from '../../state/Question/questionSlice';
 import ModalContent from './ProblemsInterface/ModalContent';
 import Statbar from './Statbar/Statbar';
-import axios from 'axios'
 import './Question.css'
 import SearchBar from './SearchBar/SearchBar';
 import QuestionInterface from './ProblemsInterface/QuestionsInterface';
@@ -34,8 +33,3 @@ function OpenProblems(){
 )
 }
 export default OpenProblems; 
-export async function loader(){
-    const {data:recursiveData} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/root`)
-    const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/`)
-    return {recursiveData, data}
-}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import QuestionAccordion from "./Accordion/QuestionAccordion";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import getDetails from "../functions/getDetails";
+import getDetails from "../../../utils/functions/getDetails";
 ///////Table view showing a list of questions to be rendered in the tree view function below//////
 //List component
 

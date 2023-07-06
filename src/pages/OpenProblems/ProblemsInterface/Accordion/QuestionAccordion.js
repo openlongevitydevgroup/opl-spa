@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import PublishOutlinedIcon from "@mui/icons-material/PublishOutlined";
 function QuestionAccordion(props) {
   const data = props.data;
@@ -23,7 +24,7 @@ function QuestionAccordion(props) {
         <p className="pl-2 text-sm">{description ? description : "None"}</p>
       </div>
       <table className="w-full py-2 text-sm">
-        <tr className="border bg-slate-800 text-sm text-white">
+        <tr className="border bg-slate-800 text-sm text-white px-2">
           <th>PARENT PROBLEM</th>
           <th>NO. RELATED QUESTIONS</th>
           <th>CATEGORIES</th>
@@ -32,9 +33,9 @@ function QuestionAccordion(props) {
           <td>
             {" "}
             {parent_data ? (
-              <a className="hover:text-blue-500 hover:underline" href="">
+              <Link to={`./${parent_data.question_id}`} className="hover:text-blue-500 hover:underline">
                 {parent_data.title}
-              </a>
+              </Link>
             ) : (
               "Top level open problem."
             )}

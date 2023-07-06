@@ -7,7 +7,7 @@ import { questionActions } from "../../state/Question/questionSlice";
 import { useEffect } from "react";
 import { Nav2 } from "../../components/UI/Nav/Nav";
 
-function RootQuestion() {
+function RootOpenProblems() {
   const dispatch = useDispatch(); 
   const viewWidth = useSelector(state => state.question.viewWidth)
   useEffect(()=>{ // Handle resizing of window and keep track of the inner width
@@ -41,4 +41,4 @@ function RootQuestion() {
   );
 }
 
-export default RootQuestion;
+export default RootOpenProblems;

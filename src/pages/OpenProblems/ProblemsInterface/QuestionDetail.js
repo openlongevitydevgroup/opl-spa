@@ -13,15 +13,6 @@ function Details(props){
         dispatch(formActions.toggleFormOpen())
         dispatch(formActions.chooseParent({chosenParentTitle:parentTitle, parentId:parentId}))
     }
-    // const modalOpenHandler = () => {
-    //     dispatch(questionActions.toggleModalOpen())
-    //     dispatch(questionActions.setModalDetails({modalDetails:{
-    //         title: question.title, 
-    //         description: question.description,
-    //         species: question.species,
-    //         citation: question.citation, 
-    //     }}))
-    // }
     return(
         <div>
             {formState.description && <p className="text-center text-sm md:text-base">{formState.description}</p>}

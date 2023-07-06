@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import QuestionAccordion from "./Accordion/QuestionAccordion";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -12,7 +13,9 @@ function ListComponent(props) {
   const [accordionData, setAccordionData] = useState(null);
 
   const onClickHandler = async () => {
-    const {data:question_details} = await getDetails(props.question.question_id);
+    const { data: question_details } = await getDetails(
+      props.question.question_id
+    );
     setAccordionData(question_details);
     setAccordionOpen(!accordionOpen);
   };
@@ -25,7 +28,10 @@ function ListComponent(props) {
         key={id}
       >
         <h1 key={`h1-${id}`} className="text-md py-2 pl-2 md:text-lg">
-          {id}: {title}
+          <Link className="hover:text-blue-500 hover:underline" to={`./${id}`}>
+            {" "}
+            {id}: {title}
+          </Link>
         </h1>
         <button
           key={`but-${id}`}

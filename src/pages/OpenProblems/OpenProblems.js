@@ -1,15 +1,15 @@
 import {Fragment} from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import { questionActions } from '../../state/Question/questionSlice';
-import ModalContent from './QuestionsInterface/ModalContent';
+import ModalContent from './ProblemsInterface/ModalContent';
 import Statbar from './Statbar/Statbar';
 import axios from 'axios'
 import './Question.css'
 import SearchBar from './SearchBar/SearchBar';
-import QuestionInterface from './QuestionsInterface/QuestionsInterface';
+import QuestionInterface from './ProblemsInterface/QuestionsInterface';
 import ModalT from '../../components/UI/Modal/Modal';
 
-function Question(){
+function OpenProblems(){
     const modalState = useSelector(state => state.question.modalOpen)
     const questionDetails = useSelector(state => state.question.modalDetails)
     const dispatch = useDispatch()
@@ -33,7 +33,7 @@ function Question(){
 
 )
 }
-export default Question; 
+export default OpenProblems; 
 export async function loader(){
     const {data:recursiveData} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/root`)
     const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/`)

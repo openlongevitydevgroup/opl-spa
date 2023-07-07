@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { formActions } from "../../../state/Question/questionFormSlice";
 // import { questionActions } from "../../../state/Question/questionSlice";
 import { Fragment } from "react";
+import getDetails from "../../../utils/functions/getDetails";
 
 function Details(props){
     const question = props.question

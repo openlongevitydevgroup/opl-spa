@@ -1,18 +1,43 @@
-import { useLoaderData } from "react-router-dom"
-function Details(){
-    const {data} = useLoaderData(); 
-    const openProblemDetails = data.open_problem; 
-    const parentData = data.parent_data;
-    return(
-        <div>
-            <hr className="border-1 border-slate-500"/>
-            <div className="title pt-4">
-                <h1>Open Problem: </h1>
-            </div>
+import { useLoaderData } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import Classification from "./InformationInterface/Classification";
+import References from "./InformationInterface/References";
+import RelatedProblems from "./InformationInterface/RelatedProblems";
+function Details() {
+  const { data } = useLoaderData();
+  const openProblemDetails = data.open_problem;
+  const id = openProblemDetails.question_id;
+  const title = openProblemDetails.title;
 
-        </div>
-    )
+  // Select the title of the open problem to use as the anchor for the scrollToView function
+  const ref = useRef(null);
+  const scrollTo = () => {
+    ref.current?.scrollIntoView({ behaviour: "smooth" });
+  };
+  useEffect(() => {
+    scrollTo();
+  }, []);
+
+  return (
+    <div>
+      <hr className="border-1 border-theme-blue" />
+      <div ref={ref} className="title flex flex-row pt-8 ">
+        <h1 className="text-lg md:text-2xl">
+          Open Problem {id}: <u>{title}</u>{" "}
+        </h1>
+      </div>
+      <div className="details py-2">
+      <Classification/>
+      <RelatedProblems/>
+      <References/>
+      </div>
+      <hr className="border-1 border-theme-blue mt-10" />
+      <div className="research-and-proposals">
+
+      </div>
+
+    </div>
+  );
 }
 
-
-export default Details
+export default Details;

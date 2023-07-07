@@ -5,6 +5,7 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import { PropTypes } from "prop-types";
 import QuestionDetail from "./QuestionDetail";
+import AccordionContent from "./Accordion/AccordionContent";
 
 //Transitions for the hierarchical list component
 function TransitionComponent(props) {

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 // import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { Fragment, useState} from "react";
+import { Fragment, useState } from "react";
 import { questionActions } from "../../../state/Question/questionSlice";
 function ListCheckBox(props) {
   const { name, id } = props;
@@ -74,9 +74,9 @@ function DrawerTailwind() {
   if (viewWidthState < 450) {
     return (
       <div
-        className={`sidebar py-2 bg-grey-100 ${
+        className={`sidebar bg-grey-100 py-2 ${
           drawerState ? `max-h-[500px]` : "max-h-0"
-        } overflow-hidden bg-white text-center shadow transition-max-height duration-300 ease-in-out mt-1`}
+        } mt-1 overflow-hidden bg-white text-center shadow transition-max-height duration-300 ease-in-out`}
       >
         <FilterContent />
       </div>
@@ -84,9 +84,9 @@ function DrawerTailwind() {
   } else {
     return (
       <div
-        className={`sidebar py-2 bg-grey-100 h-full transition-width ${
+        className={`sidebar bg-grey-100 h-full py-2 transition-width ${
           drawerState ? "w-1/5" : "w-0"
-        } bg-white text-center shadow duration-300 ease-in-out mt-1`}
+        } mt-1 bg-white text-center shadow duration-300 ease-in-out`}
       >
         {drawerState ? <FilterContent /> : null}
       </div>

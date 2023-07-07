@@ -32,10 +32,10 @@ function RootOpenProblems() {
           </h1>
         </Container>
       </section>
-      <main className="w-full p-8">
-        <Container>
+      <main className="w-full p-14 ">
+        {/* <Container> */}
           <Outlet />
-        </Container>
+        {/* </Container> */}
       </main>
     </Fragment>
   );

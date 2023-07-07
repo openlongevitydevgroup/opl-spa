@@ -25,7 +25,8 @@ module.exports = {
         
       }, 
       colors: {
-        'bg-grey': '#f5f5f5'
+        'bg-grey': '#f5f5f5',
+        "theme-blue": "#4675CE"
       }
     },
 

@@ -13,6 +13,7 @@ function TableRow(props){
 function Classification() {
   const {data} = useLoaderData();
   const openProblem = data.open_problem;
+  console.log(openProblem)
   const parentData = data.parent_data;
   
   return (
@@ -47,6 +48,10 @@ function Classification() {
             <TableRow>
               <th className="pl-4">Compounds</th>
               <td>-</td>
+            </TableRow>
+            <TableRow>
+              <th className="pl-4">Submitted by</th>
+              <td>{openProblem['contact'] ? openProblem['contact'] : "-"}</td>
             </TableRow>
 
           </tbody>

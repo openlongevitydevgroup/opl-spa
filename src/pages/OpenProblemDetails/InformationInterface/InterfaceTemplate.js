@@ -1,4 +1,5 @@
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Button } from "@mui/material";
 import { useState } from "react";
 function InterfaceTemplate(props) {
@@ -14,7 +15,7 @@ function InterfaceTemplate(props) {
       <div className="header flex flex-row justify-between">
         <h1 className="py-2 text-lg text-theme-blue md:text-2xl">{title}</h1>
         <Button onClick={onClickHandler}>
-          <IndeterminateCheckBoxIcon />
+            {openSection ?<IndeterminateCheckBoxIcon /> : <AddBoxIcon />}
         </Button>
       </div>
       <hr className="py-2" />

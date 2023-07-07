@@ -1,20 +1,32 @@
-import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
-import { Button } from '@mui/material';
+import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
+import { Button } from "@mui/material";
+import { useState } from "react";
+function InterfaceTemplate(props) {
+  const title = props.title;
 
-function InterfaceTemplate(props){
-    const title = props.title; 
-    return (
-        <div className="classification w-full mt-8 border border-gray-100 shadow-lg bg-gray-100 px-8 py-4 ">
-            <div className="header flex flex-row justify-between">
-                <h1 className="text-lg md:text-2xl text-theme-blue">{title}</h1>
-                <Button><IndeterminateCheckBoxIcon/></Button>
-            </div>
-            <div>
-            {props.children}
+  // States for button
+  const [openSection, setOpenSection] = useState(true);
+  const onClickHandler = () => {
+    setOpenSection(!openSection);
+  };
+  return (
+    <div className="classification mt-8 w-full border border-gray-100 bg-gray-100 px-8 py-4 shadow-lg ">
+      <div className="header flex flex-row justify-between">
+        <h1 className="py-2 text-lg text-theme-blue md:text-2xl">{title}</h1>
+        <Button onClick={onClickHandler}>
+          <IndeterminateCheckBoxIcon />
+        </Button>
+      </div>
+      <hr className="py-2" />
+      <div
+        className={`accordion w-full py-2 ${
+          openSection ? "max-h-[300px]" : "max-h-[0px] text-white"
+        } overflow-hidden transition-all duration-500 ease-in-out`}
+      >
+        {props.children}
+      </div>
+    </div>
+  );
+}
 
-            </div>
-        </div>
-    )
-};
-
-export default InterfaceTemplate; 
+export default InterfaceTemplate;

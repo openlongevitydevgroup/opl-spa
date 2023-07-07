@@ -8,6 +8,7 @@ function Details() {
   const openProblemDetails = data.open_problem;
   const id = openProblemDetails.question_id;
   const title = openProblemDetails.title;
+  const children = openProblemDetails.children;
 
   // Select the title of the open problem to use as the anchor for the scrollToView function
   const ref = useRef(null);
@@ -28,7 +29,7 @@ function Details() {
       </div>
       <div className="details py-2">
       <Classification/>
-      <RelatedProblems/>
+      <RelatedProblems children={children}/>
       <References/>
       </div>
       <hr className="border-1 border-theme-blue mt-10" />

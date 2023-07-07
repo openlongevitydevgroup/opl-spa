@@ -17,8 +17,8 @@ function Classification() {
   
   return (
     <InterfaceTemplate title={"Classification"}>
-      <div className="classification-table w-full pt-6 py-4">
-        <table className="border border-1 p-4 w-full text-left">
+      <div className="classification-table">
+        <table className="border border-1 p-2 mt-2 w-full text-left">
           <tbody>
           <TableRow>
               <th className="w-2/5 pl-4">ID</th>

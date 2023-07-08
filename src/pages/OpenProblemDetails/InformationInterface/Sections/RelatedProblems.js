@@ -1,4 +1,4 @@
-import InterfaceTemplate from "./InterfaceTemplate";
+import InterfaceTemplate from "../InterfaceTemplate";
 import { Link } from "react-router-dom";
 function RelatedProblems(props) {
   const directChildren = props.children;

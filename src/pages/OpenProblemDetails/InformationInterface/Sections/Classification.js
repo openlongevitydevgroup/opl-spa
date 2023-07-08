@@ -1,4 +1,4 @@
-import InterfaceTemplate from "./InterfaceTemplate";
+import InterfaceTemplate from "../InterfaceTemplate";
 import { useLoaderData } from "react-router-dom";
 function TableRow(props){
   return(
@@ -13,8 +13,7 @@ function TableRow(props){
 function Classification() {
   const {data} = useLoaderData();
   const openProblem = data.open_problem;
-  console.log(openProblem)
-  const parentData = data.parent_data;
+  // const parentData = data.parent_data;
   
   return (
     <InterfaceTemplate title={"Classification"}>

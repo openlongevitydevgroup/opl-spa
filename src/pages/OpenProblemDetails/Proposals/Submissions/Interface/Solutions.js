@@ -5,7 +5,7 @@ function Solutions() {
       <h1 className="py-2 pb-4 text-lg text-theme-blue md:text-xl">
         Submitted Solutions
       </h1>
-      <div className="submitted-list border-y border-theme-blue py-2">
+      <div className="submitted-list border-y py-2 border-theme-blue">
         <SolutionsComponent/>
       </div>
     </>

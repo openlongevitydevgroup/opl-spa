@@ -1,4 +1,4 @@
-import InterfaceTemplate from "./InterfaceTemplate";
+import InterfaceTemplate from "../InterfaceTemplate";
 function References(){
     return(
         <InterfaceTemplate title={"References"}>

@@ -27,9 +27,9 @@ function StatbarButtonGroup() {
   return (
     <ToggleButtonGroup size="small" className="w-1/4">
       <TooltipWrapper message="Show filter menu">
-      <ToggleButton value="filter" onClick={toggleFilterHandler} size="small" className={`${isMobileState ? 'w-1/3' : null}`}>
+      {/* <ToggleButton value="filter" onClick={toggleFilterHandler} size="small" className={`${isMobileState ? 'w-1/3' : null}`}>
             <FilterAltIcon />
-          </ToggleButton>
+          </ToggleButton> */}
       </TooltipWrapper>
       <TooltipWrapper message="View questions as flat list">
         <ToggleButton

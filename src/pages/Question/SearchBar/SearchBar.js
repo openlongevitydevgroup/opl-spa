@@ -33,7 +33,7 @@ function SearchBar(props){
     
     return(
     <Form onSubmit={searchFunction}>
-            <TextField className='z-0' name='search-query' label="Search for a question" onChange={searchOnChange} fullWidth={true} sx={STYLES} size='small' variant='filled' margin='normal'/>
+            <TextField className='z-0' name='search-query' label="Search for an open problem" onChange={searchOnChange} fullWidth={true} sx={STYLES} size='small' variant='filled' margin='normal'/>
     </Form>
 
     )

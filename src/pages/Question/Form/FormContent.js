@@ -17,7 +17,7 @@ function FormContent() {
       />
       <TextArea
         id="description"
-        label="Please add a description to your question for clarity. Required."
+        label="Please add a description to your problem for clarity. Required."
         labelText="Description:"
         name="description"
         rows={4}

@@ -33,7 +33,7 @@ function Statbar(props) {
             {isMobileState ? (
               <FileUploadIcon className="h-full w-full" />
             ) : (
-              "Submit Question"
+              "Submit open problem"
             )}
           </button>
         </div>

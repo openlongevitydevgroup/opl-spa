@@ -28,7 +28,7 @@ function Details(props){
 
     <div className="buttons flex flex-row py-2">
         {/* <Button onClick={modalOpenHandler} size={viewWidthState < 450 ? 'small' : 'medium'}>Question details</Button> */}
-        <Button onClick={() => {onSubmitHandler(question.title, question.id)}} size='small'> Submit a subquestion</Button>
+        <Button onClick={() => {onSubmitHandler(question.title, question.id)}} size='small'> Add a sub-problem</Button>
     </div>
         </div>
     ) 

@@ -56,7 +56,7 @@ function QuestionAccordion(props) {
         <p className="pl-2 text-sm">{contact ? contact : "-"}</p>
       </div>
       <div className="buttons m-auto">
-        <Button onClick={() => {onClickHandler(title, id)}}> Submit a subquestion
+        <Button onClick={() => {onClickHandler(title, id)}}> Add a sub-problem
         </Button>
       </div>
     </div>

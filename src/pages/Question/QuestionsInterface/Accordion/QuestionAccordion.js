@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import PublishOutlinedIcon from "@mui/icons-material/PublishOutlined";
+// import PublishOutlinedIcon from "@mui/icons-material/PublishOutlined";
 import { useDispatch } from "react-redux";
 import { formActions } from "../../../../state/Question/questionFormSlice";
 function QuestionAccordion(props) {
@@ -55,8 +55,7 @@ function QuestionAccordion(props) {
         <p className="pl-2 text-sm">{contact ? contact : "-"}</p>
       </div>
       <div className="buttons m-auto">
-        <Button onClick={onClickHandler}> Submit a subquestion
-          <PublishOutlinedIcon />
+        <Button onClick={() => onClickHandler(parent_data.title, parent_data.question_id)}> Submit a subquestion
         </Button>
       </div>
     </div>

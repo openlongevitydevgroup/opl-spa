@@ -6,6 +6,7 @@ function QuestionAccordion(props) {
   const dispatch = useDispatch();
   const data = props.data;
   const {
+    title,
     question_id: id,
     description,
     children,
@@ -55,7 +56,7 @@ function QuestionAccordion(props) {
         <p className="pl-2 text-sm">{contact ? contact : "-"}</p>
       </div>
       <div className="buttons m-auto">
-        <Button onClick={() => {onClickHandler(parent_data.title, parent_data.question_id)}}> Submit a subquestion
+        <Button onClick={() => {onClickHandler(title, id)}}> Submit a subquestion
         </Button>
       </div>
     </div>

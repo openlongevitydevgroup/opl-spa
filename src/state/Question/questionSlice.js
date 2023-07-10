@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // This slice and these actions are related to how the quetsions are viewed including search results from the search bar.
 
 const DEFAULT_STATE = {
-  viewType: "tree",
+  viewType: "table",
   searchQuery: "",
   filteredResults: null,
   filterOpen: false,

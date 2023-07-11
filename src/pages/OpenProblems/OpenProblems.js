@@ -7,7 +7,7 @@ import './Question.css'
 import SearchBar from './SearchBar/SearchBar';
 import QuestionInterface from './ProblemsInterface/QuestionsInterface';
 import ModalT from '../../components/UI/Modal/Modal';
-
+import axios from 'axios';
 function OpenProblems(){
     const modalState = useSelector(state => state.question.modalOpen)
     const questionDetails = useSelector(state => state.question.modalDetails)
@@ -32,9 +32,5 @@ function OpenProblems(){
 
 )
 }
-export default Question; 
-export async function loader(){
-    const {data:recursiveData} = await axios.get(`https://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/root`)
-    const {data} = await axios.get(`https://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/`)
-    return {recursiveData, data}
-}
+export default OpenProblems; 
+

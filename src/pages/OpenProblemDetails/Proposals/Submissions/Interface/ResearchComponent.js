@@ -9,7 +9,7 @@ function ResearchComponent(){
         <hr />
         
         <div className="post bg-gray-100">
-            <h1 className="text-base md:text-lg">Title: Title</h1>
+            <h1 className="text-base md:text-lg">Title</h1>
             <p className="text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi quo itaque et omnis nulla! Culpa tenetur magni assumenda, maiores, quae nesciunt similique quia et sequi enim dolorem libero accusantium. Quis?</p>
         </div>
         <div className="sources bg-gray-100 py-2">

@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const DEFAULT_STATE = {
   researchSolutionsView: "Research",
+  submission:{
+    description: "", 
+    references: [],
+    openProblem:null,
+  }
 };
 
 const reducers = {
@@ -13,6 +18,17 @@ const reducers = {
       state.researchSolutionsView = "Solution";
     }
   },
+    addReference(state, actions){
+      state.submission.references.push({type: "", ref: "", id:actions.payload.id})
+    }, 
+    removeReference(state, actions){
+      const filtered = state.submission.references.filter((ref) => ref.id !== actions.payload.id); 
+      state.submission.references = filtered;
+    },
+    setFormValue(state, actions){
+      const id = actions.payload.id;
+      const value = actions.payload.value;
+    }
 };
 
 const detailsSlice = createSlice({

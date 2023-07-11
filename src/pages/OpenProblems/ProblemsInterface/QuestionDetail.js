@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { formActions } from "../../../state/Question/questionFormSlice";
 // import { questionActions } from "../../../state/Question/questionSlice";
 import { Fragment } from "react";
+import getDetails from "../../../utils/functions/getDetails";
 
 function Details(props){
     const question = props.question
@@ -13,15 +14,6 @@ function Details(props){
         dispatch(formActions.toggleFormOpen())
         dispatch(formActions.chooseParent({chosenParentTitle:parentTitle, parentId:parentId}))
     }
-    // const modalOpenHandler = () => {
-    //     dispatch(questionActions.toggleModalOpen())
-    //     dispatch(questionActions.setModalDetails({modalDetails:{
-    //         title: question.title, 
-    //         description: question.description,
-    //         species: question.species,
-    //         citation: question.citation, 
-    //     }}))
-    // }
     return(
         <div>
             {formState.description && <p className="text-center text-sm md:text-base">{formState.description}</p>}

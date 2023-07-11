@@ -7,7 +7,6 @@ async function getDetails(id){
     }catch{
         throw new Error(`Could not get details for this entry.`)
     }
-
 }
 
 

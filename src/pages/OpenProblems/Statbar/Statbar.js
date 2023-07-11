@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import StatbarButtonGroup from "./StatbarButtonGroup";
-import scrollToView from "../functions/scrollToView";
+import scrollToView from "../../../utils/functions/scrollToView";
 // This functon is for the statbar that allows the user to select whether to view the questions as a table or as a tree view instead
 
 function Statbar(props) {

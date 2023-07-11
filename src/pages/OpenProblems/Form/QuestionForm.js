@@ -2,7 +2,6 @@ import { Form } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
 import { Button } from "@mui/material";
-import styles from "./QuestionForm.module.css";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import FormContent from "./FormContent";
 import ModalT from "../../../components/UI/Modal/Modal";
@@ -10,6 +9,7 @@ import sendRequest from "./functions/sendRequest";
 import validateForm from "./functions/validateForm";
 import ReCAPTCHA from "react-google-recaptcha";
 import verifyToken from "./functions/verifyToken";
+
 function QuestionForm() {
   // States for recaptcha
   const captchaRef = useRef(null);
@@ -19,7 +19,7 @@ function QuestionForm() {
   const formModalState = useSelector((state) => state.form.submitModalOpen);
   const validationState = useSelector((state) => state.validation);
 
-  //Scroll to element on load;
+  // //Scroll to element on load;
   const ref = useRef(null);
   const scrollTo = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -106,7 +106,7 @@ function QuestionForm() {
           sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
           ref={captchaRef}
         />
-        <div className={styles.buttons}>
+        <div>
           <Button type="submit"> Submit </Button>
           <Button onClick={exitButtonHandler}>Exit</Button>
         </div>

@@ -5,13 +5,13 @@ const submit = async (data, dispatch) => {
     const date = new Date();
     const requestData = {
         full_text: data.description,
-        type: data.type, 
         date: date,
+        first_name: data.firstName, 
+        last_name: data.lastName, 
+        affiliation: data.affiliation,
         open_problem: openProblemId, 
         references: JSON.stringify(data.references), 
         is_active: false,
-        type: data.type,
-
     }
     try{
         const response = await axios.post(`http://${process.env.REACT_APP_POST_REQUEST}/api/posts/${openProblemId}/submit`, requestData); 

@@ -15,6 +15,7 @@ function Details() {
   const scrollTo = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
+  //Onload scroll to details and set the open problem id in redux
   useEffect(() => {
     scrollTo();
   }, []);
@@ -34,6 +35,7 @@ function Details() {
       <ProposalHeader/>
       <div className="research-and-proposals">
         <Proposals />
+        
       </div>
     </div>
   );

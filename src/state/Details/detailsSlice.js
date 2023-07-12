@@ -1,23 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const DEFAULT_STATE = {
-  researchSolutionsView: "Research",
   submission:{
     description: "", 
     references: [],
+    firstName: "",
+    lastName:"",
+    affiliation:"",
     openProblem:null,
+  }, 
+  modal: false,
+  submitStatus: {
+    title: "", 
+    message:"", 
+    status:""
   }
 };
 
 const reducers = {
-  changeView(state, actions) {
-    if (actions.payload.view === "Research") {
-      state.researchSolutionsView = "Research";
-    }
-    if (actions.payload.view === "Solution") {
-      state.researchSolutionsView = "Solution";
-    }
-  },
     addReference(state, actions){
       state.submission.references.push({type: "", ref: "", id:actions.payload.id})
     }, 
@@ -25,9 +25,29 @@ const reducers = {
       const filtered = state.submission.references.filter((ref) => ref.id !== actions.payload.id); 
       state.submission.references = filtered;
     },
+    setReference(state, actions){
+      const {id, key, value} = actions.payload;
+      const reference = state.submission.references.find((ref) => ref.id === id); 
+      reference[key] = value; 
+      state.submission.references.map((ref) => ref.id === reference.id ? ref = reference : ref)     
+    },
     setFormValue(state, actions){
       const id = actions.payload.id;
       const value = actions.payload.value;
+      state.submission[id] = value;
+    }, 
+    setOpenProblem(state, actions){
+      state.submission.openProblem = actions.payload.id
+    },
+    toggleModalOpen(state){
+      state.modal = true
+    }, 
+    toggleModalClose(state){
+      state.modal = false
+    }, 
+    setSubmitState(state,actions){
+      const {title, message, status} = actions.payload; 
+      state.submitStatus = {title,message,status}
     }
 };
 

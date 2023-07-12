@@ -1,4 +1,3 @@
-import { formValidationActions } from "../../../state/formValidationSlice"
 const validation = (data) => {
     const text = data.description
     return new Promise((resolve, reject) => {
@@ -6,7 +5,7 @@ const validation = (data) => {
             console.log("Not empty")
             resolve();
         }else{
-            return reject();
+            reject(new Error("Empty fields"));
         }
     })
 }

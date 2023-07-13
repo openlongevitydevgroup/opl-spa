@@ -8,7 +8,7 @@ function ContactInformation() {
     dispatch(detailsActions.setFormValue({id, value}))
   }
   return (
-    <div className="contacts w-10/12 pt-2 ">
+    <div className="contacts w-8/12 pt-2 ">
       <h1 className="py-2 text-lg text-theme-blue font-semibold">User Information (optional):</h1>
       <p className="py-1 px-6 text-sm md:text-base"> This will be visible on your post.</p>
       <div className="fname-lname flex flex-row justify-between px-6 py-2">

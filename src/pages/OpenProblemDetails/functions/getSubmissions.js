@@ -1,9 +1,15 @@
 import axios from "axios"
-async function getSubmissions(id){
-    const openProblemId = id; 
+async function getSubmissions(id, setStateFunction){
+    const openProblemId = Number(id); 
     try{
-        await axios.get(`http://${}`)
-    }catch{}
+        // CHANGE TO HTTPS 
+        const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/posts/${openProblemId}`)
+        return data
+    }catch(error){
+        return error;
+    }
 }
+
+
 
 export default getSubmissions

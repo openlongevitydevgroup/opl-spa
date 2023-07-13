@@ -14,12 +14,15 @@ const DEFAULT_STATE = {
     title: "", 
     message:"", 
     status:""
+  }, 
+  postSubmissions:{
+    length:0,
   }
 };
 
 const reducers = {
     addReference(state, actions){
-      state.submission.references.push({type: "", ref: "", id:actions.payload.id})
+      state.submission.references.push({type: "Link", ref: "", id:actions.payload.id})
     }, 
     removeReference(state, actions){
       const filtered = state.submission.references.filter((ref) => ref.id !== actions.payload.id); 
@@ -36,6 +39,12 @@ const reducers = {
       const value = actions.payload.value;
       state.submission[id] = value;
     }, 
+    clearFormValues(state){
+      state.submission.description = DEFAULT_STATE.submission.description;
+      state.submission.firstName = DEFAULT_STATE.submission.firstName; 
+      state.submission.lastName = DEFAULT_STATE.submission.lastName; 
+      state.submission.affiliation = DEFAULT_STATE.submission.affiliation;
+    },
     setOpenProblem(state, actions){
       state.submission.openProblem = actions.payload.id
     },
@@ -48,7 +57,11 @@ const reducers = {
     setSubmitState(state,actions){
       const {title, message, status} = actions.payload; 
       state.submitStatus = {title,message,status}
+    }, 
+    setPostsLength(state, actions){
+      state.postSubmissions.length = actions.payload.length;
     }
+    
 };
 
 const detailsSlice = createSlice({

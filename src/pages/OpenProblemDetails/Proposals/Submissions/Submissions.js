@@ -1,6 +1,5 @@
 import Solutions from "./Interface/Solutions";
 function Submissions() {
-
   return (
         <>
         <hr className="border-theme-blue" />

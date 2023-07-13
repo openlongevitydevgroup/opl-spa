@@ -10,7 +10,7 @@ const submit = async (data, dispatch) => {
         last_name: data.lastName, 
         affiliation: data.affiliation,
         open_problem: openProblemId, 
-        references: JSON.stringify(data.references), 
+        submitted_references: JSON.stringify({...data.references}), 
         is_active: false,
     }
     try{

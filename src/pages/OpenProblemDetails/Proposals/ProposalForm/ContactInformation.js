@@ -1,13 +1,14 @@
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { detailsActions } from "../../../../state/Details/detailsSlice";
 function ContactInformation() {
   const dispatch = useDispatch(); 
+  const {firstName, lastName, affiliation} = useSelector((state) => state.details.submission)
   const onChangeHandler = (e,id) => {
     const value = e.target.value; 
     dispatch(detailsActions.setFormValue({id, value}))
   }
   return (
-    <div className="contacts w-7/12 pt-2">
+    <div className="contacts w-10/12 pt-2 ">
       <h1 className="py-2 text-lg text-theme-blue font-semibold">User Information (optional):</h1>
       <p className="py-1 px-6 text-sm md:text-base"> This will be visible on your post.</p>
       <div className="fname-lname flex flex-row justify-between px-6 py-2">
@@ -17,14 +18,14 @@ function ContactInformation() {
           placeholder="First name"
           id="firstName"
           onChange={(e) => onChangeHandler(e,"firstName")}
-        ></input>
+        value={firstName}></input>
         <input
           className="border border-theme-blue  p-1 w-6/12 text-sm ml-2"
           type="text"
           placeholder="Last name"
           id="lastName"
           onChange={(e) => onChangeHandler(e, "lastName")}
-        ></input>
+        value={lastName}></input>
       </div>
       <div className="affiliation px-6 py-2">
         <input
@@ -33,7 +34,7 @@ function ContactInformation() {
           placeholder="Affiliation"
           id="affiliation"
           onChange={(e)=> onChangeHandler(e,"affiliation")}
-        ></input>
+        value={affiliation}></input>
       </div>
     </div>
   );

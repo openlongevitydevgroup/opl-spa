@@ -14,7 +14,7 @@ function SourcesInput() {
   };
 
   return (
-    <div className="sources-input">
+    <div className="sources-input pt-6">
       <div className="sources-input title">
         <h1 className="text-lg font-semibold text-theme-blue">Add sources (optional):</h1>
       </div>

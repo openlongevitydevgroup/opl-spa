@@ -1,8 +1,14 @@
 import { useDispatch } from "react-redux";
 import { detailsActions } from "../../../../../state/Details/detailsSlice";
+import { useState } from "react";
+
 function SourcesForm(props) {
   const id = props.id;
   const dispatch = useDispatch();
+
+  //Local state for singular input 
+  const [selected, setSelected] = useState("Link")
+  const [input, setInput] = useState("")
   const removeHandler = (e) => {
     e.preventDefault();
     dispatch(detailsActions.removeReference({ id: id }));
@@ -11,7 +17,14 @@ function SourcesForm(props) {
     const value = e.target.value;
     const referenceKey = key;
     dispatch(detailsActions.setReference({ id, key: referenceKey, value }));
+    if(referenceKey === "type"){
+      setSelected(value);
+    }else{
+      setInput(value);
+    }
+    
   };
+
 
   return (
     <div key={id} className="references flex flex-row py-2">
@@ -20,7 +33,7 @@ function SourcesForm(props) {
         key={id + "sel"}
         name="type"
         className="mr-4 border border-theme-blue px-4"
-        defaultValue="Link"
+        value={selected}
       >
         <option key={id + "opt1"} value="Link">
           Link
@@ -34,6 +47,7 @@ function SourcesForm(props) {
         key={id + "inp"}
         type="text"
         className="reference-input w-full border border-theme-blue px-2"
+        value={input}
       ></input>
       <button
         key={id + "btn"}

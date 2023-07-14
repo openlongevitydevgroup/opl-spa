@@ -5,9 +5,8 @@ import ModalContent from './ProblemsInterface/ModalContent';
 import Statbar from './Statbar/Statbar';
 import './Question.css'
 import SearchBar from './SearchBar/SearchBar';
-import QuestionInterface from './ProblemsInterface/QuestionsInterface';
+import ProblemsInterface from './ProblemsInterface/ProblemsInterface';
 import ModalT from '../../components/UI/Modal/Modal';
-import axios from 'axios';
 function OpenProblems(){
     const modalState = useSelector(state => state.question.modalOpen)
     const questionDetails = useSelector(state => state.question.modalDetails)
@@ -24,7 +23,7 @@ function OpenProblems(){
         </div>
         <SearchBar/>
         <Statbar className='statbar'/>
-        <QuestionInterface/>
+        <ProblemsInterface/>
         <ModalT open={modalState} close={modalCloseHandler}>
             <ModalContent questionDetails={questionDetails} close={modalCloseHandler}/>
         </ModalT>

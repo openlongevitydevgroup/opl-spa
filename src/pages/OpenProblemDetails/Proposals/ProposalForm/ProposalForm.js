@@ -54,15 +54,24 @@ function ProposalForm() {
   return (
     <div className="proposal-form flex flex-col px-2 py-2 ">
       <h1 className="title m-auto pb-4 text-lg font-semibold text-theme-blue">
-        Submit an answer!
+        Your answer
       </h1>
       <form>
+        <div className="text-input py-2">
         <TextInput />
-        <SourcesInput />
-        <ContactInformation />
-        <div className="submit-btn flex justify-center px-6">
-          <Button onClick={onClickHandler}>Submit</Button>
         </div>
+        <div className="submit-btn flex justify-center px-6 py-2 pb-4">
+          <Button onClick={onClickHandler} variant="contained">Post your answer</Button>
+        </div>
+        <hr />
+        <div className="sources-information">
+        <SourcesInput />
+        </div>
+        <div className="contact-info">
+        <ContactInformation />
+
+        </div>
+
       </form>
       {modalState && (
         <ModalT open={modalState}>

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../../state/Question/questionSlice";
 import { useEffect } from "react";
 import { Nav2 } from "../../components/UI/Nav/Nav";
-
+import Footer from "./Footer/Footer";
 function RootOpenProblems() {
   const dispatch = useDispatch(); 
   const viewWidth = useSelector(state => state.question.viewWidth)
@@ -23,8 +23,10 @@ function RootOpenProblems() {
   }, [dispatch, viewWidth])
   return (
     <Fragment>
+      <div className="nav h-3/12">
       <Nav2 />
-      <section>
+      </div>
+      <section className="h-6/12 px-12">
         <Container className="root-container">
           <h1 className="py-2 text-center text-3xl md:text-5xl">
             {" "}
@@ -32,11 +34,12 @@ function RootOpenProblems() {
           </h1>
         </Container>
       </section>
-      <main className="w-full p-14 ">
-        {/* <Container> */}
+      <main className={`w-full ${viewWidth > 450 ? "px-40" : "px-2"} pb-4 py-6`}>
           <Outlet />
-        {/* </Container> */}
       </main>
+      <footer className="h-3/12">
+        <Footer/>
+      </footer>
     </Fragment>
   );
 }

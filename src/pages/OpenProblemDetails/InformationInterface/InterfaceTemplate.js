@@ -11,7 +11,7 @@ function InterfaceTemplate(props) {
     setOpenSection(!openSection);
   };
   return (
-    <div className="classification mt-8 w-full border border-gray-100 bg-gray-100 px-8 py-4 shadow-lg ">
+    <div className="classification mt-8 w-full border border-gray-100 bg-white px-8 py-2 shadow-lg ">
       <div className="header flex flex-row justify-between">
         <h1 className="py-2 text-lg text-theme-blue md:text-2xl">{title}</h1>
         <Button onClick={onClickHandler}>

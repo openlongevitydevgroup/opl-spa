@@ -39,7 +39,7 @@ function AccordionContent(props) {
                   {parent_data.title}
                 </Link>
               ) : (
-                "Top level open problem."
+                "None."
               )}
             </td>
             <td className="underline hover:bg-sky-200">

@@ -5,7 +5,8 @@ function setUserName(nameObj){
         const userName = "Anonymous";
         return userName
     }else{
-        const userName = `${firstName} ${lastName} ${affiliation ? "- "+affiliation : null}`
+        const userName = `${firstName} ${lastName} ${affiliation ? "- "+affiliation : ""}`
+        
         return userName
     }
 }

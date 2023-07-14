@@ -60,7 +60,7 @@ function ListComponent(props) {
         {accordionOpen ? 
         <>
                 <QuestionAccordion data={accordionData} />
-        <div className="flex fkex-row justify-center">
+        <div className="flex flex-row justify-center py-4 divide-y-2">
             <ButtonGroupComponent parent={{id,title}} postData={postData}/>
         </div>
         </>

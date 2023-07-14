@@ -1,12 +1,9 @@
 import { useLoaderData } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useRef } from "react";
 import InformationSection from "./InformationInterface/InformationSection";
 import ProposalHeader from "./Proposals/ProposalHeader";
 import Proposals from "./Proposals/Proposals";
-import { detailsActions } from "../../state/Details/detailsSlice";
 function Details() {
-  const dispatch = useDispatch();
   const { data } = useLoaderData();
   const openProblemDetails = data.open_problem;
   const id = openProblemDetails.question_id;
@@ -15,14 +12,6 @@ function Details() {
   
   // Select the title of the open problem to use as the anchor for the scrollToView function
   const ref = useRef(null);
-  const scrollTo = () => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  //Onload scroll to details and set the open problem id in redux
-  useEffect(() => {
-    dispatch(detailsActions.setOpenProblem({id}))
-    scrollTo();
-  }, [dispatch]);
 
   return (
     <div>

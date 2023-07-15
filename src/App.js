@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 // import RootLayout from "./pages/Root/RootLayout";
 // import Home from './pages/Home/Home'
 // import About from './pages/About/About'
@@ -10,6 +10,7 @@ import getDetails from "./utils/functions/getDetails";
 import './index.css'
 
 const router = createBrowserRouter([
+  {path: '/', element: <Navigate to={"open-problems"}/>},
   {path: 'open-problems', element:<RootOpenProblems/>,children:[
     {index: true, element: <OpenProblems/>, loader: getOpenProblems},
     {path:':id', element:<Details/>, loader:({params}) => getDetails(params.id)},
@@ -18,6 +19,8 @@ const router = createBrowserRouter([
 // {path: '/', element: <RootLayout/> ,children:[
 //   {path: '', index: true, element: <Home/>},
 //   {path: 'About', element: <About/>}]}
+
+
 
 function App() {
   return (

@@ -13,7 +13,7 @@ function SolutionsComponent(props) {
     // Use effect to get data for the post references
     useEffect(() => {
         const fetchPostDetails = async () => {
-            const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/posts/get/${id}`)
+            const {data} = await axios.get(`https://${process.env.REACT_APP_DB_REQUEST}/api/posts/get/${id}`)
             setReferences(data.references)
         }
         fetchPostDetails();

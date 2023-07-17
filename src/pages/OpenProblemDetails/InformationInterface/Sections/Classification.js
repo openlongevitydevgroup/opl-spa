@@ -43,7 +43,7 @@ function Classification() {
             </TableRow>
             <TableRow>
               <th className="pl-4">Theory</th>
-              <td>{theoryState && theoryState.map((theory) => <p key={theory.annotation_id}>{theory.theory.theory_title}</p>)}</td>
+              <td>{theoryState ? theoryState.map((theory) => <p key={theory.annotation_id}>{theory.theory.theory_title}</p>) : '-'}</td>
             </TableRow>
             <TableRow>
               <th className="pl-4">Species</th>

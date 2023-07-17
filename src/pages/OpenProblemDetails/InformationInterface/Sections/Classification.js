@@ -1,5 +1,7 @@
 import InterfaceTemplate from "../InterfaceTemplate";
 import { useLoaderData } from "react-router-dom";
+import { useState, useEffect } from "react";
+import getAnnotations from "../../functions/getAnnotations";
 function TableRow(props){
   return(
     <>
@@ -13,8 +15,16 @@ function TableRow(props){
 function Classification() {
   const {data} = useLoaderData();
   const openProblem = data.open_problem;
+  const openProblemId = openProblem.problem_id;
   const contact = data.contact
-  console.log(contact)
+  const [theoryState, setTheoryState] = useState("")
+  useEffect(() => {
+    async function setAnnotations(){
+      const data = await getAnnotations(openProblemId); 
+      setTheoryState(data.theory)
+    }
+    setAnnotations()
+  }, []); 
 
   // const parentData = data.parent_data;
   
@@ -33,7 +43,7 @@ function Classification() {
             </TableRow>
             <TableRow>
               <th className="pl-4">Theory</th>
-              <td>-</td>
+              <td>{theoryState && theoryState.map((theory) => <p key={theory.annotation_id}>{theory.theory.theory_title}</p>)}</td>
             </TableRow>
             <TableRow>
               <th className="pl-4">Species</th>

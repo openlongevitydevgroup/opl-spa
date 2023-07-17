@@ -6,11 +6,11 @@ import Proposals from "./Proposals/Proposals";
 function Details() {
   const { data } = useLoaderData();
   const openProblemDetails = data.open_problem;
-  const description = data.open_problem.description
+  const description = data.open_problem.description;
   const id = openProblemDetails.problem_id;
   const title = openProblemDetails.title;
   const children = openProblemDetails.children;
-  
+
   // Select the title of the open problem to use as the anchor for the scrollToView function
   const ref = useRef(null);
 
@@ -22,15 +22,15 @@ function Details() {
           Open Problem {id}: <u>{title}</u>{" "}
         </h1>
       </div>
-      {description &&       <div className="description py-4">
-        {description && description}
-      </div>}
+      {description && (
+        <div className="description py-4">{description && description}</div>
+      )}
 
       <div className="details py-2">
-        <InformationSection children={children}/>
+        <InformationSection children={children} />
       </div>
       <hr className="border-1 mt-10 border-theme-blue" />
-      <ProposalHeader/>
+      <ProposalHeader />
       <div className="research-and-proposals">
         <Proposals />
       </div>

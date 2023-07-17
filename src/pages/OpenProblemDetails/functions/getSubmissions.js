@@ -3,7 +3,7 @@ async function getSubmissions(id){
     const openProblemId = Number(id); 
     try{
         // CHANGE TO HTTPS 
-        const {data} = await axios.get(`http://${process.env.REACT_APP_DB_REQUEST}/api/posts/${openProblemId}`)
+        const {data} = await axios.get(`${process.env.REACT_APP_GET_SUBMISSION_ENDPOINT}/${openProblemId}`)
         return data
     }catch(error){
         return error;

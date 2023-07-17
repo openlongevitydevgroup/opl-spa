@@ -1,10 +1,10 @@
 import axios from "axios";
 async function getOpenProblems() {
   const { data: recursiveData } = await axios.get(
-    `https://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/root`
+    `http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/root`
   );
   const { data } = await axios.get(
-    `https://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/`
+    `http://${process.env.REACT_APP_DB_REQUEST}/api/open-problems/`
   );
   return { recursiveData, data };
 }

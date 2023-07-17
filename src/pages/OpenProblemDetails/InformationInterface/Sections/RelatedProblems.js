@@ -10,9 +10,9 @@ function RelatedProblems(props) {
         ) : (
           <ul>
             {directChildren.map((child) => (
-              <li key={child.question_id}>
-                <Link className=" pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base" to={"../"+child.question_id}>
-                  <p>{child.question_id}: {child.title}</p>
+              <li key={child.problem_id}>
+                <Link className=" pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base" to={"../"+child.problem_id}>
+                  <p>{child.problem_id}: {child.title}</p>
                 </Link>
               </li>
             ))}

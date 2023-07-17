@@ -6,7 +6,7 @@ import getRequest from "../../../../utils/functions/getRequest";
 
 function TreeDetails(props) {
   const question = props.question;
-  const {question_id:id, title} = question
+  const {problem_id:id, title} = question
 
   //Url data for post metadata
   const postUrl = `http://localhost:8000/api/posts/${id}/counts`   
@@ -20,7 +20,7 @@ function TreeDetails(props) {
   // Get details of question for accordion
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getDetails(question.question_id);
+      const { data } = await getDetails(question.problem_id);
       const postDataResponse = await getRequest(postUrl); 
       if (data) {
         setAccordionData(data);

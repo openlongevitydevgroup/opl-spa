@@ -6,7 +6,8 @@ import Proposals from "./Proposals/Proposals";
 function Details() {
   const { data } = useLoaderData();
   const openProblemDetails = data.open_problem;
-  const id = openProblemDetails.question_id;
+  const description = data.open_problem.description
+  const id = openProblemDetails.problem_id;
   const title = openProblemDetails.title;
   const children = openProblemDetails.children;
   
@@ -21,6 +22,10 @@ function Details() {
           Open Problem {id}: <u>{title}</u>{" "}
         </h1>
       </div>
+      {description &&       <div className="description py-4">
+        {description && description}
+      </div>}
+
       <div className="details py-2">
         <InformationSection children={children}/>
       </div>

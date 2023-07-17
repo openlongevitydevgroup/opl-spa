@@ -13,12 +13,15 @@ function TableRow(props){
 function Classification() {
   const {data} = useLoaderData();
   const openProblem = data.open_problem;
+  const contact = data.contact
+  console.log(contact)
+
   // const parentData = data.parent_data;
   
   return (
     <InterfaceTemplate title={"Classification"}>
       <div className="classification-table">
-        <table className="border border-1 p-2 mt-2 w-full text-left">
+        <table className="border border-1 p-2 w-full text-left">
           <tbody>
           <TableRow>
               <th className="w-2/5 pl-4">ID</th>
@@ -50,7 +53,7 @@ function Classification() {
             </TableRow>
             <TableRow>
               <th className="pl-4">Submitted by</th>
-              <td>{openProblem['contact'] ? openProblem['contact'] : "-"}</td>
+              <td>{contact ? contact.first_name +" " +contact.last_name : '-'}</td>
             </TableRow>
 
           </tbody>

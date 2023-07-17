@@ -22,7 +22,7 @@ function QuestionList(props) {
     return (
       <ul>
         {allQuestions.map((question) => (
-          <ListComponent question={question} key={question.question_id} />
+          <ListComponent question={question} key={question.problem_id} />
         ))}
       </ul>
     );

@@ -43,11 +43,11 @@ function QuestionListTree(props) {
       {questions.map((question) => {
         return (
           <TreeItem
-            key={question.question_id}
-            id={question.question_id.toString()}
+            key={question.problem_id}
+            id={question.problem_id.toString()}
             sx={{ borderLeft: "1px dashed", paddingTop: "5px" }}
             TransitionComponent={TransitionComponent}
-            nodeId={question.question_id.toString()}
+            nodeId={question.problem_id.toString()}
             label={question.title}
           >
 
@@ -60,9 +60,9 @@ function QuestionListTree(props) {
               ? question.children.map((child) => (
                   <TreeItem
                     label={child.title}
-                    key={child.question_id}
-                    id={child.question_id.toString()}
-                    nodeId={child.question_id.toString()}
+                    key={child.problem_id}
+                    id={child.problem_id.toString()}
+                    nodeId={child.problem_id.toString()}
                     sx={{ borderLeft: "1px dashed", paddingTop: "5px" }}
                   >
                     <TreeDetails question={child} />

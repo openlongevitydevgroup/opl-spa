@@ -14,7 +14,7 @@ const submit = async (data, dispatch) => {
         is_active: false,
     }
     try{
-        const response = await axios.post(`https://${process.env.REACT_APP_POST_REQUEST}/api/posts/${openProblemId}/submit`, requestData); 
+        const response = await axios.post(`http://${process.env.REACT_APP_POST_REQUEST}/api/posts/${openProblemId}/submit`, requestData); 
         if(response.status == 201){
             dispatch(detailsActions.toggleModalOpen())
             dispatch(detailsActions.setSubmitState({title:"Post submitted" ,message:"This post has been submitted for review", status:"success"}))

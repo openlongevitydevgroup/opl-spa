@@ -9,7 +9,7 @@ import getRequest from "../../../../utils/functions/getRequest";
 
 function ListComponent(props) {
   //Current questipn information
-  const id = props.question.question_id;
+  const id = props.question.problem_id;
   const title = props.question.title;
 
   //States for accordion
@@ -20,7 +20,7 @@ function ListComponent(props) {
   const [postData, setPostData] = useState(null)
   const onClickHandler = async () => {
     const { data: question_details } = await getDetails(
-      props.question.question_id
+      props.question.problem_id
     );
     const postDataResponse = await getRequest(`${process.env.REACT_APP_POSTS_ENDPOINT}/${id}/counts`)
     setAccordionData(question_details);

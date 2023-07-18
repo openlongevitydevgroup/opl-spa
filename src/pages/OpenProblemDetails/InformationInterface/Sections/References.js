@@ -11,6 +11,7 @@ function References(props){
         }
         getReferences()
     }, []); 
+    console.log(refState)
     return(
         <InterfaceTemplate title={"References"}>
             <div className="references-list pt-2">

@@ -22,7 +22,7 @@ services:
       - development
 
   volumes:
-  - react_volume:  
+  - react_volume_dev:  
 
 
 

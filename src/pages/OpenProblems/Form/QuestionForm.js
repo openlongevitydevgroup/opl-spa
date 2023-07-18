@@ -8,7 +8,7 @@ import ModalT from "../../../components/UI/Modal/Modal";
 import sendRequest from "./functions/sendRequest";
 import validateForm from "./functions/validateForm";
 import ReCAPTCHA from "react-google-recaptcha";
-import verifyToken from "./functions/verifyToken";
+import verifyToken from "../../../utils/functions/verifyToken";
 
 function QuestionForm() {
   // States for recaptcha

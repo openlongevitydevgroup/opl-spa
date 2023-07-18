@@ -3,7 +3,7 @@ const verifyToken = async (token) => {
     const secretKey = process.env.REACT_APP_RECAPTCHA_SECRET_KEY
     let apiResponse = []; 
     try {
-        const response = await axios.post(`https://${process.env.REACT_APP_POST_REQUEST}/api/verify-token`, {
+        const response = await axios.post(process.env.REACT_APP_VERIFY_TOKEN_ENDPOINT, {
             secret: secretKey, 
             response: token,
         }); 

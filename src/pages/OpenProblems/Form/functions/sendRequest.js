@@ -4,8 +4,7 @@ import axios from "axios";
 //Send request to the database using formData
 const sendRequest = async (formDetailsState, dispatch) => {
     try {
-      const response = await axios.post(
-        `https://${process.env.REACT_APP_POST_REQUEST}/api/open-problems/submit`,
+      const response = await axios.post(process.env.REACT_APP_POST_REQUEST,
         {
           title: formDetailsState.title,
           excerpt: formDetailsState.description,

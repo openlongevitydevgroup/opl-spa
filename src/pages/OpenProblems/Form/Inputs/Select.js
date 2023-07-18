@@ -35,7 +35,7 @@ function Select(props){
             <select onChange={(e,id) => changeHandler(e, id)} id={props.id} name={props.name} className={`h-fit-content h-auto ${isMobileState ? 'w-full' : 'w-4/5'} rounded border border-slate-500 bg-bg-grey p-2`} value={formDetailsState.parentTitle}>
             <option value={'None'} id="0">None</option>
             {questions.map(question => (
-                <option value={question.title} key={question.question_id} id={question.question_id}>{question.title}</option>
+                <option value={question.title} key={question.problem_id} id={question.problem_id}>{question.title}</option>
             ))}
 
             </select>

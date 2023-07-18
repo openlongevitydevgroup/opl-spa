@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import getRequest from "../../../../utils/functions/getRequest";
 function References(props){
     const id = props.id; 
-    const [refState, setRefState] = useState(""); 
+    const [refState, setRefState] = useState(null); 
     useEffect(() => {
         async function getReferences(){
             const data = await getRequest(`${process.env.REACT_APP_OPEN_PROBLEMS_ENDPOINT}${id}/references`)

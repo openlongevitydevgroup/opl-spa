@@ -5,7 +5,7 @@ function AccordionContent(props) {
     description,
     children,
     contact,
-    question_id: id,
+    problem_id: id,
   } = data["open_problem"];
   const { parent_data } = data;
   const subquestionCount = children.length;
@@ -33,7 +33,7 @@ function AccordionContent(props) {
               {" "}
               {parent_data ? (
                 <Link
-                  to={`./${parent_data.question_id}`}
+                  to={`./${parent_data.problem_id}`}
                   className="hover:text-blue-500 hover:underline"
                 >
                   {parent_data.title}

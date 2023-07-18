@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 function AccordionContent(props) {
   const data = props.data;
   const {
@@ -32,12 +33,12 @@ function AccordionContent(props) {
             <td>
               {" "}
               {parent_data ? (
-                <Link
-                  to={`./${parent_data.problem_id}`}
+                <HashLink
+                  smooth to={`./${parent_data.problem_id}#${parent_data.problem_id}`}
                   className="hover:text-blue-500 hover:underline"
                 >
                   {parent_data.title}
-                </Link>
+                </HashLink>
               ) : (
                 "None."
               )}

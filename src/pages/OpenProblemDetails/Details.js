@@ -18,7 +18,7 @@ function Details() {
     <div>
       <hr className="border-1 border-theme-blue" />
       <div ref={ref} className="title flex flex-row pt-8 ">
-        <h1 className="text-lg md:text-2xl">
+        <h1 className="text-lg md:text-2xl" id={id}>
           Open Problem {id}: <u>{title}</u>{" "}
         </h1>
       </div>
@@ -27,7 +27,7 @@ function Details() {
       )}
 
       <div className="details py-2">
-        <InformationSection children={children} />
+        <InformationSection children={children} id={id} />
       </div>
       <hr className="border-1 mt-10 border-theme-blue" />
       <ProposalHeader />

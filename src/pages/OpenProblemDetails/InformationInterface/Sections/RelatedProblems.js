@@ -1,5 +1,5 @@
 import InterfaceTemplate from "../InterfaceTemplate";
-import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 function RelatedProblems(props) {
   const directChildren = props.children;
   return (
@@ -11,9 +11,9 @@ function RelatedProblems(props) {
           <ul>
             {directChildren.map((child) => (
               <li key={child.problem_id}>
-                <Link className=" pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base" to={"../"+child.problem_id}>
+                <HashLink className=" pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base" smooth to={"../"+child.problem_id+`#${child.problem_id}`}>
                   <p>{child.problem_id}: {child.title}</p>
-                </Link>
+                </HashLink>
               </li>
             ))}
           </ul>

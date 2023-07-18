@@ -34,7 +34,7 @@ function RootOpenProblems() {
           </h1>
         </Container>
       </section>
-      <main className={`w-full ${viewWidth > 450 ? "px-40" : "px-2"} pb-4 py-6`}>
+      <main className={`w-full ${viewWidth > 450 ? "px-40" : "px-2"} pb-4 py-6 overflow-scroll`}>
           <Outlet />
       </main>
       <footer className="h-3/12">

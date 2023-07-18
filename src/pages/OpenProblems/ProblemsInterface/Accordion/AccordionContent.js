@@ -4,11 +4,11 @@ function AccordionContent(props) {
   const {
     description,
     children,
-    contact,
     problem_id: id,
   } = data["open_problem"];
   const { parent_data } = data;
   const subquestionCount = children.length;
+  const contactData = data.contact; 
 
   return (
     <>
@@ -56,7 +56,7 @@ function AccordionContent(props) {
       </table>
       <div className="contact flex flex-row pt-4">
         <h2 className="text-sm font-semibold">Submitted by:</h2>
-        <p className="pl-2 text-sm">{contact ? contact : "-"}</p>
+        <p className="pl-2 text-sm">{contactData ? contactData.first_name +" "+ contactData.last_name : "-"}</p>
       </div>
     </>
   );

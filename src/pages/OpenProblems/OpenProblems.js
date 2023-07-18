@@ -13,7 +13,7 @@ function OpenProblems(){
     const dispatch = useDispatch()
     const modalCloseHandler = () =>{dispatch(questionActions.toggleModalClose())}
     return(
-    <Fragment>
+    <div className='overflow-auto'>
         <div className='text-center py-2 pb-6 text-sm md:text-lg'>
             <p><strong>This is our initial selection of high level open problems in longevity and ageing science. We invite you to submit your open problems to help us improve our database and classify these problems.</strong> </p>
         </div>
@@ -27,7 +27,7 @@ function OpenProblems(){
         <ModalT open={modalState} close={modalCloseHandler}>
             <ModalContent questionDetails={questionDetails} close={modalCloseHandler}/>
         </ModalT>
-    </Fragment>
+    </div>
 
 )
 }

@@ -14,7 +14,7 @@ services:
       - '0.0.0.0:3000:3000'
     volumes:
       - ./src:/app/src
-      - react_volume_dev:/app/build/
+      - react_volume_dev:/app/
     environment:
      - NODE_ENV='development'
      - CHOKIDAR_USEPOLLING=true

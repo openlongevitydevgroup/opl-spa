@@ -38,10 +38,6 @@ function Classification() {
               <td>{openProblem['problem_id']}</td>
             </TableRow>
             <TableRow>
-              <th className="pl-4">Description</th>
-              <td>-</td>
-            </TableRow>
-            <TableRow>
               <th className="pl-4">Theory</th>
               <td>{theoryState ? theoryState.map((theory) => <p key={theory.annotation_id}>{theory.theory.theory_title}</p>) : '-'}</td>
             </TableRow>

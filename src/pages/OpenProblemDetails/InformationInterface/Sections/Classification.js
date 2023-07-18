@@ -35,7 +35,7 @@ function Classification() {
           <tbody>
           <TableRow>
               <th className="w-2/5 pl-4">ID</th>
-              <td>{openProblem['question_id']}</td>
+              <td>{openProblem['problem_id']}</td>
             </TableRow>
             <TableRow>
               <th className="pl-4">Description</th>

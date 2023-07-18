@@ -14,6 +14,7 @@ services:
       - '0.0.0.0:3000:3000'
     volumes:
       - ./src:/app/src
+      - ./OPL.sql:/docker-entrypoint-initdb.d/OPL.sql
     environment:
      - NODE_ENV='development'
      - CHOKIDAR_USEPOLLING=true

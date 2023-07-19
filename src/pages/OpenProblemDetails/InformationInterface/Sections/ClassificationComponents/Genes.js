@@ -7,8 +7,8 @@ function Genes(props){
 
     return(
         <div className="genes-classification">
-            <ul className="gene-list flex flex-row">
-                {genes ? genes.map((gene) => <li key={gene.gene_id.gene_symbol}>{gene.gene_id.gene_symbol + " "}</li>) : <p>None</p>}
+            <ul className="gene-list flex flex-row justify-around">
+                {genes ? genes.map((gene) => <li key={gene.gene_id.gene_symbol}>{gene.gene_id.gene_symbol}</li>) : <p>None</p>}
 
             </ul>
         </div>

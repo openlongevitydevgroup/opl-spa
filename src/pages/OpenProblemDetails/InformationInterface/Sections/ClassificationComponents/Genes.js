@@ -7,7 +7,7 @@ function Genes(props){
 
     return(
         <div className="genes-classification">
-            <ul className="gene-list flex flex-row justify-start gap-y-1">
+            <ul className="gene-list flex flex-row justify-start gap-4">
                 {genes ? genes.map((gene) => <li key={gene.gene_id.gene_symbol}>{gene.gene_id.gene_symbol}</li>) : <p>None</p>}
 
             </ul>

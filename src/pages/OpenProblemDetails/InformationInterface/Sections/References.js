@@ -17,15 +17,15 @@ function References(props) {
     <InterfaceTemplate title={"References"}>
       <div className="references-list pt-2">
         <ul className="list-disc">
-          {refState &&
+          {refState ? refState &&
             refState.map((ref) => (
               <li key={ref.reference.ref_id} className="py-2">
                 {ref.reference.full_citation}
               </li>
-            ))}
+            )) : <p className="text-sm md:text-base font-semibold">None</p>}
+          {}
         </ul>
 
-        <p className="text-sm font-semibold md:text-base"></p>
       </div>
     </InterfaceTemplate>
   );

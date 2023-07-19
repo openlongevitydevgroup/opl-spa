@@ -8,7 +8,7 @@ function useAnnotation(endpoint){
             setAnnotation(data); 
         }
         getAnnotation(); 
-    }, [])
+    }, [endpoint])
     return annotation;
 };
 

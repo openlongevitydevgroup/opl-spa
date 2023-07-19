@@ -1,4 +1,5 @@
 import useAnnotation from "../../../../../utils/hooks/useAnnotation";
+import { useSelector } from "react-redux";
 
 function Genes(props){
     const id = props.id;

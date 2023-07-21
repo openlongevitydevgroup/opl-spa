@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SourcesList from "./SourcesList";
 import setUserName from "../../../functions/setUserName";
-import AddComment from "./AddComment";
+import CommentsButton from "../Comments/CommentsButton";
 import Comments from "../Comments/Comments";
 import setDate from "../../../../../utils/functions/setDate";
 
@@ -46,7 +46,7 @@ function SolutionsComponent(props) {
         <h1 className="text-sm underline">Sources:</h1>
         <ul>{references && <SourcesList sources={references} />}</ul>
       </div>
-      <AddComment submissionId={id} setState={displayComments} />
+      <CommentsButton submissionId={id} setState={displayComments} state={commentsIsDisplayed} />
       {commentsIsDisplayed && (
           <Comments submissionId={id}/>
       )}

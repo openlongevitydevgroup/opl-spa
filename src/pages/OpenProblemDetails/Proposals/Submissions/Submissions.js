@@ -1,4 +1,4 @@
-import Solutions from "./Interface/Solutions";
+import Solutions from "./Solutions/Solutions";
 function Submissions() {
   return (
         <>

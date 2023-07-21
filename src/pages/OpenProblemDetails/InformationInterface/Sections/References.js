@@ -1,6 +1,6 @@
 import InterfaceTemplate from "../InterfaceTemplate";
 
-import useAnnotation from "../../../../utils/hooks/useAnnotation";
+import useAnnotation from "../../../../utils/hooks/useApi";
 function References(props) {
   const id = props.id;
   const references = useAnnotation(

@@ -42,13 +42,13 @@ function SourcesForm(props) {
           Reference
         </option>
       </select>
-      <input
+      <textarea
         onChange={(e) => onChangeHandler(e, "ref")}
         key={id + "inp"}
         type="text"
         className="reference-input w-full border border-theme-blue px-2"
         value={input}
-      ></input>
+      ></textarea>
       <button
         key={id + "btn"}
         onClick={removeHandler}

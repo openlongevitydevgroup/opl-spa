@@ -1,10 +1,9 @@
-import useAnnotation from "../../../../../utils/hooks/useAnnotation";
-import { useSelector } from "react-redux";
+import useApi from "../../../../../utils/hooks/useApi";
 
 function Genes(props){
     const id = props.id;
     const endpoint = `${process.env.REACT_APP_ANNOTATIONS_ENDPOINT}${id}/genes`; 
-    const genes = useAnnotation(endpoint); 
+    const genes = useApi(endpoint); 
 
     return(
         <div className="genes-classification">

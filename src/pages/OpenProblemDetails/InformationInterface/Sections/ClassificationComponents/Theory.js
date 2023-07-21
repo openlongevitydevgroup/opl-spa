@@ -1,9 +1,9 @@
-import useAnnotation from "../../../../../utils/hooks/useAnnotation";
+import useApi from "../../../../../utils/hooks/useApi";
 
 function Theory(props){
     const id = props.id; 
     const endpoint = `${process.env.REACT_APP_ANNOTATIONS_ENDPOINT}${id}/theory`; 
-    const theories = useAnnotation(endpoint); 
+    const theories = useApi(endpoint); 
     
     return(
         <div className="theory-classification">

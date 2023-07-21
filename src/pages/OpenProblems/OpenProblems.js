@@ -12,6 +12,7 @@ function OpenProblems(){
     const questionDetails = useSelector(state => state.question.modalDetails)
     const dispatch = useDispatch()
     const modalCloseHandler = () =>{dispatch(questionActions.toggleModalClose())}
+    
     return(
     <div className='overflow-auto'>
         <div className='text-center py-2 pb-6 text-sm md:text-lg'>

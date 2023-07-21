@@ -17,7 +17,8 @@ const DEFAULT_STATE = {
   }, 
   postSubmissions:{
     length:0,
-  }
+  }, 
+  commentBoxActive: false,
 };
 
 const reducers = {
@@ -60,6 +61,14 @@ const reducers = {
     }, 
     setPostsLength(state, actions){
       state.postSubmissions.length = actions.payload.length;
+    }, 
+    toggleComment(state, actions){
+      const toActivate = actions.payload.toggle; 
+      if(toActivate){
+        state.commentBoxActive = true;
+      }else{
+        state.commentBoxActive = false;
+      }
     }
     
 };

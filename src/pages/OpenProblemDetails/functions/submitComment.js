@@ -13,7 +13,6 @@ async function submitComment(submissionId, data, dispatch) {
           "Your comment has been submitted succesfully for review",
           "success"
         );
-        console.log("submittwed")
       }
     } catch (error) {
       showModal(dispatch, "failed", error.message, "failed");

@@ -12,4 +12,30 @@ function useApi(endpoint){
     return apiData;
 };
 
+
+// To replace useApi
+export function useGetApi2(api, params){
+    const [apiData, setApiData] = useState(""); 
+    useEffect(()=>{
+        async function getApiData(){
+            const data = await api(params); 
+            setApiData(data); 
+        }
+        getApiData();
+
+    }, [api])
+    return apiData;
+}
+
+export function usePostApi(api, params){
+    try{
+        const response = api(params);
+        if(response.ok){
+            return response;
+        }
+    }catch(error){
+        return error;
+    }
+}
+
 export default useApi;

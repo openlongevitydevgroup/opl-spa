@@ -1,5 +1,4 @@
 import { generalActions } from "../../state/generalStateSlice";
-
 const showModal = (dispatch, title, message, status) => {
     const modalValue = {
       title,

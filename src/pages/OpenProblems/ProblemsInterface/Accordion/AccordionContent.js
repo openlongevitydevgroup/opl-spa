@@ -25,8 +25,8 @@ function AccordionContent(props) {
       <table className="w-full py-2 text-sm">
         <tbody>
           <tr className="border bg-theme-blue px-2 pb-6 text-center text-sm text-white">
-            <th>PARENT PROBLEM</th>
-            <th>NO. RELATED QUESTIONS</th>
+            <th>CORE PROBLEM</th>
+            <th>NO. OF SUPPLEMENTARY PROBLEMS</th>
             <th>CATEGORIES</th>
           </tr>
           <tr className=" text-center text-sm">

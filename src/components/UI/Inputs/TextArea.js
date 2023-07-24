@@ -1,16 +1,16 @@
-function TextArea(props){
-    const setState = props.setState; 
-    const placeHolder = props.placeHolder;
-    const onChangeHandler = (e) => {
-        const value = e.target.value; 
-        setState(value);
-    }
-    return(
-        <textarea onChange={onChangeHandler} className={props.className} placeholder={placeHolder}>
+import withOnChangeHandler from "../../../utils/hoc/withOnChangeHandler";
 
-        </textarea>
-    )
-}; 
 
-export default TextArea; 
+function textArea(props) {
+  return (
+    <textarea
+      onChange={props.onChange}
+      className={props.className}
+      placeholder={props.placeHolder}
+    ></textarea>
+  );
+}
 
+
+const TextArea = withOnChangeHandler(textArea); 
+export default TextArea;

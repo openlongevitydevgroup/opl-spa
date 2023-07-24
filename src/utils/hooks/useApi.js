@@ -23,19 +23,8 @@ export function useGetApi2(api, params){
         }
         getApiData();
 
-    }, [])
+    }, [params])
     return apiData;
-}
-
-export function usePostApi(api, params){
-    try{
-        const response = api(params);
-        if(response.ok){
-            return response;
-        }
-    }catch(error){
-        return error;
-    }
 }
 
 export default useApi;

@@ -23,7 +23,7 @@ function SolutionsComponent(props) {
   
   // Dispatch state to store the submissionId
   const dispatch = useDispatch();
-  dispatch(detailsActions.setState({state:"submissionId", value:id})); 
+  dispatch(detailsActions.setState({key:"submissionId", value:id})); 
 
   
 

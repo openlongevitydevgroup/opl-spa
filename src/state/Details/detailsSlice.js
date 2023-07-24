@@ -73,7 +73,7 @@ const reducers = {
     }, 
     // Generic function for setting redux state 
     setState(state,actions){
-      state[actions.payload.state] = actions.payload.value; 
+      state[actions.payload.key] = actions.payload.value; 
     }
     
 };

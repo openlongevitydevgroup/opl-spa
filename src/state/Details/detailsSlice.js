@@ -19,6 +19,7 @@ const DEFAULT_STATE = {
     length:0,
   }, 
   commentBoxActive: false,
+  submissionId: "", 
 };
 
 const reducers = {
@@ -69,6 +70,10 @@ const reducers = {
       }else{
         state.commentBoxActive = false;
       }
+    }, 
+    // Generic function for setting redux state 
+    setState(state,actions){
+      state[actions.payload.state] = actions.payload.value; 
     }
     
 };

@@ -3,7 +3,7 @@ import showModal from "../../../utils/functions/showModal";
 
 async function submitComment(submissionId, data, dispatch) {
   const trimmedText = data.full_text.trim();
-  if (trimmedText > 0) {
+  if (trimmedText.length > 0) {
     console.log(trimmedText)
     try {
       const response = await api.postComment({ submissionId, data });

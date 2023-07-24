@@ -20,7 +20,6 @@ const reducers = {
   setIsMobile(state) {
     state.isMobile = state.viewWidth < 450 ? true : false;
   },
-  // Generic state for toggling a state. 
   toggleModal(state){
     state.modal.isOpen = !state.modal.isOpen; 
   }, 

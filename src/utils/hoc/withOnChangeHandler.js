@@ -6,7 +6,6 @@ const withOnChangeHandler = (WrappedComponent) => {
     const onChangeHandler = (e) => {
       const value = e.target.value;
       setState(value);
-      console.log(value)
 
     };
     return <WrappedComponent {...props} onChange={onChangeHandler} />;

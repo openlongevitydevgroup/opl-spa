@@ -10,7 +10,6 @@ function AddCommentComponent(props) {
   const [comment, setComment] = useState("");
   const [alias, setAlias] = useState("");
   const submissionId = useSelector((state) => state.details.submissionId);
-  const modalState = useSelector((state) => state.general.modal);
 
   const dispatch = useDispatch();
 

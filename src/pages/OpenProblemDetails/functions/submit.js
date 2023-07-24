@@ -2,7 +2,6 @@ import axios from "axios"
 import { detailsActions } from "../../../state/Details/detailsSlice";
 const submit = async (data, dispatch) => {
     const openProblemId = data.openProblem
-    console.log(openProblemId)
     const date = new Date();
     const requestData = {
         full_text: data.description,

@@ -5,6 +5,8 @@ import setUserName from "../../../functions/setUserName";
 import CommentsButton from "../Comments/CommentsButton";
 import Comments from "../Comments/Comments";
 import setDate from "../../../../../utils/functions/setDate";
+import { useDispatch } from "react-redux";
+import { detailsActions } from "../../../../../state/Details/detailsSlice";
 
 function SolutionsComponent(props) {
   const {
@@ -18,6 +20,13 @@ function SolutionsComponent(props) {
   const createdDate = setDate(date)
   const userName = setUserName({ firstName, lastName, affiliation });
   const [references, setReferences] = useState([]);
+  
+  // Dispatch state to store the submissionId
+  const dispatch = useDispatch();
+  dispatch(detailsActions.setState({state:"submissionId", value:id})); 
+
+  
+
   // Use effect to get data for the post references
   useEffect(() => {
     const fetchPostDetails = async () => {

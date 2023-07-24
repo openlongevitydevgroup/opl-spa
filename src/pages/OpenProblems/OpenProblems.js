@@ -1,7 +1,6 @@
-import {Fragment} from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import { questionActions } from '../../state/Question/questionSlice';
-import ModalContent from './ProblemsInterface/ModalContent';
+import SubmissionModalContent from '../../components/UI/Modal/SubmissionModalContent';
 import Statbar from './Statbar/Statbar';
 import './Question.css'
 import SearchBar from './SearchBar/SearchBar';
@@ -26,7 +25,7 @@ function OpenProblems(){
         <Statbar className='statbar'/>
         <ProblemsInterface/>
         <ModalT open={modalState} close={modalCloseHandler}>
-            <ModalContent questionDetails={questionDetails} close={modalCloseHandler}/>
+            <SubmissionModalContent questionDetails={questionDetails} close={modalCloseHandler}/>
         </ModalT>
     </div>
 

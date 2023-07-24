@@ -8,7 +8,7 @@ import ContactInformation from "./ContactInformation";
 import { Button } from "@mui/material";
 import { detailsActions } from "../../../../state/Details/detailsSlice";
 import ModalT from "../../../../components/UI/Modal/Modal";
-import ModalContent from "../../InformationInterface/ModalContent";
+import SubmissionModalContent from "../../../../components/UI/Modal/SubmissionModalContent";
 import { useLoaderData } from "react-router-dom";
 function ProposalForm() {
   const formValues = useSelector((state) => state.details.submission);
@@ -75,7 +75,7 @@ function ProposalForm() {
       </form>
       {modalState && (
         <ModalT open={modalState}>
-          <ModalContent
+          <SubmissionModalContent
             submitStatus={submitStatus}
             close={onClickHandlerModal}
           />

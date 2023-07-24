@@ -3,6 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const DEFAULT_STATE = {
     viewWidth: null,
     isMobile: false,
+    modal: {
+      isOpen: false, 
+      content: {
+        title: "", 
+        message: "", 
+        status: "",
+      }
+    }
 }
 
 const reducers = {

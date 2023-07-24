@@ -23,7 +23,7 @@ export function useGetApi2(api, params){
         }
         getApiData();
 
-    }, [api])
+    }, [])
     return apiData;
 }
 

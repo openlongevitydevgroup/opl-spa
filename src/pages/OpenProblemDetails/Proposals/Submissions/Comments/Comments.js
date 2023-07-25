@@ -17,7 +17,7 @@ function Comments(props) {
 
   // Get root comments first and then their children
   //For now we cannot have comments replying to comments
-  const rootComments = useGetApi2(api.getRootComments, {submissionId})
+  const {apiData:rootComments} = useGetApi2(api.getRootComments, {submissionId})
   const [toAddComment, addComment] = useState(false);
 
   const onClickHandler = () => {

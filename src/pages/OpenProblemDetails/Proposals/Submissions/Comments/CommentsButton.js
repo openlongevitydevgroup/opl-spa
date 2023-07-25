@@ -14,7 +14,7 @@ function CommentsButton(props){
     }
 
     //Getting comments from api
-    const comments = useGetApi2(api.getComments, {submissionId});
+    const {apiData:comments} = useGetApi2(api.getComments, {submissionId});
     const numberOfComments = comments.length
     return(
         <div >

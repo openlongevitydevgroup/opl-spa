@@ -3,7 +3,7 @@ import { HashLink } from "react-router-hash-link";
 function RelatedProblems(props) {
   const directChildren = props.children;
   return (
-    <InterfaceTemplate title={"Related Problems"}>
+    <InterfaceTemplate title={"Connected Problems"}>
       <div className="related-problems-list">
         {directChildren.length === 0 ? (
           <p className="pl-2 text-sm font-semibold md:text-base">None</p>

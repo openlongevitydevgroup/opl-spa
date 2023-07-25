@@ -1,5 +1,4 @@
 import useApi from "../../../../../utils/hooks/useApi";
-
 function Genes(props){
     const id = props.id;
     const endpoint = `${process.env.REACT_APP_ANNOTATIONS_ENDPOINT}${id}/genes`; 

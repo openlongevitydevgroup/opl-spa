@@ -1,4 +1,4 @@
-import InterfaceTemplate from "../InterfaceTemplate";
+import InterfaceTemplate from "../../../../components/Templates/InterfaceTemplate";
 import { useLoaderData } from "react-router-dom";
 import Genes from "./ClassificationComponents/Genes";
 import Theory from "./ClassificationComponents/Theory";

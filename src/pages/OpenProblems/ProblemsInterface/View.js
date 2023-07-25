@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import { Fragment } from "react";
 import QuestionListTree from "./Tree/QuestionTree"
-// import QuestionList from "./QuestionList";
 import QuestionList from "./List/QuestionList";
 
 function View(props) {

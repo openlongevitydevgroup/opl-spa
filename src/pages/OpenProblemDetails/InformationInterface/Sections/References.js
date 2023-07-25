@@ -1,11 +1,13 @@
-import InterfaceTemplate from "../InterfaceTemplate";
-
-import useAnnotation from "../../../../utils/hooks/useApi";
+import InterfaceTemplate from "../../../../components/Templates/InterfaceTemplate";
+import { useGetApi2 } from "../../../../utils/hooks/useApi";
+import apiReferences from "../../../../api/apiReferences";
 function References(props) {
   const id = props.id;
-  const references = useAnnotation(
-    `${process.env.REACT_APP_OPEN_PROBLEMS_ENDPOINT}${id}/references`
-  );
+
+  const { apiData } = useGetApi2(apiReferences.getReferenceForProblem, {
+    openProblemId: id,
+  });
+  const references = apiData.data;
 
   return (
     <InterfaceTemplate title={"References"}>

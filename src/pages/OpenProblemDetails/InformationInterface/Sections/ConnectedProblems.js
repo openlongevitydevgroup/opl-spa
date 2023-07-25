@@ -1,4 +1,4 @@
-import InterfaceTemplate from "../InterfaceTemplate";
+import InterfaceTemplate from "../../../../components/Templates/InterfaceTemplate";
 import { HashLink } from "react-router-hash-link";
 function ConnectedProblems(props) {
   const directChildren = props.children;

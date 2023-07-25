@@ -15,10 +15,10 @@ function CommentsButton(props){
 
     //Getting comments from api
     const {apiData:comments} = useGetApi2(api.getComments, {submissionId});
-    const numberOfComments = comments.length
+
     return(
         <div >
-            <Button onClick={onClickHandler} size="small"> {numberOfComments} Comments {isDisplayed ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>}</Button>
+            <Button onClick={onClickHandler} size="small"> {comments && comments.length} Comments {isDisplayed ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>}</Button>
         </div>
     )
 }

@@ -15,7 +15,7 @@ function useApi(endpoint){
 
 // To replace useApi
 export function useGetApi2(api, params){
-    const [apiData, setApiData] = useState({}); 
+    const [apiData, setApiData] = useState(null); 
     const [isLoading, setLoading] = useState(true)
     useEffect(()=>{
         async function getApiData(){

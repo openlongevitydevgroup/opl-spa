@@ -26,7 +26,7 @@ function AccordionContent(props) {
         <tbody>
           <tr className="border bg-theme-blue px-2 pb-6 text-center text-sm text-white">
             <th>CORE PROBLEM</th>
-            <th>NO. OF SUPPLEMENTARY PROBLEMS</th>
+            <th>NO. OF CONNECTED PROBLEMS</th>
             <th>CATEGORIES</th>
           </tr>
           <tr className=" text-center text-sm">
@@ -40,7 +40,7 @@ function AccordionContent(props) {
                   {parent_data.title}
                 </HashLink>
               ) : (
-                "None."
+                "-"
               )}
             </td>
             <td className="underline hover:bg-sky-200">

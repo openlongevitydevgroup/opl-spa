@@ -50,25 +50,28 @@ function QuestionListTree(props) {
             nodeId={question.problem_id.toString()}
             label={question.title}
           >
-
             <div className="root-problems">
-              <hr className="border-theme-blue"/>
-            <TreeDetails question={question} />
-            <hr className="border-theme-blue"/>
+              <hr className="border-theme-blue" />
+              <TreeDetails question={question} isRoot={true} />
             </div>
-            {question.children
-              ? question.children.map((child) => (
-                  <TreeItem
-                    label={child.title}
-                    key={child.problem_id}
-                    id={child.problem_id.toString()}
-                    nodeId={child.problem_id.toString()}
-                    sx={{ borderLeft: "1px dashed", paddingTop: "5px" }}
-                  >
-                    <TreeDetails question={child} />
-                  </TreeItem>
-                ))
-              : null}
+            <div className="children py-2">
+              <h1 className="text-base font-semibold underline py-2 text-theme-blue">Connected Problems</h1>
+              {question.children.length > 0
+                ? question.children.map((child) => (
+                    <TreeItem
+                      label={child.title}
+                      key={child.problem_id}
+                      id={child.problem_id.toString()}
+                      nodeId={child.problem_id.toString()}
+                      sx={{ borderLeft: "1px dashed", paddingTop: "5px" }}
+                    >
+                      <TreeDetails question={child} />
+                    </TreeItem>
+                  ))
+                : <h2 className="text-base font-semibold">None</h2>   
+                }
+            </div>
+            <hr className="border-theme-blue"></hr>
           </TreeItem>
         );
       })}

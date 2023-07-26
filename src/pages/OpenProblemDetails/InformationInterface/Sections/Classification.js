@@ -31,7 +31,7 @@ function Classification() {
               <td>{openProblem['problem_id']}</td>
             </TableRow>
             <TableRow>
-              <th className="pl-4">Theory</th>
+              <th className="pl-4">Category</th>
               <td><Theory id={openProblemId}/></td>
             </TableRow>
             <TableRow>

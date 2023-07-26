@@ -4,6 +4,7 @@ import questionSlice from "../state/Question/questionSlice";
 import formValidationSlice from "../state/Question/formValidationSlice"
 import detailsSlice from "../state/Details/detailsSlice";
 import generalSlice from "../state/generalStateSlice";
+import annotationSlice from "../state/Annotation/annotationSlice";
 
 const store = configureStore({
     reducer:{
@@ -11,7 +12,8 @@ const store = configureStore({
        question: questionSlice.reducer,
        validation: formValidationSlice.reducer, 
        details: detailsSlice.reducer, 
-       general: generalSlice.reducer
+       general: generalSlice.reducer, 
+       annotation: annotationSlice.reducer,
     }
 })
 

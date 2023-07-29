@@ -2,23 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
     annotation: "",
-    gene: {
-        geneId: "",
-        geneName: "",
-        geneSymbol: "", 
-        species: "", 
-    }, 
-    theory: {
-        theoryId: "", 
-        title: "", 
-        description: "", 
-        parent: ""
-    }, 
-    protein: {
-        proteinId: "", 
-        proteinName: "", 
-        species: "",
-    },
+    details: {}
 }
 
 const reducers = {

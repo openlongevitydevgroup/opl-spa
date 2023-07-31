@@ -9,7 +9,7 @@ const sendRequest = async (formDetailsState, dispatch) => {
           title: formDetailsState.title,
           excerpt: formDetailsState.description,
           parent_question:
-            formDetailsState.parentTitle === "None"
+            formDetailsState.parentTitle === "Submit as a root problem"
               ? null
               : formDetailsState.parentId,
           species: formDetailsState.species,

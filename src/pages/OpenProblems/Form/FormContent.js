@@ -4,8 +4,11 @@ import Select from "./Inputs/Select";
 import ContactForm from "./ContactInformationForm";
 import { useLoaderData } from "react-router-dom";
 
+
+
 function FormContent() {
-  const { data: questions } = useLoaderData();
+  const { recursiveData: questions } = useLoaderData();
+  
   return (
     <div className="question-inputs w-full">
       <Select questions={questions} id="parent-question" />
@@ -17,11 +20,10 @@ function FormContent() {
       />
       <TextArea
         id="description"
-        label="Please add a description to your problem for clarity. Required."
-        labelText="Description:"
+        label="Please add a description to your problem for clarity"
+        labelText="Description (optional):"
         name="description"
         rows={4}
-        required="required"
       />
       <TextInput
         id="species"

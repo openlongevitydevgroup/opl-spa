@@ -9,14 +9,13 @@ const validateForm = (dispatch, formDetailsState, validationState) => {
   dispatch(formValidationActions.checkEmail({ email: formDetailsState.email }));
   if (!formDetailsState.email.trim()) {
     return new Promise((resolve, reject) => {
-      validationState.title && validationState.description
+      validationState.title 
         ? resolve()
         : reject();
     });
   } else {
     return new Promise((resolve, reject) => {
       validationState.title &&
-      validationState.description &&
       validationState.email
         ? resolve()
         : reject();

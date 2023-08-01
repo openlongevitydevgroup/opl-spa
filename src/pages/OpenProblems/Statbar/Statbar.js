@@ -28,7 +28,7 @@ function Statbar(props) {
         <div className="flex flex-col flex-1 h-full w-1/4 ml-8">
           <button
             onClick={submitQuestionHandler}
-            className=" h-full rounded-md border border-solid bg-white text-sm shadow-lg hover:bg-blue-500 hover:font-bold active:bg-blue-500 md:text-base"
+            className=" hidden h-full rounded-md border border-solid bg-white text-sm shadow-lg hover:bg-blue-500 hover:font-bold active:bg-blue-500 md:text-base"
           >
             {isMobileState ? (
               <FileUploadIcon className="h-full w-full" />

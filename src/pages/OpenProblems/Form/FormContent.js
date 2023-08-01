@@ -7,8 +7,8 @@ import { useLoaderData } from "react-router-dom";
 
 
 function FormContent() {
-  const { recursiveData: questions } = useLoaderData();
-  
+  const { data: questions } = useLoaderData();
+
   return (
     <div className="question-inputs w-full">
       <Select questions={questions} id="parent-question" />

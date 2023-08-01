@@ -3,12 +3,13 @@ import axios from "axios";
 
 //Send request to the database using formData
 const sendRequest = async (formDetailsState, dispatch) => {
+  console.log(formDetailsState.parentId)
     try {
       const response = await axios.post(process.env.REACT_APP_POST_REQUEST,
         {
           title: formDetailsState.title,
           excerpt: formDetailsState.description,
-          parent_question:
+          parent_problem:
             formDetailsState.parentTitle === "Submit as a root problem"
               ? null
               : formDetailsState.parentId,

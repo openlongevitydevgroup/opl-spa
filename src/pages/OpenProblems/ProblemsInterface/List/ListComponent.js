@@ -15,14 +15,14 @@ function ListComponent(props) {
   //States for accordion
   const [accordionOpen, setAccordionOpen] = useState(false);
   const [accordionData, setAccordionData] = useState(null);
-  
+
   const onClickHandler = async () => {
     const { data: question_details } = await getDetails(
       props.question.problem_id
     );
     setAccordionData(question_details);
     setAccordionOpen(!accordionOpen);
-  };   
+  };
 
   return (
     <div className="flex h-full flex-col" key={`d-${problemId}`}>
@@ -31,7 +31,10 @@ function ListComponent(props) {
         key={problemId}
       >
         <h1 key={`h1-${problemId}`} className="text-md py-2 pl-2 md:text-lg">
-          <Link className="hover:text-blue-500 hover:underline" to={`./${problemId}`}>
+          <Link
+            className="hover:text-blue-500 hover:underline"
+            to={`./${problemId}`}
+          >
             {" "}
             {problemId}: {title}
           </Link>
@@ -53,15 +56,14 @@ function ListComponent(props) {
           accordionOpen ? "max-h-[500px]" : "max-h-0"
         } duration-500 ease-in-out`}
       >
-        {accordionOpen ? 
-        <>
-                <QuestionAccordion data={accordionData} />
-        <div className="flex flex-row justify-center py-4 divide-y-2">
-            <ButtonGroupComponent parent={{problemId,title}}/>
-        </div>
-        </>
-
-         : null}
+        {accordionOpen ? (
+          <>
+            <QuestionAccordion data={accordionData} />
+            <div className="flex flex-row justify-center divide-y-2 py-4">
+              <ButtonGroupComponent parent={{ problemId, title }} />
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

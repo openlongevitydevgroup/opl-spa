@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
-import ListComponent from "./ListComponent";
+import { useSelector} from "react-redux";
+import MuiList from "./List";
+import MuiListComponent from "./MuiListComponent";
 ///////Table view showing a list of questions to be rendered in the tree view function below//////
 //List component
 
 function QuestionList(props) {
-  const allQuestions = props.questions;
   const filteredQuestions = useSelector(
     (state) => state.question.filteredResults
   );
@@ -13,18 +13,14 @@ function QuestionList(props) {
     return (
       <ul>
         {filteredQuestions.map((question) => (
-          <ListComponent question={question}></ListComponent>
+          <MuiListComponent problem={question}></MuiListComponent>
         ))}
       </ul>
     );
   }
   if (!filteredQuestions) {
     return (
-      <ul>
-        {allQuestions.map((question) => (
-          <ListComponent question={question} key={question.problem_id} />
-        ))}
-      </ul>
+      <MuiList />
     );
   }
 }

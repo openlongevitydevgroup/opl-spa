@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // This slice and these actions are related to how the quetsions are viewed including search results from the search bar.
 
 const DEFAULT_STATE = {
-  viewType: "table",
+  viewType: "tree",
   searchQuery: "",
   filteredResults: null,
   filterOpen: false,
@@ -16,9 +16,13 @@ const DEFAULT_STATE = {
     description: null, 
     species: null, 
     citation: null,
-  }, 
+  }
+  , 
   viewWidth: null,
   isMobile: false,
+  openProblem: {},
+  allProblems: null,
+  rootProblems: null,
 };
 
 const reducers = {
@@ -64,6 +68,9 @@ const reducers = {
   setIsMobile(state){
     state.isMobile = state.viewWidth < 450 ? true : false;
   },
+  setState(state, actions){
+    state[actions.payload.key] = actions.payload.value;
+  }
 };
 
 const questionSlice = createSlice({

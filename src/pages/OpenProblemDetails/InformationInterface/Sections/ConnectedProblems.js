@@ -19,7 +19,7 @@ function ConnectedProblems(props) {
         {directChildren.length === 0 && (
           <ul>
                         {parent && (
-              <HashLink className="pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base">
+              <HashLink smooth to={"../"+parentId+"#"+parentId} className="pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base">
                 <li className="parent" key={parentId}>{parentTitle && parentTitle}</li>
               </HashLink>
             )}

@@ -12,43 +12,56 @@ function TooltipWrapper(props) {
 function StatbarButtonGroup() {
   const dispatch = useDispatch();
   const isMobileState = useSelector((state) => state.question.isMobile);
-  const toggleTreeHandler = () => {
-    dispatch(formActions.toggleFormClose());
-    dispatch(questionActions.toggleTreeState());
-  };
-  const toggleTableHandler = () => {
-    dispatch(formActions.toggleFormClose());
-    dispatch(questionActions.toggleListState());
-  };
+  const viewState = useSelector((state) => state.question.viewType);
+  // const toggleTreeHandler = () => {
+  //   dispatch(formActions.toggleFormClose());
+  //   dispatch(questionActions.toggleTreeState());
+  // };
+  // const toggleTableHandler = () => {
+  //   dispatch(formActions.toggleFormClose());
+  //   dispatch(questionActions.toggleListState());
+  // };
   const toggleFilterHandler = () => {
     dispatch(questionActions.toggleFilter());
   };
+  const handleView = (e, value) => {
+    dispatch(formActions.toggleFormClose());
+    dispatch(questionActions.setState({ key: "viewType", value: value }));
+  };
+  console.log(viewState);
 
   return (
-    <ToggleButtonGroup size="small" className="w-1/4">
+    <ToggleButtonGroup
+      value={viewState}
+      onChange={handleView}
+      exclusive
+      size="small"
+      className="w-1/4"
+      aria-label="view-state"
+    >
       {/* <TooltipWrapper message="Show filter menu"> */}
       {/* <ToggleButton value="filter" onClick={toggleFilterHandler} size="small" className={`${isMobileState ? 'w-1/3' : null}`}>
             <FilterAltIcon />
           </ToggleButton> */}
       {/* </TooltipWrapper> */}
-      <TooltipWrapper message="View questions as flat list">
-        <ToggleButton
-          value="table"
-          onClick={toggleTableHandler}
-          className={`${isMobileState ? "w-1/3" : null}`}
-        >
+      <ToggleButton
+        value="table"
+        className={`${isMobileState ? "w-1/3" : null}`}
+        aria-label="view-list"
+      >
+        <TooltipWrapper message="View questions as flat list">
           <TableViewIcon />
-        </ToggleButton>
-      </TooltipWrapper>
-      <TooltipWrapper message="View questions as hierarchical list">
-        <ToggleButton
-          value="tree"
-          onClick={toggleTreeHandler}
-          className={`${isMobileState ? "w-1/3" : null}`}
-        >
+        </TooltipWrapper>
+      </ToggleButton>
+      <ToggleButton
+        value="tree"
+        className={`${isMobileState ? "w-1/3" : null}`}
+        aria-label="view-tree"
+      >
+        <TooltipWrapper message="View questions as hierarchical list">
           <AccountTreeIcon />
-        </ToggleButton>
-      </TooltipWrapper>
+        </TooltipWrapper>
+      </ToggleButton>
     </ToggleButtonGroup>
   );
 }

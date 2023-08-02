@@ -13,10 +13,7 @@ function SearchBar(props){
     const queryState = useSelector( state => state.question.searchQuery)
 
     const dispatch = useDispatch()
-    const searchOnChange = (e) => {
-        const query = e.target.value; 
-        dispatch(questionActions.setQuery({query: query}))
-        }
+
             //Search bar - dealing with submitted query - basic functionality. 
     const searchFunction = () => {
         dispatch(questionActions.toggleListState())
@@ -30,6 +27,11 @@ function SearchBar(props){
             dispatch(questionActions.setSearchResults({results:filteredQuestions}))
         }
     }
+    const searchOnChange = (e) => {
+        const query = e.target.value; 
+        dispatch(questionActions.setQuery({query: query}))
+        searchFunction()
+        }
     
     return(
     <Form onSubmit={searchFunction}>

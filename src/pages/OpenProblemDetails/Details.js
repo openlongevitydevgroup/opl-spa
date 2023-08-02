@@ -10,7 +10,7 @@ function Details() {
   const id = openProblemDetails.problem_id;
   const title = openProblemDetails.title;
   const children = openProblemDetails.children;
-  const parent = data.parent; 
+  const parent = data.parent_data;
   const isRoot = parent ? true : false;
 
   // Select the title of the open problem to use as the anchor for the scrollToView function
@@ -21,7 +21,7 @@ function Details() {
       <hr className="border-1 border-theme-blue" />
       <div ref={ref} className="title flex flex-row pt-8 ">
         <h1 className="text-lg md:text-2xl" id={`title${id}`}>
-          Open Problem {id}: <u>{title}</u>{" "}
+          <u>{title}</u>{" "}
         </h1>
       </div>
       {description && (
@@ -29,7 +29,12 @@ function Details() {
       )}
 
       <div className="details py-2">
-        <InformationSection children={children} id={id} isRoot={isRoot}/>
+        <InformationSection
+          children={children}
+          id={id}
+          isRoot={isRoot}
+          parent={parent}
+        />
       </div>
       <hr className="border-1 mt-10 border-theme-blue" />
       {/* <ProposalHeader />

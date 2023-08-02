@@ -8,9 +8,11 @@ function InformationSection(props) {
   const children = props.children;
   const id = props.id;
   const isRoot = props.isRoot;
+  const parent = props.parent;
+
   return (
     <>
-      <ConnectedProblems children={children} />
+      <ConnectedProblems children={children} parent={{isRoot, parent}} />
       <ProposalHeader />
       <div className="research-and-proposals">
         <Proposals />

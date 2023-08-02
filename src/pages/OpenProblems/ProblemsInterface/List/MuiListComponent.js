@@ -20,7 +20,7 @@ function MuiListComponent(props) {
   return (
     <>
       <ListItemButton
-        className="w-100 my-2 flex bg-white shadow"
+        className="w-100 my-2 flex bg-white"
         onClick={onClickHandler}
         sx={{
           width: "100%",
@@ -45,6 +45,7 @@ function MuiListComponent(props) {
           <ExpandMore />
         )}
       </ListItemButton>
+      <div className=" border-dashed border-l border-theme-blue ">
       <Collapse
         in={isExpanded}
         timeout="auto"
@@ -53,6 +54,8 @@ function MuiListComponent(props) {
       >
         <ListAccordionContent problem={problem} />
       </Collapse>
+      </div>
+
     </>
   );
 }

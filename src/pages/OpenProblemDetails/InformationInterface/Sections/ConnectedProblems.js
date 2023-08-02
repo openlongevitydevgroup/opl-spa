@@ -4,7 +4,7 @@ function ConnectedProblems(props) {
   const directChildren = props.children;
   const { isRoot, parent } = props.parent;
 
-  const parentId = parent ? parent.id : null;
+  const parentId = parent ? parent.problem_id : null;
   const parentTitle = parent ? parent.title : null;
   return (
     <InterfaceTemplate title={"Connected Problems"}>

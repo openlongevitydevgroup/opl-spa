@@ -5,7 +5,6 @@ import QuestionAccordion from "../Accordion/QuestionAccordion";
 import ButtonGroupComponent from "../ButtonGroup/ButtonGroupComponent";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import getDetails from "../../../../utils/functions/getDetails";
-import getRequest from "../../../../utils/functions/getRequest";
 
 function ListComponent(props) {
   //Current questipn information

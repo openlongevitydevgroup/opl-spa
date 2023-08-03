@@ -49,7 +49,7 @@ function StatbarButtonGroup() {
         className={`${isMobileState ? "w-1/3" : null}`}
         aria-label="view-list"
       >
-        <TooltipWrapper message="View questions as flat list">
+        <TooltipWrapper message="View all problems">
           <TableViewIcon />
         </TooltipWrapper>
       </ToggleButton>
@@ -58,7 +58,7 @@ function StatbarButtonGroup() {
         className={`${isMobileState ? "w-1/3" : null}`}
         aria-label="view-tree"
       >
-        <TooltipWrapper message="View questions as hierarchical list">
+        <TooltipWrapper message="View problems a hierarchical list">
           <AccountTreeIcon />
         </TooltipWrapper>
       </ToggleButton>

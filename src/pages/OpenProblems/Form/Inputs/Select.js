@@ -8,7 +8,7 @@ function Select(props) {
   const dispatch = useDispatch();
 
   const changeHandler = (e) => {
-    if (e.target.value === "None") {
+    if (e.target.value === "Submit as a root problem") {
       dispatch(
         formActions.chooseParent({
           chosenParentTitle: "",
@@ -43,24 +43,24 @@ function Select(props) {
         </p>
       </label>
       <select
-        onChange={(e, id) => changeHandler(e, id)}
+        onChange={changeHandler}
         id={props.id}
         name={props.name}
         className={`h-fit-content h-auto ${
           isMobileState ? "w-full" : "w-4/5"
         } rounded border border-slate-500 bg-bg-grey p-2`}
-        value={formDetailsState.parentTitle}
-      >
+        value={formDetailsState.parentTitle || "Submit as a root problem"}
+        >
         {questions.map((question) => (
           <option
             value={question.title}
             key={question.problem_id}
             id={question.problem_id}
           >
-            {question.title}
+            {question.title} 
           </option>
         ))}
-        <option value={"None"} id="0">
+        <option value={"Submit as a root problem"} id="None">
           Submit as a root problem
         </option>
       </select>

@@ -16,21 +16,36 @@ function ProposalForm() {
   // Submitting submission details for solution
   const onClickHandler = (e) => {
     e.preventDefault();
+    validation(formValues).then()
+
     validation(formValues)
-      .then(
-        () => submit(formValues, dispatch),
-        dispatch(detailsActions.clearFormValues())
-      )
-      .catch((error) => {
-        dispatch(detailsActions.toggleModalOpen());
+    .then((errors) => {
+      console.log(errors)
+      if (errors.length === 0) {
+        submit(formValues, dispatch);
+        dispatch(detailsActions.clearFormValues());
+      } else {
+        dispatch(detailsActions.toggleModalOpen())
         dispatch(
           detailsActions.setSubmitState({
             title: "Unsuccessful submission",
-            message: error.message,
+            message: errors.join("\n"),
             status: "failed",
           })
         );
-      });
+      }
+    })
+    .catch((error) => {
+      console.error("Error during validation:", error);
+      dispatch(detailsActions.toggleModalOpen());
+      dispatch(
+        detailsActions.setSubmitState({
+          title: "Unsuccessful submission",
+          message: "An unexpected error occurred during validation.",
+          status: "failed",
+        })
+      );
+    });
   };
 
   //Set open problem id in form state on load

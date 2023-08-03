@@ -31,9 +31,12 @@ const reducers = {
       state.submission.references = filtered;
     },
     setReference(state, actions){
-      const {id, key, value} = actions.payload;
+      const {id, type, value} = actions.payload;
       const reference = state.submission.references.find((ref) => ref.id === id); 
-      reference[key] = value; 
+      if(reference){
+        reference.type = type; 
+        reference.ref = value;
+      }
       state.submission.references.map((ref) => ref.id === reference.id ? ref = reference : ref)     
     },
     setFormValue(state, actions){

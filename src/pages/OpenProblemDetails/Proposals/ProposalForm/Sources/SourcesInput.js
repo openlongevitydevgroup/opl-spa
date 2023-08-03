@@ -16,7 +16,7 @@ function SourcesInput() {
   return (
     <div className="sources-input pt-6">
       <div className="sources-input title">
-        <h1 className="text-lg font-semibold text-theme-blue">Add sources (optional):</h1>
+        <h1 className="text-lg font-semibold text-theme-blue">Add sources (at least one required):</h1>
       </div>
       <div className="sources flex flex-col px-6 py-2 ">
       {references.map((ref) => 

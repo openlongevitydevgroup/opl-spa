@@ -2,6 +2,7 @@ import InterfaceTemplate from "../../../../components/Templates/InterfaceTemplat
 import { HashLink } from "react-router-hash-link";
 function ConnectedProblems(props) {
   const directChildren = props.children;
+  console.log(directChildren)
   const { isRoot, parent } = props.parent;
 
   const parentId = parent ? parent.problem_id : null;
@@ -16,7 +17,6 @@ function ConnectedProblems(props) {
       </div>
       <hr className="border-theme-blue" />
       <div className="connected-problems-list">
-        {directChildren.length === 0 && (
           <ul>
                         {parent && (
               <HashLink smooth to={"../"+parentId+"#"+parentId} className="pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base">
@@ -35,7 +35,6 @@ function ConnectedProblems(props) {
               </li>
             ))}
           </ul>
-        )}
       </div>
     </InterfaceTemplate>
   );

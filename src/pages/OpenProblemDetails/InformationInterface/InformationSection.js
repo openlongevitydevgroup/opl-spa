@@ -17,7 +17,7 @@ function InformationSection(props) {
       <div className="research-and-proposals">
         <Proposals />
       </div>
-      {!isRoot && <Classification />}
+      {/* {!isRoot && <Classification />} */}
       <References id={id} />
     </>
   );

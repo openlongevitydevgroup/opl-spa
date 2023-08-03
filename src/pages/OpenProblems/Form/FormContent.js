@@ -25,19 +25,6 @@ function FormContent() {
         name="description"
         rows={4}
       />
-      <TextInput
-        id="species"
-        label=""
-        labelText="Species (optional):"
-        required={null}
-      />
-      <TextArea
-        id="references"
-        label=""
-        labelText="References (optional):"
-        required={null}
-        rows={6}
-      />
       <div className="contact-information w-full pt-4 text-center">
         <hr/>
       <ContactForm/>

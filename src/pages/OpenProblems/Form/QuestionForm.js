@@ -52,7 +52,7 @@ function QuestionForm() {
       // const validToken = await verifyToken(token);
       // const valid
       // const successResponse = JSON.parse(validToken[0]);
-      const successResponse = {success: true}
+      const successResponse = { success: true };
       if (successResponse.success === true) {
         validateForm(dispatch, formDetailsState, validationState)
           .then(() => sendRequest(formDetailsState, dispatch))
@@ -93,10 +93,9 @@ function QuestionForm() {
         Submit a question
       </h1>
       <p className="py-4 text-sm md:text-base">
-        If you believe that a question you are submitting falls, as a category,
-        under one of our high-level questions please select it as a parent
-        question. If not, select None. Additionally, a parent question, title
-        and description are required to submit your question.
+        If you believe that a problem you are submitting falls under one of our
+        existing problems, please select it as an associated open problem. If not,
+        select "Submit as a root problem". 
       </p>
       <Form
         className="flex w-full flex-col items-center text-center text-sm md:text-base"

@@ -43,8 +43,6 @@ function ContactForm() {
         </div>
       </div>
       <TextInput id="email" label="" labelText="Email:" />
-      <TextInput id="organisation" label="" labelText="Affiliation:" />
-      <TextInput id="jobfield" label="" labelText="Job Field:" />
     </Fragment>
   );
 }

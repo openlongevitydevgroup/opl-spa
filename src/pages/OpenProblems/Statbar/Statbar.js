@@ -21,9 +21,6 @@ function Statbar(props) {
       <Paper className="flex h-12 w-full flex-row justify-evenly">
         <StatbarButtonGroup />
         <div className="w-2/4 items-center text-center">
-          <p className="text:sm pt-3 font-bold md:text-base">
-            {questions.length} results
-          </p>
         </div>
         <div className="flex flex-col flex-1 h-full w-1/4 ml-8">
           <button

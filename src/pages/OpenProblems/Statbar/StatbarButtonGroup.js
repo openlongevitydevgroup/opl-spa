@@ -28,7 +28,6 @@ function StatbarButtonGroup() {
     dispatch(formActions.toggleFormClose());
     dispatch(questionActions.setState({ key: "viewType", value: value }));
   };
-  console.log(viewState);
 
   return (
     <ToggleButtonGroup

@@ -8,8 +8,8 @@ const DEFAULT_STATE = {
     formDetails: {
         title: '', 
         description: '', 
-        parentTitle: 'None',
-        parentId: 0,
+        parentTitle: 'Causes of Ageing',
+        parentId: 1,
         species: '', 
         citation: '', 
         firstName:'',

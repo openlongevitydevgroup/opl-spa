@@ -31,8 +31,8 @@ function ContactInformation() {
         <input
           className="mr-4 w-full border border-theme-blue p-1 text-sm"
           type="text"
-          placeholder="Affiliation"
-          id="affiliation"
+          placeholder="Please provide your email if you would like to recieve notifications"
+          id="email"
           onChange={(e)=> onChangeHandler(e,"affiliation")}
         value={affiliation}></input>
       </div>

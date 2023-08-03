@@ -32,7 +32,7 @@ function MuiListComponent(props) {
         }}
       >
         <ListItemContent>
-          <HashLink>
+          <HashLink to={`./${id}`}>
             <ListItemText
               className="text-base hover:text-theme-blue hover:underline md:text-lg"
               primary={problem.title}

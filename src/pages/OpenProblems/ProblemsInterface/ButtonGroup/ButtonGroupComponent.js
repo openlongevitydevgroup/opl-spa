@@ -41,7 +41,7 @@ function ButtonGroupComponent(props) {
           <Tooltip title="view comments">
             <Button sx={{ fontsize: 10 }}>
               <HashLink smooth to={`${problemId}#researchProposals`}>
-                <ModeCommentIcon fontSize="small" /> {counts} Comments
+                <ModeCommentIcon fontSize="small" /> {counts} Solutions
               </HashLink>
             </Button>
           </Tooltip>

@@ -42,7 +42,7 @@ function ContactForm() {
           />
         </div>
       </div>
-      <TextInput id="email" label="" labelText="Email:" />
+      <TextInput id="email" label="Please provide your email if you would like to recieve notifications" labelText="Email:" />
     </Fragment>
   );
 }

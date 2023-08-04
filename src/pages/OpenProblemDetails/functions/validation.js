@@ -36,8 +36,8 @@ async function validation(data) {
 
     // Validate each reference individually
     const referenceValidationPromises = references.map((ref) =>
-      validateReference(ref).catch((error) => error)
-    );
+    validateReference(ref)
+  );
 
     // Wait for all reference validations to complete
     const referenceValidationResults = await Promise.all(
@@ -45,7 +45,7 @@ async function validation(data) {
     );
 
     // Collect individual errors from reference validations
-    errors.push(...referenceValidationResults.filter((error) => error instanceof Error));
+    errors.push(...referenceValidationResults.filter((result) => result instanceof Error));
   } catch (error) {
     errors.push(error);
   }

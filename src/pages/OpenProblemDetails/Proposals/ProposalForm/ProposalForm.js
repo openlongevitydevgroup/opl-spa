@@ -15,13 +15,9 @@ function ProposalForm() {
   const dispatch = useDispatch();
   // Submitting submission details for solution
   const onClickHandler = (e) => {
-    console.log(formValues)
     e.preventDefault();
-    validation(formValues).then()
-
     validation(formValues)
     .then((errors) => {
-      console.log(errors)
       if (errors.length === 0) {
         submit(formValues, dispatch);
         dispatch(detailsActions.clearFormValues());

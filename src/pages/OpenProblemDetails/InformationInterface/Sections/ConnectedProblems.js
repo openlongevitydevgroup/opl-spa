@@ -16,7 +16,7 @@ function ConnectedProblems(props) {
         with areas of interest.
       </div>
       <hr className="border-theme-blue" />
-      <div className="connected-problems-list">
+      <div className="connected-problems-list overflow-scroll">
           <ul>
                         {parent && (
               <HashLink smooth to={"../"+parentId+"#"+parentId} className="pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base">

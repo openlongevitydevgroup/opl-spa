@@ -1,4 +1,4 @@
-import InterfaceTemplate from "../../../../components/Templates/InterfaceTemplate";
+import InterfaceTemplate from "../../../../components/Template/InterfaceTemplate";
 import { useGetApi2 } from "../../../../utils/hooks/useApi";
 import apiReferences from "../../../../api/apiReferences";
 import { useEffect } from "react";

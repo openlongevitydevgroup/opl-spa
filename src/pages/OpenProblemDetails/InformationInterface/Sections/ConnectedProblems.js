@@ -1,4 +1,4 @@
-import InterfaceTemplate from "../../../../components/Templates/InterfaceTemplate";
+import InterfaceTemplate from "../../../../components/Template/InterfaceTemplate";
 import { HashLink } from "react-router-hash-link";
 function ConnectedProblems(props) {
   const directChildren = props.children;
@@ -16,8 +16,8 @@ function ConnectedProblems(props) {
         with areas of interest.
       </div>
       <hr className="border-theme-blue" />
-      <div className="connected-problems-list overflow-scroll">
-          <ul>
+      <div className="connected-problems-list">
+          <ul className="">
                         {parent && (
               <HashLink smooth to={"../"+parentId+"#"+parentId} className="pl-2 text-sm font-semibold hover:text-theme-blue hover:underline md:text-base">
                 <li className="parent" key={parentId}>{parentTitle && parentTitle}</li>

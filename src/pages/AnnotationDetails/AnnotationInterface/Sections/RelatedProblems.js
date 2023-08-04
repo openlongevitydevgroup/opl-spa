@@ -1,4 +1,4 @@
-import InterfaceTemplate from "../../../../components/Templates/InterfaceTemplate";
+import InterfaceTemplate from "../../../../components/Template/InterfaceTemplate";
 import extractAnnotationInformation from "../../functions/extractAnnotationInformation";
 import { useSelector } from "react-redux";
 function RelatedProblems(props) {

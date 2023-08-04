@@ -7,7 +7,7 @@ function SourcesForm(props) {
   const dispatch = useDispatch();
 
   //Local state for singular input
-  const [selected, setSelected] = useState("PMID");
+  const [selected, setSelected] = useState("DOI");
   const [input, setInput] = useState("");
   const [isValid, setValid] = useState(false);
   const removeHandler = (e) => {
@@ -20,11 +20,11 @@ function SourcesForm(props) {
     setInput("");
     dispatch(detailsActions.setReference({ id, type: selected, value: input }));
   };
-  const onChangeHandlerInput = (e) => {
-    const value = e.target.value;
-    setInput(value);
-    dispatch(detailsActions.setReference({ id, type: selected, value: input }));
-  };
+    const onChangeHandlerInput = (e) => {
+      const value = e.target.value;
+      setInput(value);
+      dispatch(detailsActions.setReference({ id, type: selected, value: value }));
+    };
 
   return (
     <div key={id} className="references flex flex-row py-2">
@@ -35,11 +35,11 @@ function SourcesForm(props) {
         className="mr-4 border border-theme-blue px-4"
         value={selected}
       >
-        <option selected key={id + "opt1"} value="PMID">
-          PUBMED ID
-        </option>
         <option key={id + "opt2"} value="DOI">
           DOI
+        </option>
+        <option key={id + "opt1"} value="PMID">
+          PUBMED ID
         </option>
       </select>
       <input
@@ -48,7 +48,7 @@ function SourcesForm(props) {
         type="text"
         className="reference-input w-full border border-theme-blue px-2"
         value={input}
-        maxLength={selected == "DOI" ? 25 : 8}
+        maxLength={selected == "DOI" ? 30 : 8}
       ></input>
       <button
         key={id + "btn"}

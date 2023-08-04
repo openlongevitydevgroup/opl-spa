@@ -28,7 +28,7 @@ function RootOpenProblems() {
       </div>
       <section className="h-6/12 px-12">
         <Container className="root-container">
-          <h1 className="py-2 text-center text-3xl md:text-5xl">
+          <h1 className="py-2 text-center text-3xl md:text-5xl" id="title">
             {" "}
             Open Problems in Longevity{""}
           </h1>

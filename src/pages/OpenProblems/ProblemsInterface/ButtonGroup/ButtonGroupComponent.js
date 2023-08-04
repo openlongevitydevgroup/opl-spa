@@ -38,7 +38,7 @@ function ButtonGroupComponent(props) {
     <>
       <ButtonGroup size="small" variant="outlined">
         {isRoot && (
-          <Tooltip title="view comments">
+          <Tooltip title="view solutions">
             <Button sx={{ fontsize: 10 }}>
               <HashLink smooth to={`${problemId}#researchProposals`}>
                 <ModeCommentIcon fontSize="small" /> {counts} Solutions
@@ -46,7 +46,6 @@ function ButtonGroupComponent(props) {
             </Button>
           </Tooltip>
         )}
-
         <Tooltip title="Add a connected problem">
           <Button onClick={onClickHandlerForm} sx={{ fontSize: 10 }}>
             <AddBoxIcon fontSize="small" /> Add Problem

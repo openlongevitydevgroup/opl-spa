@@ -10,6 +10,7 @@ function SourcesForm(props) {
   const [selected, setSelected] = useState("DOI");
   const [input, setInput] = useState("");
   const [isValid, setValid] = useState(false);
+  
   const removeHandler = (e) => {
     e.preventDefault();
     dispatch(detailsActions.removeReference({ id: id }));
@@ -25,7 +26,6 @@ function SourcesForm(props) {
       setInput(value);
       dispatch(detailsActions.setReference({ id, type: selected, value: value }));
     };
-
   return (
     <div key={id} className="references flex flex-row py-2">
       <select

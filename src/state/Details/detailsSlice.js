@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const DEFAULT_STATE = {
   submission:{
     description: "", 
-    references: [],
+    references: [{type:"PMID", ref:"", id:0 }], //Initialise with one empty reference 
     firstName: "",
     lastName:"",
     affiliation:"",

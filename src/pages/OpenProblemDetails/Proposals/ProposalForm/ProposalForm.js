@@ -15,6 +15,7 @@ function ProposalForm() {
   const dispatch = useDispatch();
   // Submitting submission details for solution
   const onClickHandler = (e) => {
+    console.log(formValues)
     e.preventDefault();
     validation(formValues).then()
 
@@ -69,15 +70,13 @@ function ProposalForm() {
   return (
     <div className="proposal-form flex flex-col px-2 py-2 ">
       <h1 className="title m-auto pb-4 text-lg font-semibold text-theme-blue">
-        Your answer
+        Your solution
       </h1>
       <form>
         <div className="text-input py-2">
         <TextInput />
         </div>
-        <div className="submit-btn flex justify-center px-6 py-2 pb-4">
-          <Button onClick={onClickHandler} variant="contained">Post your answer</Button>
-        </div>
+
         <hr />
         <div className="sources-information">
         <SourcesInput />
@@ -85,6 +84,9 @@ function ProposalForm() {
         <div className="contact-info">
         <ContactInformation />
 
+        </div>
+        <div className="submit-btn flex justify-center px-6 py-2 pb-4">
+          <Button onClick={onClickHandler} variant="contained">Post your solution</Button>
         </div>
 
       </form>

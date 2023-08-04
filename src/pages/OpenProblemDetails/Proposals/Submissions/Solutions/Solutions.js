@@ -38,7 +38,7 @@ function Solutions() {
           {hasLoaded && submissions.length === 0 &&
           <div className="placegolder text-center">
             <h1>
-              No submitted research or answers.
+              No submitted solutions
             </h1>
 
           </div>

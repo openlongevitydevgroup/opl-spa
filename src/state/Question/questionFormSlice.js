@@ -45,7 +45,14 @@ const reducers = {
     selectChange(state, action){
         state.formDetails.parentId =  action.payload.id
     },
-    resetForm: () => DEFAULT_STATE,
+    resetForm: (state) => {
+        if(state.submitFormOpen){
+            return{...DEFAULT_STATE, submitFormOpen : true}
+
+        }else{
+            return DEFAULT_STATE
+        }
+    },
     toggleModalOpen(state){
         state.submitModalOpen = true
     },

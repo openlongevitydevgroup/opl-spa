@@ -45,9 +45,10 @@ const reducers = {
     selectChange(state, action){
         state.formDetails.parentId =  action.payload.id
     },
-    resetForm: (state) => {
-        if(state.submitFormOpen){
-            return{...DEFAULT_STATE, submitFormOpen : true}
+    resetForm: (state, actions) => {
+        const exit = actions.payload.exit
+        if(state.submitFormOpen && !exit){
+            return{...DEFAULT_STATE, submitFormOpen : true, chosenParent : true, formDetails:{...DEFAULT_STATE.formDetails, parentTitle:state.formDetails.parentTitle}}
 
         }else{
             return DEFAULT_STATE

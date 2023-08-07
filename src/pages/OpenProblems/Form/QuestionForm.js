@@ -31,7 +31,7 @@ function QuestionForm() {
   //Submission modal
   const onSubmitModalClose = () => {
     dispatch(formActions.toggleModalClose());
-    dispatch(formActions.resetForm());
+    dispatch(formActions.resetForm({exit:false}));
   };
 
   //Form submission handler - submits to database in the submitted questions database
@@ -82,7 +82,7 @@ function QuestionForm() {
   };
   //Exit button handler
   const exitButtonHandler = () => {
-    dispatch(formActions.resetForm());
+    dispatch(formActions.resetForm({exit:true}));
   };
 
   return (

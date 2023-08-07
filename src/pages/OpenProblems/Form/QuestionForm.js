@@ -37,8 +37,9 @@ function QuestionForm() {
   //Form submission handler - submits to database in the submitted questions database
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const token = captchaRef.current.getValue();
-    captchaRef.current.reset();
+    // const token = captchaRef.current.getValue();
+    // captchaRef.current.reset();
+    const token = true;
     if (!token) {
       dispatch(formActions.toggleModalOpen());
       dispatch(
@@ -102,11 +103,11 @@ function QuestionForm() {
         onSubmit={onSubmitHandler}
       >
         <FormContent />
-        <ReCAPTCHA
+        {/* <ReCAPTCHA
           className="recaptcha"
           sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
           ref={captchaRef}
-        />
+        /> */}
         <div>
           <Button type="submit"> Submit </Button>
           <Button onClick={exitButtonHandler}>Exit</Button>

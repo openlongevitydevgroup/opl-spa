@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { formActions } from "../../../../state/Question/questionFormSlice";
 import { formValidationActions } from "../../../../state/Question/formValidationSlice";
+import Fuse from "fuse.js";
 function TextInput(props) {
   const allProblems = useSelector((state) => state.question.allProblems);
   const formDetailsState = useSelector((state) => state.form.formDetails);
@@ -16,11 +17,13 @@ function TextInput(props) {
       return;
     } else {
       const inputTitle = formDetailsState.title.toLowerCase();
+      const fuseOptions = {
+        keys: ["title"], // The property to search for similarity
+      };
+      const fuse = new Fuse(allProblems, fuseOptions);
       if (inputTitle.length > MIN_INPUT_LENGTH_FOR_SIMILAR) {
-        const similarProblemsFilter = allProblems.filter((problem) =>
-          problem.title.toLowerCase().includes(inputTitle)
-        );
-        setSimilarProblems(similarProblemsFilter);
+        const similarProblemsFilter = fuse.search(inputTitle);
+        setSimilarProblems(similarProblemsFilter.map((result) => result.item));
       } else {
         setSimilarProblems([]);
       }
@@ -65,7 +68,7 @@ function TextInput(props) {
           {props.id === "title" &&
             formDetailsState.title.length > 0 &&
             similarProblems.length > 0 && (
-              <div className="absolute right-0 top-full mt-2 w-full border border-theme-blue bg-white">
+              <div className="relative right-0 top-full mt-2 max-h-40 w-full overflow-y-auto border border-theme-blue bg-white">
                 <h1 className="text-small font-semibold md:text-base">
                   Similar submitted problems:
                 </h1>

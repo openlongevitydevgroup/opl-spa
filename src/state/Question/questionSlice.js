@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const DEFAULT_STATE = {
   viewType: "tree",
   searchQuery: "",
-  filteredResults: null,
+  filteredResults: [],
   filterOpen: false,
   filters: {
     species: false,

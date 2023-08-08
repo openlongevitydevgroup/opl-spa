@@ -12,8 +12,8 @@ function QuestionList(props) {
   if (filteredQuestions && filteredQuestions.length > 0) {
     return (
       <ul>
-        {filteredQuestions.map((question) => (
-          <MuiListComponent problem={question}></MuiListComponent>
+        {filteredQuestions.map((item) => (
+          <MuiListComponent problem={item.item}></MuiListComponent>
         ))}
       </ul>
     );

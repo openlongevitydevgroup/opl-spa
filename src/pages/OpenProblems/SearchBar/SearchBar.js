@@ -1,44 +1,61 @@
-import { TextField} from '@mui/material'
-import {Form, useLoaderData} from 'react-router-dom'
-import { questionActions } from '../../../state/Question/questionSlice'
-import { formActions } from '../../../state/Question/questionFormSlice'
-import { useDispatch, useSelector } from 'react-redux'
-const STYLES = {
+import { TextField } from "@mui/material";
+import { Form, useLoaderData } from "react-router-dom";
+import { questionActions } from "../../../state/Question/questionSlice";
+import { formActions } from "../../../state/Question/questionFormSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Fuse from "fuse.js";
+function SearchBar(props) {
+  const { data: questions } = useLoaderData();
+  const queryState = useSelector((state) => state.question.searchQuery);
 
-    
-}
+  const dispatch = useDispatch();
+//   Fuse for finding problems based on title for now
+  const fuseOptions = {
+    keys: ['title'],
+    threshold: 0.3,
+  };
 
-function SearchBar(props){    
-    const {data:questions} = useLoaderData()
-    const queryState = useSelector( state => state.question.searchQuery)
-
-    const dispatch = useDispatch()
-
-            //Search bar - dealing with submitted query - basic functionality. 
-    const searchFunction = () => {
-        dispatch(questionActions.toggleListState())
-        if(queryState.trim().length ===0){
-            dispatch(formActions.toggleFormClose())
-            dispatch(questionActions.setSearchResults({results:null}))
-        }; 
-        if (queryState.length > 0){
-            const filteredQuestions = questions.filter((entry) => entry.title.toLowerCase().includes(queryState.toLowerCase())
-            )
-            dispatch(questionActions.setSearchResults({results:filteredQuestions}))
-        }
+  //Search bar - dealing with submitted query - basic functionality.
+  const searchFunction = () => {
+    dispatch(questionActions.toggleListState());
+    if (queryState.trim().length === 0) {
+      dispatch(formActions.toggleFormClose());
+      dispatch(questionActions.setSearchResults({ results: null }));
     }
-    const searchOnChange = (e) => {
-        const query = e.target.value; 
-        dispatch(questionActions.setQuery({query: query}))
-        searchFunction()
-        }
+    else{
+        const fuse = new Fuse(questions, fuseOptions)
+        const searchResults = fuse.search(queryState);
+      dispatch(
+        questionActions.setSearchResults({ results: searchResults })
+      );
+    }
+  };
+  const searchOnChange = (e) => {
+    const query = e.target.value;
+    dispatch(questionActions.setQuery({ query: query }));
     
-    return(
-    <Form onSubmit={searchFunction}>
-            <TextField className='z-0' name='search-query' label="Search for an open problem" onChange={searchOnChange} fullWidth={true} sx={STYLES} size='small' variant='filled' margin='normal'/>
-    </Form>
+    if (query.trim().length === 0) {
+      dispatch(questionActions.setSearchResults({ results: null }));
+      dispatch(formActions.toggleFormClose());
+    } else {
+      searchFunction();
+    }
+  };
 
-    )
+  return (
+    <Form onSubmit={searchFunction}>
+      <TextField
+        className="z-0"
+        name="search-query"
+        label="Search for an open problem"
+        onChange={searchOnChange}
+        fullWidth={true}
+        size="small"
+        variant="filled"
+        margin="normal"
+      />
+    </Form>
+  );
 }
 
-export default SearchBar; 
+export default SearchBar;

@@ -13,14 +13,7 @@ function StatbarButtonGroup() {
   const dispatch = useDispatch();
   const isMobileState = useSelector((state) => state.question.isMobile);
   const viewState = useSelector((state) => state.question.viewType);
-  // const toggleTreeHandler = () => {
-  //   dispatch(formActions.toggleFormClose());
-  //   dispatch(questionActions.toggleTreeState());
-  // };
-  // const toggleTableHandler = () => {
-  //   dispatch(formActions.toggleFormClose());
-  //   dispatch(questionActions.toggleListState());
-  // };
+
   const toggleFilterHandler = () => {
     dispatch(questionActions.toggleFilter());
   };

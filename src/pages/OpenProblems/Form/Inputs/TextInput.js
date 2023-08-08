@@ -5,64 +5,85 @@ import { formValidationActions } from "../../../../state/Question/formValidation
 function TextInput(props) {
   const allProblems = useSelector((state) => state.question.allProblems);
   const formDetailsState = useSelector((state) => state.form.formDetails);
-  const isMobileState = useSelector(state => state.question.isMobile);
+  const isMobileState = useSelector((state) => state.question.isMobile);
   const dispatch = useDispatch();
 
   // State for getting similar problems from input
+  const MIN_INPUT_LENGTH_FOR_SIMILAR = 2;
   const [similarProblems, setSimilarProblems] = useState([]);
   useEffect(() => {
-    if(!props.id == "title"){
+    if (!props.id == "title") {
       return;
-    }else{
+    } else {
       const inputTitle = formDetailsState.title.toLowerCase();
-      const similarProblemsFilter = allProblems.filter((problem) => problem.title.toLowerCase().includes(inputTitle) ); 
-      setSimilarProblems(similarProblemsFilter)
+      if (inputTitle.length > MIN_INPUT_LENGTH_FOR_SIMILAR) {
+        const similarProblemsFilter = allProblems.filter((problem) =>
+          problem.title.toLowerCase().includes(inputTitle)
+        );
+        setSimilarProblems(similarProblemsFilter);
+      } else {
+        setSimilarProblems([]);
+      }
     }
-  }, [formDetailsState.title, similarProblems])
+  }, [formDetailsState.title]);
   const onChangeHandler = (e, key) => {
     dispatch(formActions.inputChange({ id: key, value: e.target.value }));
-    switch (key){
-      case 'title': 
-        dispatch(formValidationActions.checkTitle({title:e.target.value}))
+    switch (key) {
+      case "title":
+        dispatch(formValidationActions.checkTitle({ title: e.target.value }));
         break;
-      case 'email':
-        dispatch(formValidationActions.checkEmail({email:e.target.value}))
+      case "email":
+        dispatch(formValidationActions.checkEmail({ email: e.target.value }));
         break;
       default:
-    } 
+    }
   };
-  
-  
 
   return (
     <div className="flex flex-col">
-    <div 
-      className={
-        
-        `${props.id} flex w-full ${isMobileState ? 'flex-col' : 'flex-row'} items-center py-[1.5rem] text-center`
-      }
-    >
-      <label className={`inline-block ${isMobileState ? 'w-full' : 'w-1/5'}`} htmlFor={props.id}>
-        <p className="font-bold text-sm md:text-base">{props.labelText}</p>
-      </label>
-      <input onChange={(e) => onChangeHandler(e, props.id)}
-        type="text"
-        className={`h-fit-content h-auto ${isMobileState ? 'w-full' : 'w-4/5'} rounded border border-slate-500 bg-bg-grey p-2`} required={props.required}
-       value={formDetailsState[props.id]} placeholder={props.label} name={props.id}/>
-
-    </div>
-    {
-      props.id === "title" &&
-      <div>
-        <ul className="list-disc">
-          {similarProblems.map((problem) => <li>{problem.title}</li>)}
-        </ul>
-
+      <div
+        className={`flex w-full ${
+          isMobileState ? "flex-col" : "flex-row"
+        } items-center py-[1.5rem] text-center`}
+      >
+        <label
+          className={`inline-block ${isMobileState ? "w-full" : "w-1/5"}`}
+          htmlFor={props.id}
+        >
+          <p className="text-sm font-bold md:text-base">{props.labelText}</p>
+        </label>
+        <div className={`relative ${isMobileState ? "w-full" : "w-4/5"}`}>
+          <input
+            onChange={(e) => onChangeHandler(e, props.id)}
+            type="text"
+            className="h-fit-content h-auto w-full rounded border border-slate-500 bg-bg-grey p-2"
+            required={props.required}
+            value={formDetailsState[props.id]}
+            placeholder={props.label}
+            name={props.id}
+          />
+          {props.id === "title" &&
+            formDetailsState.title.length > 0 &&
+            similarProblems.length > 0 && (
+              <div className="absolute right-0 top-full mt-2 w-full border border-theme-blue bg-white">
+                <h1 className="text-small font-semibold md:text-base">
+                  Similar submitted problems:
+                </h1>
+                <ul className="">
+                  {similarProblems.map((problem) => (
+                    <li
+                      key={problem.id}
+                      className="px-2 py-1 text-sm md:text-base"
+                    >
+                      {problem.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+        </div>
       </div>
-    }
-
     </div>
-
   );
 }
 

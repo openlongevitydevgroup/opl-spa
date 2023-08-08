@@ -20,6 +20,7 @@ function MuiListComponent(props) {
   return (
     <>
       <ListItemButton
+      key={id}
         className="w-100 my-2 flex bg-white"
         onClick={onClickHandler}
         sx={{

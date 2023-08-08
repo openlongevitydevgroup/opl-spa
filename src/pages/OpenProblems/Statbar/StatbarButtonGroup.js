@@ -19,7 +19,11 @@ function StatbarButtonGroup() {
   };
   const handleView = (e, value) => {
     dispatch(formActions.toggleFormClose());
+    if(value === "tree"){
+      dispatch(questionActions.setSearchResults({results:null}))
+    }
     dispatch(questionActions.setState({ key: "viewType", value: value }));
+    
   };
 
   return (

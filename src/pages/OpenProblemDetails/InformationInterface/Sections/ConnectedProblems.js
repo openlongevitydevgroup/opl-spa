@@ -2,7 +2,6 @@ import InterfaceTemplate from "../../../../components/Template/InterfaceTemplate
 import { HashLink } from "react-router-hash-link";
 function ConnectedProblems(props) {
   const directChildren = props.children;
-  console.log(directChildren)
   const { isRoot, parent } = props.parent;
 
   const parentId = parent ? parent.problem_id : null;

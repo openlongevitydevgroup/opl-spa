@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { detailsActions } from "../../../../../state/Details/detailsSlice";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import apiReferences from "../../../../../api/apiReferences";
 function SourcesForm(props) {
   const id = props.id;
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ function SourcesForm(props) {
   //Local state for singular input
   const [selected, setSelected] = useState("DOI");
   const [input, setInput] = useState("");
-  const [isValid, setValid] = useState(false);
+  const [refData, setRefData] = useState("")
   
   const removeHandler = (e) => {
     e.preventDefault();
@@ -26,8 +26,37 @@ function SourcesForm(props) {
       setInput(value);
       dispatch(detailsActions.setReference({ id, type: selected, value: value }));
     };
+  
+    const verifyHandler = async () => {
+      const type = selected; 
+      const value = input;
+      const params = {type, value}
+      try{
+        const {data} = await apiReferences.verifyReference(params)
+        setRefData(`${data.title} (${data.year})`)
+
+      }catch(error){
+        setRefData("")
+      }
+    }
+  // Debounce the input
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      if(input.length === 0){
+        setRefData("")
+      }else{
+        verifyHandler(); // Automatically trigger verification after delay
+
+      }
+    }, 1000); // Adjust the timeout as needed
+
+    return () => {
+      clearTimeout(debounceTimeout);
+    };
+  }, [input]);
   return (
-    <div key={id} className="references flex flex-row py-2">
+    <>
+        <div key={id} className="references flex flex-row py-2">
       <select
         onChange={onChangeHandlerType}
         key={id + "sel"}
@@ -48,7 +77,7 @@ function SourcesForm(props) {
         type="text"
         className="reference-input w-full border border-theme-blue px-2"
         value={input}
-        maxLength={selected == "DOI" ? 30 : 8}
+        maxLength={selected == "DOI" ? 100 : 8}
       ></input>
       <button
         key={id + "btn"}
@@ -58,6 +87,12 @@ function SourcesForm(props) {
         Remove
       </button>
     </div>
+    <div className="verify-reference py-2">
+      <p className="">{refData}</p>
+
+    </div>
+    </>
+
   );
 }
 

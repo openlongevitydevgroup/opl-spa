@@ -11,7 +11,7 @@ function Details() {
   const title = openProblemDetails.title;
   const children = openProblemDetails.children;
   const parent = data.parent_data;
-  const isRoot = parent ? true : false;
+  const isRoot = parent ? false : true;
 
   // Select the title of the open problem to use as the anchor for the scrollToView function
   const ref = useRef(null);

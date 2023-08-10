@@ -13,10 +13,15 @@ function InformationSection(props) {
   return (
     <>
       <ConnectedProblems children={children} parent={{isRoot, parent}} />
-      <ProposalHeader />
+      {!isRoot &&  
+      <>
+            <ProposalHeader />
       <div className="research-and-proposals">
         <Proposals />
       </div>
+      </>
+      }
+
       {/* {!isRoot && <Classification />} */}
       <References id={id} />
     </>

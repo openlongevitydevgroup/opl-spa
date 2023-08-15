@@ -7,6 +7,7 @@ import Comments from "../Comments/Comments";
 import setDate from "../../../../../utils/functions/setDate";
 import { useDispatch } from "react-redux";
 import { detailsActions } from "../../../../../state/Details/detailsSlice";
+import apiReferences from "../../../../../api/apiReferences";
 
 function SolutionsComponent(props) {
   const {
@@ -17,26 +18,30 @@ function SolutionsComponent(props) {
     last_name: lastName,
     affiliation,
   } = props.data;
-  const createdDate = setDate(date)
+  const createdDate = setDate(date);
   const userName = setUserName({ firstName, lastName, affiliation });
   const [references, setReferences] = useState([]);
-  
+
   // Dispatch state to store the submissionId
   const dispatch = useDispatch();
-  dispatch(detailsActions.setState({key:"submissionId", value:id})); 
-
-  
+  dispatch(detailsActions.setState({ key: "submissionId", value: id }));
 
   // Use effect to get data for the post references
-  useEffect(() => {
-    const fetchPostDetails = async () => {
-      const { data } = await axios.get(
-        `http://${process.env.REACT_APP_DB_REQUEST}/api/posts/get/${id}`
-      );
-      setReferences(data.references);
-    };
-    fetchPostDetails();
-  }, []);
+  // useEffect(() => {
+  //   const fetchPostDetails = async () => {
+  //     const { data } = await axios.get(
+  //       `http://${process.env.REACT_APP_DB_REQUEST}/api/posts/get/${id}`
+  //     );
+  //     setReferences(data.references);
+  //   };
+  //   fetchPostDetails();
+  // }, []);
+
+  // useEffect(() => {
+  //   try{
+  //     const {data} = apiReferences.getReferenceForSolution;
+  //   }
+  // })
 
   // Set state for showing comments
   const [commentsIsDisplayed, displayComments] = useState(false);
@@ -55,10 +60,12 @@ function SolutionsComponent(props) {
         <h1 className="text-sm underline">Sources:</h1>
         <ul>{references && <SourcesList sources={references} />}</ul>
       </div>
-      <CommentsButton submissionId={id} setState={displayComments} state={commentsIsDisplayed} />
-      {commentsIsDisplayed && (
-          <Comments submissionId={id}/>
-      )}
+      <CommentsButton
+        submissionId={id}
+        setState={displayComments}
+        state={commentsIsDisplayed}
+      />
+      {commentsIsDisplayed && <Comments submissionId={id} />}
     </div>
   );
 }

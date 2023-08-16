@@ -9,8 +9,8 @@ function SourcesForm(props) {
   //Local state for singular input
   const [selected, setSelected] = useState("DOI");
   const [input, setInput] = useState("");
-  const [refData, setRefData] = useState("")
-  
+  const [refData, setRefData] = useState("");
+
   const removeHandler = (e) => {
     e.preventDefault();
     dispatch(detailsActions.removeReference({ id: id }));
@@ -21,32 +21,31 @@ function SourcesForm(props) {
     setInput("");
     dispatch(detailsActions.setReference({ id, type: selected, value: input }));
   };
-    const onChangeHandlerInput = (e) => {
-      const value = e.target.value;
-      setInput(value);
-      dispatch(detailsActions.setReference({ id, type: selected, value: value }));
-    };
-  
-    const verifyHandler = async () => {
-      const type = selected; 
-      const value = input;
-      const params = {type, value}
-      try{
-        const {data} = await apiReferences.verifyReference(params)
-        setRefData(`${data.title} (${data.year})`)
+  const onChangeHandlerInput = (e) => {
+    const value = e.target.value;
+    setInput(value);
+    dispatch(detailsActions.setReference({ id, type: selected, value: value }));
+  };
 
-      }catch(error){
-        setRefData("")
-      }
+  const verifyHandler = async () => {
+    const type = selected;
+    const value = input;
+    const params = { type, value };
+    try {
+      const { data } = await apiReferences.verifyReference(params);
+      setRefData(`${data.title} (${data.year})`);
+      console.log(data);
+    } catch (error) {
+      setRefData("");
     }
+  };
   // Debounce the input
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
-      if(input.length === 0){
-        setRefData("")
-      }else{
+      if (input.length === 0) {
+        setRefData("");
+      } else {
         verifyHandler(); // Automatically trigger verification after delay
-
       }
     }, 1000); // Adjust the timeout as needed
 
@@ -56,43 +55,41 @@ function SourcesForm(props) {
   }, [input]);
   return (
     <>
-        <div key={id} className="references flex flex-row py-2">
-      <select
-        onChange={onChangeHandlerType}
-        key={id + "sel"}
-        name="type"
-        className="mr-4 border border-theme-blue px-4"
-        value={selected}
-      >
-        <option key={id + "opt2"} value="DOI">
-          DOI
-        </option>
-        <option key={id + "opt1"} value="PMID">
-          PUBMED ID
-        </option>
-      </select>
-      <input
-        onChange={onChangeHandlerInput}
-        key={id + "inp"}
-        type="text"
-        className="reference-input w-full border border-theme-blue px-2"
-        value={input}
-        maxLength={selected == "DOI" ? 100 : 8}
-      ></input>
-      <button
-        key={id + "btn"}
-        onClick={removeHandler}
-        className="pl-2 text-sm text-theme-blue underline"
-      >
-        Remove
-      </button>
-    </div>
-    <div className="verify-reference py-2">
-      <p className="">{refData}</p>
-
-    </div>
+      <div key={id} className="references flex flex-row py-2">
+        <select
+          onChange={onChangeHandlerType}
+          key={id + "sel"}
+          name="type"
+          className="mr-4 border border-theme-blue px-4"
+          value={selected}
+        >
+          <option key={id + "opt2"} value="DOI">
+            DOI
+          </option>
+          <option key={id + "opt1"} value="PMID">
+            PUBMED ID
+          </option>
+        </select>
+        <input
+          onChange={onChangeHandlerInput}
+          key={id + "inp"}
+          type="text"
+          className="reference-input w-full border border-theme-blue px-2"
+          value={input}
+          maxLength={selected == "DOI" ? 100 : 8}
+        ></input>
+        <button
+          key={id + "btn"}
+          onClick={removeHandler}
+          className="pl-2 text-sm text-theme-blue underline"
+        >
+          Remove
+        </button>
+      </div>
+      <div className="verify-reference py-2">
+        <p className="">{refData}</p>
+      </div>
     </>
-
   );
 }
 

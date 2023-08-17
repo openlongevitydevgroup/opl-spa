@@ -44,11 +44,7 @@ const apiReferences = {
         return response.data;
       }
     } catch (error) {
-      if (error.response.status === 404) {
-        return `Unable to retrieve reference information: ${error.message}`;
-      } else {
-        return error;
-      }
+      return error;
     }
   },
 };

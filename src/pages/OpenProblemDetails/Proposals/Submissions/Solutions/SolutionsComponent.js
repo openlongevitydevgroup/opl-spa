@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { detailsActions } from "../../../../../state/Details/detailsSlice";
 
 function SolutionsComponent(props) {
+  const dispatch = useDispatch();
   const {
     full_text: fullText,
     created_at: date,
@@ -20,8 +21,7 @@ function SolutionsComponent(props) {
   const createdDate = setDate(date);
   const userName = setUserName({ firstName, lastName, affiliation });
 
-  // Dispatch state to store the submissionId
-  const dispatch = useDispatch();
+  // Dispatch state to store the submissionId only when component is mounted
   dispatch(detailsActions.setState({ key: "submissionId", value: id }));
 
   // Set state for showing comments

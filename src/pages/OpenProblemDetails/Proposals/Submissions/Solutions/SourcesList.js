@@ -25,7 +25,7 @@ function SourcesList(props) {
     return (
       <ul>
         {references.map((ref) => (
-          <li key={ref.reference_id} className="list-disc">
+          <li key={ref.reference_id} className="list-disc text-sm">
             <p className="text-sm">{ref.references.full_citation}</p>
           </li>
         ))}

@@ -41,12 +41,6 @@ function SourcesList(props) {
       </ul>
     );
   }
-
-  if (references.length > 0) {
-    return <ul>{references.map((ref) => renderReference(ref))}</ul>;
-  } else {
-    return <p className="py-2 text-sm">None submitted.</p>;
-  }
 }
 
 export default SourcesList;

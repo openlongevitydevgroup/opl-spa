@@ -5,7 +5,7 @@ import SourceContent from "./SourceContent";
 
 function SourcesList(props) {
   const id = useSelector((state) => state.details.submissionId);
-  const [references, setReferences] = useState({});
+  const [references, setReferences] = useState([]);
   useEffect(() => {
     async function getReferences() {
       try {
@@ -14,10 +14,14 @@ function SourcesList(props) {
         });
         setReferences(data);
       } catch (error) {
-        setReferences({
-          reference_id: "error",
-          ref: "Error in retrieving references",
-        });
+        setReferences([
+          {
+            reference_id: "error",
+            references: {
+              full_citation: "Error in retrieving references",
+            },
+          },
+        ]);
       }
     }
     getReferences();
@@ -36,6 +40,10 @@ function SourcesList(props) {
         ))}
       </ul>
     );
+  }
+
+  if (references.length > 0) {
+    return <ul>{references.map((ref) => renderReference(ref))}</ul>;
   } else {
     return <p className="py-2 text-sm">None submitted.</p>;
   }

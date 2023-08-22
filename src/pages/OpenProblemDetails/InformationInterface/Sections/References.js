@@ -18,7 +18,6 @@ function References(props) {
       }
     };
     getReferences();
-    console.log(references);
   }, [id]);
 
   return (

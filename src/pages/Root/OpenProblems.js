@@ -7,24 +7,26 @@ import { questionActions } from "../../state/Question/questionSlice";
 import { useEffect } from "react";
 import { Nav2 } from "../../components/UI/Nav/Nav";
 import Footer from "./Footer/Footer";
+
 function RootOpenProblems() {
-  const dispatch = useDispatch(); 
-  const viewWidth = useSelector(state => state.question.viewWidth)
-  useEffect(()=>{ // Handle resizing of window and keep track of the inner width
+  const dispatch = useDispatch();
+  const viewWidth = useSelector((state) => state.question.viewWidth);
+  useEffect(() => {
+    // Handle resizing of window and keep track of the inner width
     const handleResize = () => {
-      dispatch(questionActions.setWidth({viewWidth: window.innerWidth}))
-      dispatch(questionActions.setIsMobile())
-    }
+      dispatch(questionActions.setWidth({ viewWidth: window.innerWidth }));
+      dispatch(questionActions.setIsMobile());
+    };
     handleResize();
-    window.addEventListener('resize', handleResize); 
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize) //Cleanup function to prevent memory leak 
-    }
-  }, [dispatch, viewWidth])
+      window.removeEventListener("resize", handleResize); //Cleanup function to prevent memory leak
+    };
+  }, [dispatch, viewWidth]);
   return (
     <Fragment>
       <div className="nav h-3/12">
-      <Nav2 />
+        <Nav2 />
       </div>
       <section className="h-6/12 px-12">
         <Container className="root-container">
@@ -34,11 +36,15 @@ function RootOpenProblems() {
           </h1>
         </Container>
       </section>
-      <main className={`w-full ${viewWidth > 450 ? "px-40" : "px-2"} pb-4 py-6 overflow-auto`}>
-          <Outlet />
+      <main
+        className={`w-full ${
+          viewWidth > 450 ? "px-40" : "px-2"
+        } overflow-auto py-6 pb-4`}
+      >
+        <Outlet />
       </main>
       <footer className="h-3/12">
-        <Footer/>
+        <Footer />
       </footer>
     </Fragment>
   );

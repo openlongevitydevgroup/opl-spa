@@ -9,6 +9,9 @@ function View(props) {
   const viewState = useSelector((state) => state.question.viewType);
   const { recursiveData: recursiveQuestions, data: questions } =
     useLoaderData();
+
+  // Depending on sorting open problems are pulled from a particular endpoint
+
   useEffect(() => {
     dispatch(
       questionActions.setState({ key: "allProblems", value: questions })

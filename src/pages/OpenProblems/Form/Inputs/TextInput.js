@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { formActions } from "../../../../state/Question/questionFormSlice";
 import { formValidationActions } from "../../../../state/Question/formValidationSlice";
 import { useLoaderData } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import Fuse from "fuse.js";
 function TextInput(props) {
   const allProblems = useLoaderData();
   const openProblems = allProblems.latest;
-
   const formDetailsState = useSelector((state) => state.form.formDetails);
   const isMobileState = useSelector((state) => state.question.isMobile);
   const dispatch = useDispatch();
@@ -78,10 +78,21 @@ function TextInput(props) {
                 <ul className="">
                   {similarProblems.map((problem) => (
                     <li
-                      key={problem.id}
+                      key={problem.problem_id}
                       className="px-2 py-1 text-sm md:text-base"
                     >
-                      {problem.title}
+                      <HashLink
+                        smooth
+                        to={
+                          "/open-problems/" +
+                          problem.problem_id +
+                          "#title" +
+                          problem.problem_id
+                        }
+                        className="hover:text-theme-blue hover:underline"
+                      >
+                        {problem.title}
+                      </HashLink>
                     </li>
                   ))}
                 </ul>

@@ -31,15 +31,14 @@ function QuestionForm() {
   //Submission modal
   const onSubmitModalClose = () => {
     dispatch(formActions.toggleModalClose());
-    dispatch(formActions.resetForm({exit:false}));
+    dispatch(formActions.resetForm({ exit: false }));
   };
 
   //Form submission handler - submits to database in the submitted questions database
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    // const token = captchaRef.current.getValue();
-    // captchaRef.current.reset();
-    const token = true;
+    const token = captchaRef.current.getValue();
+    captchaRef.current.reset();
     if (!token) {
       dispatch(formActions.toggleModalOpen());
       dispatch(
@@ -50,10 +49,8 @@ function QuestionForm() {
         })
       );
     } else {
-      // const validToken = await verifyToken(token);
-      // const valid
-      // const successResponse = JSON.parse(validToken[0]);
-      const successResponse = { success: true };
+      const validToken = await verifyToken(token);
+      const successResponse = JSON.parse(validToken[0]);
       if (successResponse.success === true) {
         validateForm(dispatch, formDetailsState, validationState)
           .then(() => sendRequest(formDetailsState, dispatch))
@@ -82,7 +79,7 @@ function QuestionForm() {
   };
   //Exit button handler
   const exitButtonHandler = () => {
-    dispatch(formActions.resetForm({exit:true}));
+    dispatch(formActions.resetForm({ exit: true }));
   };
 
   return (
@@ -95,19 +92,19 @@ function QuestionForm() {
       </h1>
       <p className="py-4 text-sm md:text-base">
         If you believe that a problem you are submitting falls under one of our
-        existing problems, please select it as an associated open problem. If not,
-        select "Submit as a root problem". 
+        existing problems, please select it as an associated open problem. If
+        not, select "Submit as a root problem".
       </p>
       <Form
         className="flex w-full flex-col items-center text-center text-sm md:text-base"
         onSubmit={onSubmitHandler}
       >
         <FormContent />
-        {/* <ReCAPTCHA
+        <ReCAPTCHA
           className="recaptcha"
           sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
           ref={captchaRef}
-        /> */}
+        />
         <div>
           <Button type="submit"> Submit </Button>
           <Button onClick={exitButtonHandler}>Exit</Button>

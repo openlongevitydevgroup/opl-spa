@@ -21,22 +21,23 @@ function SourcesForm(props) {
     setInput("");
     dispatch(detailsActions.setReference({ id, type: selected, value: input }));
   };
-  const onChangeHandlerInput = (e) => {
-    const value = e.target.value;
-    setInput(value);
-    dispatch(detailsActions.setReference({ id, type: selected, value: value }));
-  };
+    const onChangeHandlerInput = (e) => {
+      const value = e.target.value;
+      setInput(value);
+      dispatch(detailsActions.setReference({ id, type: selected, value: value }));
+    };
+  
+    const verifyHandler = async () => {
+      const type = selected; 
+      const value = input;
+      const params = {type, value}
+      try{
+        const {data} = await apiReferences.verifyReference(params)
+        setRefData(`${data.title} (${data.year})`)
 
-  const verifyHandler = async () => {
-    const type = selected;
-    const value = input;
-    const params = { type, value };
-    try {
-      const { data } = await apiReferences.verifyReference(params);
-      setRefData(`${data.title} (${data.year})`);
-      console.log(data);
-    } catch (error) {
-      setRefData("");
+      }catch(error){
+        setRefData("")
+      }
     }
   };
   // Debounce the input

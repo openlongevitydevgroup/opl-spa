@@ -17,7 +17,7 @@ const api = {
   getComments: async (params) => {
     const submissionId = params.submissionId;
     try {
-      const {data} = await apiClient.get(
+      const { data } = await apiClient.get(
         `posts/get/${submissionId}/comments`
       );
       return data;
@@ -26,14 +26,16 @@ const api = {
     }
   },
   getRootComments: async (params) => {
-    const submissionId = params.submissionId; 
-    try{
-      const {data} = await apiClient.get(`posts/get/${submissionId}/comments`)
+    const submissionId = params.submissionId;
+    try {
+      const { data } = await apiClient.get(
+        `posts/get/${submissionId}/comments`
+      );
       return data;
-    }catch(error){
+    } catch (error) {
       return error;
     }
-  }
+  },
 };
 
 export default api;

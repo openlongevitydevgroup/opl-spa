@@ -2,9 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { formActions } from "../../../../state/Question/questionFormSlice";
 import { formValidationActions } from "../../../../state/Question/formValidationSlice";
+import { useLoaderData } from "react-router-dom";
 import Fuse from "fuse.js";
 function TextInput(props) {
-  const allProblems = useSelector((state) => state.question.allProblems);
+  const allProblems = useLoaderData();
+  const openProblems = allProblems.latest;
+
   const formDetailsState = useSelector((state) => state.form.formDetails);
   const isMobileState = useSelector((state) => state.question.isMobile);
   const dispatch = useDispatch();
@@ -20,7 +23,7 @@ function TextInput(props) {
       const fuseOptions = {
         keys: ["title"], // The property to search for similarity
       };
-      const fuse = new Fuse(allProblems, fuseOptions);
+      const fuse = new Fuse(openProblems, fuseOptions);
       if (inputTitle.length > MIN_INPUT_LENGTH_FOR_SIMILAR) {
         const similarProblemsFilter = fuse.search(inputTitle);
         setSimilarProblems(similarProblemsFilter.map((result) => result.item));

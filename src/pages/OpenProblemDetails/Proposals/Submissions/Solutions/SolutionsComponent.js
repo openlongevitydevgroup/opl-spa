@@ -7,9 +7,9 @@ import Comments from "../Comments/Comments";
 import setDate from "../../../../../utils/functions/setDate";
 import { useDispatch } from "react-redux";
 import { detailsActions } from "../../../../../state/Details/detailsSlice";
-import apiReferences from "../../../../../api/apiReferences";
 
 function SolutionsComponent(props) {
+  const dispatch = useDispatch();
   const {
     full_text: fullText,
     created_at: date,
@@ -20,28 +20,9 @@ function SolutionsComponent(props) {
   } = props.data;
   const createdDate = setDate(date);
   const userName = setUserName({ firstName, lastName, affiliation });
-  const [references, setReferences] = useState([]);
 
-  // Dispatch state to store the submissionId
-  const dispatch = useDispatch();
+  // Dispatch state to store the submissionId only when component is mounted
   dispatch(detailsActions.setState({ key: "submissionId", value: id }));
-
-  // Use effect to get data for the post references
-  // useEffect(() => {
-  //   const fetchPostDetails = async () => {
-  //     const { data } = await axios.get(
-  //       `http://${process.env.REACT_APP_DB_REQUEST}/api/posts/get/${id}`
-  //     );
-  //     setReferences(data.references);
-  //   };
-  //   fetchPostDetails();
-  // }, []);
-
-  // useEffect(() => {
-  //   try{
-  //     const {data} = apiReferences.getReferenceForSolution;
-  //   }
-  // })
 
   // Set state for showing comments
   const [commentsIsDisplayed, displayComments] = useState(false);
@@ -58,7 +39,9 @@ function SolutionsComponent(props) {
       <hr />
       <div className="sources bg-gray-100 px-6 py-2 pt-6">
         <h1 className="text-sm underline">Sources:</h1>
-        <ul>{references && <SourcesList sources={references} />}</ul>
+        <ul>
+          <SourcesList />
+        </ul>
       </div>
       <CommentsButton
         submissionId={id}

@@ -1,22 +1,46 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import apiReferences from "../../../../../api/apiReferences";
+import SourceContent from "./SourceContent";
 
-function SourcesList(props){
-    const sources = props.sources
-    if(sources.length > 0){
-        return(
-            <ul>
-                {sources.map((ref) => 
-                <li key={ref.reference_id} className="list-disc">
-                    {ref.type === "Link" ? <a className="text-sm hover:underline hover:text-theme-blue" href={ref.ref}>{ref.ref}</a> : <p className="text-sm">{ref.ref}</p>}
-                </li>
-                 )}
-            </ul>
-        )
-    }else{
-        return(
-            <p className="text-sm py-2">None submitted.</p>
-        )
+function SourcesList(props) {
+  const id = useSelector((state) => state.details.submissionId);
+  const [references, setReferences] = useState([]);
+  useEffect(() => {
+    async function getReferences() {
+      try {
+        const data = await apiReferences.getReferenceForSolution({
+          submissionId: id,
+        });
+        setReferences(data);
+      } catch (error) {
+        setReferences([
+          {
+            reference_id: "error",
+            references: {
+              full_citation: "Error in retrieving references",
+            },
+          },
+        ]);
+      }
     }
+    getReferences();
+  }, []);
 
+  if (references.length > 0) {
+    return (
+      <ul>
+        {references.map((ref) => (
+          <li key={ref.reference_id} className="list-disc text-sm">
+            <SourceContent
+              reference={ref.references.full_citation}
+              doi={ref.references.doi ? references.references.doi : null}
+            />
+          </li>
+        ))}
+      </ul>
+    );
+  }
 }
 
-export default SourcesList
+export default SourcesList;

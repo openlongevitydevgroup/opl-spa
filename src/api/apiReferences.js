@@ -37,18 +37,14 @@ const apiReferences = {
   getReferenceForSolution: async (params) => {
     const submissionId = params.submissionId;
     try {
-      const response = await apiClient.post(
+      const response = await apiClient.get(
         `posts/get/${submissionId}/submission/reference`
       );
       if ((response.status = 200)) {
-        return response;
+        return response.data;
       }
     } catch (error) {
-      if (error.response.status === 404) {
-        return `Unable to retrieve reference information: ${error.message}`;
-      } else {
-        return error;
-      }
+      return error;
     }
   },
 };

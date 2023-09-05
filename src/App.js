@@ -9,6 +9,7 @@ import {
 import RootOpenProblems from "./pages/Root/OpenProblems";
 import OpenProblems from "./pages/OpenProblems/OpenProblems";
 import getOpenProblems from "./utils/functions/getOpenProblems";
+import { getProblems } from "./pages/OpenProblems/ProblemsInterface/functions/getOpenProblems";
 import Details from "./pages/OpenProblemDetails/Details";
 import getDetails from "./utils/functions/getDetails";
 import AnnotationDetails from "./pages/AnnotationDetails/AnnotationDetails";
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     path: "open-problems",
     element: <RootOpenProblems />,
     children: [
-      { index: true, element: <OpenProblems />, loader: getOpenProblems },
+      { index: true, element: <OpenProblems />, loader: getProblems },
       {
         path: ":id",
         element: <Details />,
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
   {
     path: "annotation",
     element: <RootOpenProblems />,
-    children: [{ path: ":category/:id", element: <AnnotationDetails/>}],
+    children: [{ path: ":category/:id", element: <AnnotationDetails /> }],
   },
 ]);
 //Uncompleted home pages:

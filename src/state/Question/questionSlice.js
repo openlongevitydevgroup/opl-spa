@@ -8,21 +8,21 @@ const DEFAULT_STATE = {
   filteredResults: null,
   filterOpen: false,
   filters: {
-    species: false,
+    sorting: "root",
   },
   modalOpen: false,
-  modalDetails:{
-    title: null, 
-    description: null, 
-    species: null, 
+  modalDetails: {
+    title: null,
+    description: null,
+    species: null,
     citation: null,
-  }
-  , 
+  },
   viewWidth: null,
   isMobile: false,
   openProblem: {},
   allProblems: null,
-  rootProblems: null,
+
+  // rootProblems: null,
 };
 
 const reducers = {
@@ -42,16 +42,9 @@ const reducers = {
     //Gets the search results from the database using the query
     state.filteredResults = actions.payload.results;
   },
-  toggleFilter(state) {
-    //Opens filter draw
-    state.filterOpen = !state.filterOpen;
+  setSorting(state, actions) {
+    state.filters.sorting = actions.payload.value;
   },
-  toggleFilterState(state, actions) {
-    //Changes state of filters
-    state.filters[actions.payload.filter] = actions.payload.bool
-
-  },
-
   //Turn on and off question modal
   toggleModalOpen(state) {
     state.modalOpen = true;
@@ -59,18 +52,30 @@ const reducers = {
   toggleModalClose(state) {
     state.modalOpen = false;
   },
-  setModalDetails(state, actions){
+  // Set the modal content
+  setModalDetails(state, actions) {
     state.modalDetails = actions.payload.modalDetails;
   },
-  setWidth(state, actions){
-    state.viewWidth = actions.payload.viewWidth
+
+  // Set the width state of the viewport
+  setWidth(state, actions) {
+    state.viewWidth = actions.payload.viewWidth;
   },
-  setIsMobile(state){
+
+  // To determine whether current width is mobile
+  setIsMobile(state) {
     state.isMobile = state.viewWidth < 450 ? true : false;
   },
-  setState(state, actions){
+  setState(state, actions) {
     state[actions.payload.key] = actions.payload.value;
-  }
+  },
+  setOpenProblems(state, actions) {
+    state.openProblems = {
+      top: actions.payload.top,
+      latest: actions.payload.latest,
+      answered: actions.payload.answered,
+    };
+  },
 };
 
 const questionSlice = createSlice({

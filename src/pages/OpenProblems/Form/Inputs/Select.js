@@ -4,9 +4,8 @@ import { formActions } from "../../../../state/Question/questionFormSlice";
 function Select(props) {
   const formDetailsState = useSelector((state) => state.form.formDetails);
   const isMobileState = useSelector((state) => state.question.isMobile);
-  const questions = props.questions;
+  const openProblems = props.openProblems;
   const dispatch = useDispatch();
-
   const changeHandler = (e) => {
     if (e.target.value === "Submit as a root problem") {
       dispatch(
@@ -50,14 +49,14 @@ function Select(props) {
           isMobileState ? "w-full" : "w-4/5"
         } rounded border border-slate-500 bg-bg-grey p-2`}
         value={formDetailsState.parentTitle || "Submit as a root problem"}
-        >
-        {questions.map((question) => (
+      >
+        {openProblems.map((problem) => (
           <option
-            value={question.title}
-            key={question.problem_id}
-            id={question.problem_id}
+            value={problem.title}
+            key={problem.problem_id}
+            id={problem.problem_id}
           >
-            {question.title} 
+            {problem.title}
           </option>
         ))}
         <option value={"Submit as a root problem"} id="None">

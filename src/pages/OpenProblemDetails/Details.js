@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { useRef } from "react";
 import InformationSection from "./InformationInterface/InformationSection";
+import { Link } from "react-router-dom";
 import ProposalHeader from "./Proposals/ProposalHeader";
 import Proposals from "./Proposals/Proposals";
 function Details() {
@@ -19,6 +20,15 @@ function Details() {
   return (
     <div>
       <hr className="border-1 border-theme-blue" />
+      <div className="return-bttn">
+        <Link
+          to="/open-problems"
+          className="pt-2 text-base text-theme-blue underline hover:font-semibold md:text-lg"
+        >
+          {" "}
+          Return{" "}
+        </Link>
+      </div>
       <div ref={ref} className="title flex flex-row pt-8 ">
         <h1 className="text-lg md:text-2xl" id={`title${id}`}>
           <u>{title}</u>{" "}

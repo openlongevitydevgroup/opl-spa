@@ -5,13 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import StatbarButtonGroupView from "./StatbarButtonGroupView";
 import scrollToView from "../../../utils/functions/scrollToView";
+import { useLoaderData } from "react-router-dom";
 // This functon is for the statbar that allows the user to select whether to view the questions as a table or as a tree view instead
 
 function Statbar() {
+  const allProblems = useLoaderData();
+  const openProblems = allProblems.latest;
   const [problemsLength, setProblemsLength] = useState(0);
-
-  const problems = useSelector((state) => state.question.allProblems);
   const isMobileState = useSelector((state) => state.question.isMobile);
+  const selectedSorting = useSelector(
+    (state) => state.question.filters.sorting
+  );
 
   const dispatch = useDispatch();
   const submitQuestionHandler = () => {
@@ -20,12 +24,18 @@ function Statbar() {
   };
   useEffect(() => {
     function getLength() {
-      if (problems) {
-        setProblemsLength(problems.length);
+      if (selectedSorting === "root") {
+        const length = allProblems.latest.length;
+        setProblemsLength(length);
+        return;
+      }
+      if (allProblems[selectedSorting]) {
+        const length = allProblems[selectedSorting].length;
+        setProblemsLength(length);
       }
     }
     getLength();
-  }, [problems]);
+  }, [openProblems, selectedSorting]);
   return (
     <Box className="h-full">
       <Paper className="flex h-12 w-full items-center justify-between">
@@ -33,7 +43,7 @@ function Statbar() {
           <StatbarButtonGroupView />
         </div>
         <div className="flex h-full w-1/4 flex-grow-0 items-center justify-center">
-          <p className="text-center font-semibold">
+          <p className="text-center text-xs font-semibold md:text-base">
             {problemsLength} Total Open Problems
           </p>
         </div>

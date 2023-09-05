@@ -5,8 +5,10 @@ function SortingInputs() {
   const dispatch = useDispatch();
   const sorting = useSelector((state) => state.question.filters.sorting);
   const onChange = (e, newValue) => {
-    dispatch(questionActions.toggleListState());
-    dispatch(questionActions.setSorting({ value: newValue }));
+    if (newValue !== null) {
+      dispatch(questionActions.toggleListState());
+      dispatch(questionActions.setSorting({ value: newValue }));
+    }
   };
 
   return (

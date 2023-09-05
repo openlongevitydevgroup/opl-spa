@@ -35,8 +35,17 @@ const apiProblems = {
     }
   },
   sortedSubmissionsDescending: async () => {
+    //This may not be required anymore as we are not using it currently
     try {
       const response = await apiClient.get("open-problems/sorted/submissions");
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+  sortedSubmissionAnswered: async () => {
+    try {
+      const response = await apiClient.get("open-problems/sorted/answered");
       return response;
     } catch (error) {
       return error;

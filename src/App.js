@@ -8,8 +8,7 @@ import {
 // import About from './pages/About/About'
 import RootOpenProblems from "./pages/Root/OpenProblems";
 import OpenProblems from "./pages/OpenProblems/OpenProblems";
-import getOpenProblems from "./utils/functions/getOpenProblems";
-import { getProblems } from "./pages/OpenProblems/ProblemsInterface/functions/getOpenProblems";
+import { getProblems } from "./utils/functions/getOpenProblems";
 import Details from "./pages/OpenProblemDetails/Details";
 import getDetails from "./utils/functions/getDetails";
 import AnnotationDetails from "./pages/AnnotationDetails/AnnotationDetails";

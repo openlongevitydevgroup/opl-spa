@@ -1,10 +1,23 @@
-import axios from "axios";
-async function getOpenProblems() {
-  const { data: recursiveData } = await axios.get(process.env.REACT_APP_OPEN_PROBLEMS_ROOT_ENDPOINT
-  );
-  const { data } = await axios.get(process.env.REACT_APP_OPEN_PROBLEMS_ENDPOINT
-  );
-  return { recursiveData, data };
-}
+import apiProblems from "../../api/apiProblems";
 
-export default getOpenProblems;
+const sortingObj = {
+  latest: apiProblems.getAllProblems,
+  top: apiProblems.sortedDescendantsDescending,
+  answered: apiProblems.sortedSubmissionAnswered,
+  root: apiProblems.getRootProblems,
+};
+
+export async function getProblems() {
+  const sortedData = {};
+  for (const key in sortingObj) {
+    try {
+      const apiCall = sortingObj[key];
+      const { data } = await apiCall();
+      sortedData[key] = data;
+    } catch (error) {
+      sortedData[key] = error;
+    }
+  }
+  console.log(sortedData);
+  return sortedData;
+}

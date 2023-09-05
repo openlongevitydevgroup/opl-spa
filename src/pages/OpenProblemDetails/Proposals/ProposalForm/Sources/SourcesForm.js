@@ -2,11 +2,12 @@ import { useDispatch } from "react-redux";
 import { detailsActions } from "../../../../../state/Details/detailsSlice";
 import { useState, useEffect } from "react";
 import apiReferences from "../../../../../api/apiReferences";
+
 function SourcesForm(props) {
   const id = props.id;
   const dispatch = useDispatch();
 
-  //Local state for singular input
+  // Local state for singular input
   const [selected, setSelected] = useState("DOI");
   const [input, setInput] = useState("");
   const [refData, setRefData] = useState("");
@@ -15,31 +16,32 @@ function SourcesForm(props) {
     e.preventDefault();
     dispatch(detailsActions.removeReference({ id: id }));
   };
+
   const onChangeHandlerType = (e) => {
     const value = e.target.value;
     setSelected(value);
     setInput("");
     dispatch(detailsActions.setReference({ id, type: selected, value: input }));
   };
-    const onChangeHandlerInput = (e) => {
-      const value = e.target.value;
-      setInput(value);
-      dispatch(detailsActions.setReference({ id, type: selected, value: value }));
-    };
-  
-    const verifyHandler = async () => {
-      const type = selected; 
-      const value = input;
-      const params = {type, value}
-      try{
-        const {data} = await apiReferences.verifyReference(params)
-        setRefData(`${data.title} (${data.year})`)
 
-      }catch(error){
-        setRefData("")
-      }
+  const onChangeHandlerInput = (e) => {
+    const value = e.target.value;
+    setInput(value);
+    dispatch(detailsActions.setReference({ id, type: selected, value: value }));
+  };
+
+  const verifyHandler = async () => {
+    const type = selected;
+    const value = input;
+    const params = { type, value };
+    try {
+      const { data } = await apiReferences.verifyReference(params);
+      setRefData(`${data.title} (${data.year})`);
+    } catch (error) {
+      setRefData("");
     }
   };
+
   // Debounce the input
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
@@ -54,6 +56,7 @@ function SourcesForm(props) {
       clearTimeout(debounceTimeout);
     };
   }, [input]);
+
   return (
     <>
       <div key={id} className="references flex flex-row py-2">
@@ -77,8 +80,8 @@ function SourcesForm(props) {
           type="text"
           className="reference-input w-full border border-theme-blue px-2"
           value={input}
-          maxLength={selected == "DOI" ? 100 : 8}
-        ></input>
+          maxLength={selected === "DOI" ? 100 : 8}
+        />
         <button
           key={id + "btn"}
           onClick={removeHandler}

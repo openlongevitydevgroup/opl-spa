@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar/SearchBar";
 import ProblemsInterface from "./ProblemsInterface/ProblemsInterface";
 import ModalT from "../../components/UI/Modal/Modal";
 import { useEffect } from "react";
-import { getProblems } from "./ProblemsInterface/functions/getOpenProblems";
+import { getProblems } from "../../utils/functions/getOpenProblems";
 function OpenProblems() {
   const modalState = useSelector((state) => state.question.modalOpen);
   const questionDetails = useSelector((state) => state.question.modalDetails);

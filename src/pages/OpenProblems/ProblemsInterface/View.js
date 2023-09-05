@@ -1,28 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useLoaderData } from "react-router-dom";
 import { Fragment, useEffect } from "react";
 import QuestionList from "./List/QuestionList";
-import { questionActions } from "../../../state/Question/questionSlice";
 
-function View(props) {
-  const dispatch = useDispatch();
+function View() {
   const viewState = useSelector((state) => state.question.viewType);
-  const { recursiveData: recursiveQuestions, data: questions } =
-    useLoaderData();
 
-  // Depending on sorting open problems are pulled from a particular endpoint
-
-  useEffect(() => {
-    dispatch(
-      questionActions.setState({ key: "allProblems", value: questions })
-    );
-    dispatch(
-      questionActions.setState({
-        key: "rootProblems",
-        value: recursiveQuestions,
-      })
-    );
-  });
   if (viewState === "tree") {
     return (
       <Fragment>

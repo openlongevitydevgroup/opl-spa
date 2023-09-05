@@ -7,7 +7,7 @@ import StatbarButtonGroupView from "./StatbarButtonGroupView";
 import scrollToView from "../../../utils/functions/scrollToView";
 // This functon is for the statbar that allows the user to select whether to view the questions as a table or as a tree view instead
 
-function Statbar(props) {
+function Statbar() {
   const [problemsLength, setProblemsLength] = useState(0);
 
   const problems = useSelector((state) => state.question.allProblems);

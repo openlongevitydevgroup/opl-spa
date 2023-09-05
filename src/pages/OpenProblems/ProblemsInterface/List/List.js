@@ -1,19 +1,43 @@
 import { List } from "@mui/material";
 import { useSelector } from "react-redux";
 import MuiListComponent from "./MuiListComponent";
+import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
-function MuiList(props) {
-  const viewState = useSelector((state) => state.question.viewType);
-  const allProblems = useSelector((state) => state.question.allProblems);
-  const rootProblems = useSelector((state) => state.question.rootProblems);
-  const problems = viewState === "tree" ? rootProblems : allProblems;
-  const children = props.children;
-  const data = children || problems; // Use children if it exists, otherwise use problems;
+function MuiList() {
+  const selectedSorting = useSelector(
+    (state) => state.question.filters.sorting
+  );
+  const allProblems = useLoaderData();
+  const [selectedProblems, setSelectedProblems] = useState(allProblems.top);
+  // const children = props.children;
+
+  useEffect(() => {
+    switch (selectedSorting) {
+      case "top":
+        setSelectedProblems(allProblems.top);
+        break;
+      case "latest":
+        setSelectedProblems(allProblems.latest);
+        break;
+      case "answered":
+        setSelectedProblems(allProblems.answered);
+        break;
+      case "root":
+        setSelectedProblems(allProblems.root);
+        break;
+
+      default:
+        setSelectedProblems(allProblems.top);
+    }
+  }, [selectedSorting]);
+
+  // const data = children || problems; // Use children if it exists, otherwise use problems;
 
   return (
     <List sx={{ width: "100%" }} variant="outlined">
-      {data &&
-        data.map((item, index) => (
+      {selectedProblems &&
+        selectedProblems.map((item, index) => (
           <MuiListComponent key={index} title={item.title} problem={item} />
         ))}
     </List>

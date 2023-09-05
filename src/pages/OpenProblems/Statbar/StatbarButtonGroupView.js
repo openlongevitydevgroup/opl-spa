@@ -1,4 +1,4 @@
-import { ToggleButton, Tooltip, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,10 @@ function StatbarButtonGroupView() {
   const handleView = (e, value) => {
     dispatch(formActions.toggleFormClose());
     if (value === "tree") {
+      dispatch(questionActions.setSorting({ value: "root" }));
+      dispatch(questionActions.setSearchResults({ results: null }));
+    } else if (value === "table") {
+      dispatch(questionActions.setSorting({ value: "latest" }));
       dispatch(questionActions.setSearchResults({ results: null }));
     }
     dispatch(questionActions.setState({ key: "viewType", value: value }));

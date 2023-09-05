@@ -4,14 +4,15 @@ import { questionActions } from "../../../state/Question/questionSlice";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Fuse from "fuse.js";
-function SearchBar(props) {
-  const { data: questions } = useLoaderData();
+function SearchBar() {
+  const allProblems = useLoaderData();
+  const openProblems = allProblems.latest;
   const queryState = useSelector((state) => state.question.searchQuery);
 
   const dispatch = useDispatch();
-//   Fuse for finding problems based on title for now
+  //   Fuse for finding problems based on title for now
   const fuseOptions = {
-    keys: ['title'],
+    keys: ["title"],
     threshold: 0.3,
   };
 
@@ -21,19 +22,16 @@ function SearchBar(props) {
     if (queryState.trim().length === 0) {
       dispatch(formActions.toggleFormClose());
       dispatch(questionActions.setSearchResults({ results: null }));
-    }
-    else{
-        const fuse = new Fuse(questions, fuseOptions)
-        const searchResults = fuse.search(queryState);
-      dispatch(
-        questionActions.setSearchResults({ results: searchResults })
-      );
+    } else {
+      const fuse = new Fuse(openProblems, fuseOptions);
+      const searchResults = fuse.search(queryState);
+      dispatch(questionActions.setSearchResults({ results: searchResults }));
     }
   };
   const searchOnChange = (e) => {
     const query = e.target.value;
     dispatch(questionActions.setQuery({ query: query }));
-    
+
     if (query.trim().length === 0) {
       dispatch(questionActions.setSearchResults({ results: null }));
       dispatch(formActions.toggleFormClose());

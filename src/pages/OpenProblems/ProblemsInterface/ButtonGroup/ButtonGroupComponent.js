@@ -5,24 +5,24 @@ import { Button, Tooltip } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { formActions } from "../../../../state/Question/questionFormSlice";
 import { HashLink } from "react-router-hash-link";
-import { useGetApi2 } from "../../../../utils/hooks/useApi";
 import apiSubmissions from "../../../../api/apiSubmissions";
 import { useEffect, useState } from "react";
 function ButtonGroupComponent(props) {
   const { problem_id: problemId, title } = props.problem;
+  console.log(problemId);
   const isRoot = props.isRoot;
   const dispatch = useDispatch();
 
   // State for post counts
   const [counts, setCounts] = useState(0);
-  const { apiData, isLoading } = useGetApi2(apiSubmissions.getSubmissionCount, {
-    problemId,
-  });
+
   useEffect(() => {
-    if (!isLoading && counts) {
-      const counts = apiData.data.post_counts;
+    async function getSubmissionCount() {
+      const response = await apiSubmissions.getSubmissionCount({ problemId });
+      const counts = response.data.post_counts;
       setCounts(counts);
     }
+    getSubmissionCount();
   });
   const onClickHandlerForm = () => {
     dispatch(formActions.toggleFormOpen());

@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
   filteredResults: null,
   filterOpen: false,
   filters: {
-    sorting: "top",
+    sorting: "root",
   },
   modalOpen: false,
   modalDetails: {
@@ -21,7 +21,8 @@ const DEFAULT_STATE = {
   isMobile: false,
   openProblem: {},
   allProblems: null,
-  rootProblems: null,
+
+  // rootProblems: null,
 };
 
 const reducers = {
@@ -51,17 +52,29 @@ const reducers = {
   toggleModalClose(state) {
     state.modalOpen = false;
   },
+  // Set the modal content
   setModalDetails(state, actions) {
     state.modalDetails = actions.payload.modalDetails;
   },
+
+  // Set the width state of the viewport
   setWidth(state, actions) {
     state.viewWidth = actions.payload.viewWidth;
   },
+
+  // To determine whether current width is mobile
   setIsMobile(state) {
     state.isMobile = state.viewWidth < 450 ? true : false;
   },
   setState(state, actions) {
     state[actions.payload.key] = actions.payload.value;
+  },
+  setOpenProblems(state, actions) {
+    state.openProblems = {
+      top: actions.payload.top,
+      latest: actions.payload.latest,
+      answered: actions.payload.answered,
+    };
   },
 };
 

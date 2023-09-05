@@ -5,10 +5,11 @@ import ContactForm from "./ContactInformationForm";
 import { useLoaderData } from "react-router-dom";
 
 function FormContent() {
-  const { data: questions } = useLoaderData();
+  const allProblems = useLoaderData();
+  const openProblems = allProblems.latest;
   return (
     <div className="question-inputs w-full">
-      <Select questions={questions} id="parent-question" />
+      <Select openProblems={openProblems} id="parent-question" />
       <TextInput
         id="title"
         label="required"

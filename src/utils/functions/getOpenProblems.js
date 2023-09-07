@@ -18,6 +18,5 @@ export async function getProblems() {
       sortedData[key] = error;
     }
   }
-  console.log(sortedData);
   return sortedData;
 }

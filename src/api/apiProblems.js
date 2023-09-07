@@ -1,6 +1,15 @@
 import apiClient from "./apiClient";
 
 const apiProblems = {
+  postProblem: async (params) => {
+    const data = params.data;
+    try {
+      const response = await apiClient.post("open-problems", data);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
   getAllProblems: async () => {
     try {
       const response = await apiClient.get("open-problems");

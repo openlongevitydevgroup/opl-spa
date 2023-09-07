@@ -34,6 +34,23 @@ const apiReferences = {
       return error;
     }
   },
+
+  verifyReferences: async (params) => {
+    const references = params.references;
+    const data = {
+      references: references,
+    };
+    try {
+      const response = await apiClient.post(`posts/verify-references`, data);
+      if (response.status === 200) {
+        return response;
+      } else if (response.status === 404) {
+        return "Unable to retrieve reference information";
+      }
+    } catch (error) {
+      return error;
+    }
+  },
   getReferenceForSolution: async (params) => {
     const submissionId = params.submissionId;
     try {

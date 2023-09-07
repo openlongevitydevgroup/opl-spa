@@ -1,6 +1,6 @@
 import apiClient from "./apiClient";
 
-const api = {
+const apiComments = {
   postComment: async (params) => {
     const submissionId = params.submissionId;
     const postData = params.data;
@@ -38,4 +38,4 @@ const api = {
   },
 };
 
-export default api;
+export default apiComments;

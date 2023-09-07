@@ -1,6 +1,7 @@
 import TextArea from "./Inputs/TextArea";
 import TextInput from "./Inputs/TextInput";
 import Select from "./Inputs/Select";
+import ReferencesInput from "./Inputs/ReferencesInput";
 import ContactForm from "./ContactInformationForm";
 import { useLoaderData } from "react-router-dom";
 
@@ -23,6 +24,7 @@ function FormContent() {
         name="description"
         rows={4}
       />
+      <ReferencesInput />
       <div className="contact-information w-full pt-4 text-center">
         <hr />
         <ContactForm />

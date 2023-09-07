@@ -8,8 +8,7 @@ import ModalT from "../../../components/UI/Modal/Modal";
 import sendRequest from "./functions/sendRequest";
 import validateForm from "./functions/validateForm";
 import ReCAPTCHA from "react-google-recaptcha";
-import verifyToken from "../../../utils/functions/verifyToken";
-
+import apiProblems from "../../../api/apiProblems";
 function QuestionForm() {
   // States for recaptcha
   const captchaRef = useRef(null);
@@ -49,9 +48,10 @@ function QuestionForm() {
         })
       );
     } else {
-      const validToken = await verifyToken(token);
-      const successResponse = JSON.parse(validToken[0]);
-      if (successResponse.success === true) {
+      const validToken = await apiProblems.verifyToken({ token });
+      const successResponse = validToken.data;
+      const success = JSON.parse(successResponse).success;
+      if (success) {
         validateForm(dispatch, formDetailsState, validationState)
           .then(() => sendRequest(formDetailsState, dispatch))
           .catch(() => {
@@ -88,7 +88,7 @@ function QuestionForm() {
         ref={ref}
         className="form-title text-center text-xl font-bold md:text-2xl"
       >
-        Submit a question
+        Submit an open problem
       </h1>
       <p className="py-4 text-sm md:text-base">
         If you believe that a problem you are submitting falls under one of our

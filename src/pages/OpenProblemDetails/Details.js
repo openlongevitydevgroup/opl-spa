@@ -4,6 +4,7 @@ import InformationSection from "./InformationInterface/InformationSection";
 import { Link } from "react-router-dom";
 import ProposalHeader from "./Proposals/ProposalHeader";
 import Proposals from "./Proposals/Proposals";
+
 function Details() {
   const { data } = useLoaderData();
   const openProblemDetails = data.open_problem;

@@ -1,4 +1,4 @@
-import api from "../../../api/api";
+import api from "../../../api/apiComments";
 import showModal from "../../../utils/functions/showModal";
 
 async function submitComment(submissionId, data, dispatch) {

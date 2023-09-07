@@ -8,10 +8,10 @@ const DEFAULT_STATE = {
   formDetails: {
     title: "",
     description: "",
-    parentTitle: "Causes of Ageing",
-    parentId: 1,
+    parentTitle: "Submit as a root problem",
+    parentId: null,
     species: "",
-    citation: "",
+    references: [],
     firstName: "",
     lastName: "",
     email: "",
@@ -43,6 +43,31 @@ const reducers = {
   },
   selectChange(state, action) {
     state.formDetails.parentId = action.payload.id;
+  },
+  setReferences(state, action) {
+    const referenceArray = [];
+    const retrievedReferences = action.payload.references;
+    for (const ref of retrievedReferences) {
+      const index = ref.indexOf(":");
+      const prefix = ref.substring(0, index);
+      const suffix = ref.substring(index + 1);
+      // const prefix = splitPrefix[0];
+      switch (prefix) {
+        case "doi":
+          const doi = suffix;
+          referenceArray.push({ type: "DOI", value: doi });
+          break;
+        case "pmid":
+          const pmid = suffix;
+          referenceArray.push({ type: "PMID", value: pmid });
+          break;
+        // If these prefixes are not included, the reference is invalid and will not be added to the array
+        default:
+          break;
+      }
+    }
+
+    state.formDetails.references = referenceArray;
   },
   resetForm: (state, actions) => {
     const exit = actions.payload.exit;

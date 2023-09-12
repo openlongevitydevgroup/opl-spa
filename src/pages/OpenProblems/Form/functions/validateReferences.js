@@ -8,7 +8,6 @@ async function validateReferences(references) {
     const index = reference.indexOf(":");
     const referenceType = reference.substring(0, index);
     const referenceValue = reference.substring(index + 1);
-    // const [referenceType, referenceValue] = reference.split(":");
     if (referenceType === "doi") {
       try {
         const validDOI = await doiValidator(referenceValue);

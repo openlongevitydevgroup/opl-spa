@@ -42,7 +42,16 @@ function ContactForm() {
           />
         </div>
       </div>
-      <TextInput id="email" label="Please provide your email if you would like to recieve notifications" labelText="Email:" />
+      <TextInput
+        id="organisation"
+        label="Organisation:"
+        labelText="Organisation:"
+      />
+      <TextInput
+        id="email"
+        label="Please provide your email if you would like to recieve notifications"
+        labelText="Email:"
+      />
     </Fragment>
   );
 }

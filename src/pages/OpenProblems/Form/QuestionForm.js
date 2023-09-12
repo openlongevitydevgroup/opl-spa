@@ -5,10 +5,11 @@ import { Button } from "@mui/material";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import FormContent from "./FormContent";
 import ModalT from "../../../components/UI/Modal/Modal";
-import sendRequest from "./functions/sendRequest";
 import validateForm from "./functions/validateForm";
 import ReCAPTCHA from "react-google-recaptcha";
 import apiProblems from "../../../api/apiProblems";
+import sendRequest from "./functions/sendRequest";
+
 function QuestionForm() {
   // States for recaptcha
   const captchaRef = useRef(null);
@@ -61,7 +62,7 @@ function QuestionForm() {
                 status: "failed",
                 title: "Incomplete submission",
                 message:
-                  "Please enter required fields (title and description) and ensure that you have entered a valid email address.",
+                  "Please enter required fields (title and description) and ensure that you have entered a valid email address and valid references.",
               })
             );
           });

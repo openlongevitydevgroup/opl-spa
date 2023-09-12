@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../../../../state/Question/questionFormSlice";
+import { formValidationActions } from "../../../../state/Question/formValidationSlice";
 import handleValidation from "../functions/validateReferences";
 import { TextAreaNoChangeHandler } from "../../../../components/UI/Inputs/TextArea";
 import apiReferences from "../../../../api/apiReferences";
@@ -10,15 +11,21 @@ function ReferencesInput() {
   const referencesState = useSelector(
     (state) => state.form.formDetails.references
   );
+  const inputReferences = useSelector(
+    (state) => state.form.formDetails.referencesTextArea
+  );
   const isMobileState = useSelector((state) => state.question.isMobile);
 
-  const [inputValue, setInputValue] = useState("");
+  //Change useState input value to redux
+
   const [isValidating, setIsValidating] = useState(false);
   const [invalidReferences, setInvalidReferences] = useState([]);
   const [convertedReferences, setConvertedReferences] = useState([]);
   const [unconvertedReferences, setUnconvertedReferences] = useState([]);
   const [invalidPrefixes, setInvalidPrefixes] = useState(false);
   const [referencesIsValid, setReferencesIsValid] = useState(true);
+  //State for if all references are valid and there are no invalid references
+  const [allValid, setAllValid] = useState(false);
 
   const validPrefixes = (reference) => {
     const prefixRegex = /^(doi|pmid):/i; // Case-insensitive matching
@@ -26,18 +33,20 @@ function ReferencesInput() {
   };
 
   const onChangeHandler = (e) => {
-    const references = e.target.value;
-    setInputValue(references);
+    const inputValue = e.target.value;
+    dispatch(formActions.setInputReferences({ value: inputValue }));
     setInvalidReferences([]);
     setInvalidPrefixes(false);
     setIsValidating(true);
+    dispatch(formActions.setReferences({ references: [] }));
+    setUnconvertedReferences([]);
 
     if (isValidating) {
       clearTimeout(isValidating);
     }
 
     const newTimer = setTimeout(async () => {
-      const splitReferences = references
+      const splitReferences = inputValue
         .split(",")
         .map((reference) => reference.trim().toLowerCase())
         .filter((reference) => reference !== "");
@@ -108,16 +117,42 @@ function ReferencesInput() {
         }
       }
       getReferenceDetails();
+      //Send the converted references to the store of valid references
+      dispatch(
+        formActions.setValidReferences({ validReferences: convertedReferences })
+      );
+
+      //Set all valid
+      setAllValid(
+        invalidReferences.length === 0 &&
+          !invalidPrefixes &&
+          unconvertedReferences.length === 0
+          ? true
+          : false
+      );
+      if (allValid) {
+        dispatch(
+          formValidationActions.checkReferences({ validStatus: allValid })
+        );
+        console.log(referencesState);
+      }
+
+      //
     }, 1000);
 
     return function () {
       clearTimeout(timeout);
     };
-  }, [referencesState, referencesIsValid]);
+  }, [referencesState, referencesIsValid, invalidReferences]);
+
+  const isInvalid =
+    invalidReferences.length > 0 ||
+    invalidPrefixes ||
+    unconvertedReferences.length > 0;
 
   return (
     <>
-      {(invalidReferences.length > 0 || invalidPrefixes) && (
+      {isInvalid && (
         <p>Incorrect DOI/PMID format or incorrect prefix format.</p>
       )}
       <div
@@ -143,28 +178,26 @@ function ReferencesInput() {
               : "border-slate-500 focus:border-slate-50"
           } bg-bg-grey p-2 `}
           placeHolder="Comma-separated DOIs or PMIDs. Enter each DOI or PMID with the prefix 'DOI:' or 'PMID:' respectively."
-          value={inputValue}
+          value={inputReferences}
           onChange={onChangeHandler}
         />
       </div>
       <div className="converted-references flex flex-col py-2 text-red-600">
-        {invalidReferences.length > 0 ||
-          (unconvertedReferences.length > 0 && (
-            <>
-              <p>
-                Invalid DOIs or PMIDS - Incorrect format or cannot fetch
-                reference
-              </p>
-              <ul className="invalid-prefix py-2">
-                {invalidReferences.map((ref, index) => (
-                  <li key={index}> {ref} </li>
-                ))}
-                {unconvertedReferences.map((ref, index) => (
-                  <li key={index}> {ref} </li>
-                ))}
-              </ul>
-            </>
-          ))}
+        {isInvalid && (
+          <>
+            <p>
+              Invalid DOIs or PMIDS - Incorrect format or cannot fetch reference
+            </p>
+            <ul className="invalid-prefix py-2">
+              {invalidReferences.map((ref, index) => (
+                <li key={index}> {ref} </li>
+              ))}
+              {unconvertedReferences.map((ref, index) => (
+                <li key={index}> {ref} </li>
+              ))}
+            </ul>
+          </>
+        )}
 
         {convertedReferences.length > 0 && (
           <>

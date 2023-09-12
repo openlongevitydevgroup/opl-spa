@@ -11,7 +11,9 @@ const DEFAULT_STATE = {
     parentTitle: "Submit as a root problem",
     parentId: null,
     species: "",
+    referencesTextArea: "",
     references: [],
+    validReferences: [],
     firstName: "",
     lastName: "",
     email: "",
@@ -44,6 +46,9 @@ const reducers = {
   selectChange(state, action) {
     state.formDetails.parentId = action.payload.id;
   },
+  setInputReferences(state, action) {
+    state.formDetails.referencesTextArea = action.payload.value;
+  },
   setReferences(state, action) {
     const referenceArray = [];
     const retrievedReferences = action.payload.references;
@@ -68,6 +73,9 @@ const reducers = {
     }
 
     state.formDetails.references = referenceArray;
+  },
+  setValidReferences(state, action) {
+    state.formDetails.validReferences = action.payload.validReferences;
   },
   resetForm: (state, actions) => {
     const exit = actions.payload.exit;

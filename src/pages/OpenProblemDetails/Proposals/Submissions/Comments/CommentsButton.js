@@ -1,9 +1,8 @@
 import { Button } from "@mui/material";
-import useApi from "../../../../../utils/hooks/useApi";
 import api from "../../../../../api/apiComments";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { useGetApi2 } from "../../../../../utils/hooks/useApi";
+import useGetApi from "../../../../../utils/hooks/useApi";
 import { useSelector } from "react-redux";
 function CommentsButton(props) {
   const setState = props.setState;
@@ -14,7 +13,7 @@ function CommentsButton(props) {
   };
 
   //Getting comments from api
-  const { apiData: comments } = useGetApi2(api.getComments, { submissionId });
+  const { apiData: comments } = useGetApi(api.getComments, { submissionId });
 
   return (
     <div>

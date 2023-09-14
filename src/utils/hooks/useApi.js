@@ -1,38 +1,25 @@
-import { useEffect,useState } from "react";
-import getRequest from "../functions/getRequest";
-function useApi(endpoint){
-    const [apiData, setApiData] = useState("");
-    useEffect(() => {
-        async function getApiData(){
-            const data = await getRequest(endpoint); 
-            setApiData(data); 
-        }
-        getApiData(); 
-    }, [endpoint])
-    return apiData;
-};
-
+import { useEffect, useState } from "react";
 
 // To replace useApi
-export function useGetApi2(api, params){
-    const [apiData, setApiData] = useState(null); 
-    const [isLoading, setLoading] = useState(true)
-    useEffect(()=>{
-        async function getApiData(){
-            try{
-                const data = await api(params); 
-                setApiData(data); 
-            }catch(error){
-                return error
-            }finally{
-                setLoading(false);
-            }
-
-        }
-        getApiData();
-
-    }, [])
-    return {isLoading,apiData};
+export function useGetApi(api, params) {
+  const [apiData, setApiData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    async function getApiData() {
+      try {
+        const response = await api(params);
+        const data = response.data;
+        setApiData(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getApiData();
+  }, []);
+  return { isLoading, apiData, error };
 }
 
-export default useApi;
+export default useGetApi;

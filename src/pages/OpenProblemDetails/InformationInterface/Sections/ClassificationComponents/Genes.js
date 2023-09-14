@@ -1,8 +1,15 @@
-import useApi from "../../../../../utils/hooks/useApi";
+import useGetApi from "../../../../../utils/hooks/useApi";
+import apiAnnotations from "../../../../../api/apiAnnotations";
 function Genes(props) {
   const id = props.id;
-  const endpoint = `${process.env.REACT_APP_ANNOTATIONS_ENDPOINT}${id}/genes`;
-  const genes = useApi(endpoint);
+  //   Get all the genes for a problem
+  const { apiData: genes } = useGetApi(
+    apiAnnotations.getAnnotationsForProblem,
+    {
+      annotation: "genes",
+      problemId: id,
+    }
+  );
 
   return (
     <div className="genes-classification">

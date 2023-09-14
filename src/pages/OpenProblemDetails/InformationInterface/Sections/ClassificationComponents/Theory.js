@@ -1,9 +1,10 @@
 import { HashLink } from "react-router-hash-link";
-import useApi from "../../../../../utils/hooks/useApi";
+import apiAnnotations from "../../../../../api/apiAnnotations";
+import { useGetApi } from "../../../../../utils/hooks/useApi";
 function TheoryListComponent(props) {
   const key = props.key;
   return (
-    <li className={props.className}>
+    <li key={key} className={props.className}>
       <HashLink>{props.children}</HashLink>
     </li>
   );
@@ -11,8 +12,10 @@ function TheoryListComponent(props) {
 
 function Theory(props) {
   const id = props.id;
-  const endpoint = `${process.env.REACT_APP_ANNOTATIONS_ENDPOINT}${id}/theory`;
-  const theories = useApi(endpoint);
+  const { apiData: theories } = useGetApi(
+    apiAnnotations.getAnnotationsForProblem,
+    { annotation: "theories", problemId: id }
+  );
 
   return (
     <div className="theory-classification">

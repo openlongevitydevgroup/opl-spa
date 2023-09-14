@@ -1,5 +1,4 @@
-import useApi from "../../../../../utils/hooks/useApi";
-import { useGetApi2 } from "../../../../../utils/hooks/useApi";
+import useGetApi from "../../../../../utils/hooks/useApi";
 import api from "../../../../../api/apiComments";
 import CommentComponent from "./CommentComponent";
 import AddCommentComponent from "./AddCommentComponent";
@@ -17,7 +16,7 @@ function Comments(props) {
 
   // Get root comments first and then their children
   //For now we cannot have comments replying to comments
-  const { apiData: rootComments } = useGetApi2(api.getRootComments, {
+  const { apiData: rootComments } = useGetApi(api.getRootComments, {
     submissionId,
   });
   const [toAddComment, addComment] = useState(false);

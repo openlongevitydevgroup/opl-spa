@@ -9,8 +9,8 @@ import {
 import RootOpenProblems from "./pages/Root/OpenProblems";
 import OpenProblems from "./pages/OpenProblems/OpenProblems";
 import { getProblems } from "./utils/functions/getOpenProblems";
+import apiProblems from "./api/apiProblems";
 import Details from "./pages/OpenProblemDetails/Details";
-import getDetails from "./utils/functions/getDetails";
 import AnnotationDetails from "./pages/AnnotationDetails/AnnotationDetails";
 import "./index.css";
 
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: <Details />,
-        loader: ({ params }) => getDetails(params.id),
+        loader: ({ params }) => apiProblems.getDetails({ id: params.id }),
       },
     ],
   },

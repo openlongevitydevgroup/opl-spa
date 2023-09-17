@@ -2,37 +2,34 @@ import InterfaceTemplate from "../../../../components/Template/InterfaceTemplate
 import { useLoaderData } from "react-router-dom";
 import Genes from "./ClassificationComponents/Genes";
 import Theory from "./ClassificationComponents/Theory";
-function TableRow(props){
-  return(
+function TableRow(props) {
+  return (
     <>
-    <tr className="even:bg-white odd:bg-gray-200">
-      {props.children}
-    </tr>
+      <tr className="odd:bg-gray-200 even:bg-white">{props.children}</tr>
     </>
-  )
+  );
 }
 
 function Classification() {
-  const {data} = useLoaderData();
+  const { data } = useLoaderData();
   const openProblem = data.open_problem;
   const openProblemId = openProblem.problem_id;
-  const contact = data.contact
+  const contact = data.contact;
 
-
-  // const parentData = data.parent_data;
-  
   return (
     <InterfaceTemplate title={"Classification"}>
       <div className="classification-table">
-        <table className="border border-1 p-2 w-full text-left">
+        <table className="border-1 w-full border p-2 text-left">
           <tbody>
-          <TableRow>
+            <TableRow>
               <th className="w-2/5 pl-4">ID</th>
-              <td>{openProblem['problem_id']}</td>
+              <td>{openProblem["problem_id"]}</td>
             </TableRow>
             <TableRow>
               <th className="pl-4">Category</th>
-              <td><Theory id={openProblemId}/></td>
+              <td>
+                <Theory id={openProblemId} />
+              </td>
             </TableRow>
             <TableRow>
               <th className="pl-4">Species</th>
@@ -40,7 +37,9 @@ function Classification() {
             </TableRow>
             <TableRow>
               <th className="pl-4">Genes</th>
-              <td><Genes id={openProblemId}/></td>
+              <td>
+                <Genes id={openProblemId} />
+              </td>
             </TableRow>
             <TableRow>
               <th className="pl-4">Proteins</th>
@@ -52,11 +51,11 @@ function Classification() {
             </TableRow>
             <TableRow>
               <th className="pl-4">Submitted by</th>
-              <td>{contact ? contact.first_name +" " +contact.last_name : '-'}</td>
+              <td>
+                {contact ? contact.first_name + " " + contact.last_name : "-"}
+              </td>
             </TableRow>
-
           </tbody>
-
         </table>
       </div>
     </InterfaceTemplate>

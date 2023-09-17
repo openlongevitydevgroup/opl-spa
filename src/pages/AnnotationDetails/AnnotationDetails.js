@@ -9,6 +9,7 @@ import { annotationActions } from "../../state/Annotation/annotationSlice";
 function AnnotationDetails() {
   const dispatch = useDispatch();
   const { category, id } = useParams();
+  console.log(category, id);
 
   useEffect(() => {
     async function getAnnotation() {

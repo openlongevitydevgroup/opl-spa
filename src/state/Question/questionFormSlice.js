@@ -80,18 +80,14 @@ const reducers = {
   resetForm: (state, actions) => {
     const exit = actions.payload.exit;
     if (state.submitFormOpen && !exit) {
-      return {
-        ...DEFAULT_STATE,
-        submitFormOpen: true,
-        chosenParent: true,
-        formDetails: {
-          ...DEFAULT_STATE.formDetails,
-          parentTitle: state.formDetails.parentTitle,
-          parentId: state.formDetails.parentId,
-        },
+      // Preserve parentTitle and parentId, and reset everything else
+      state.formDetails = {
+        ...DEFAULT_STATE.formDetails,
+        parentTitle: state.formDetails.parentTitle,
+        parentId: state.formDetails.parentId,
       };
     } else {
-      return DEFAULT_STATE;
+      Object.assign(state, DEFAULT_STATE);
     }
   },
   toggleModalOpen(state) {

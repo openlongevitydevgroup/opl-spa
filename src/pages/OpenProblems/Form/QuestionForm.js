@@ -31,7 +31,6 @@ function QuestionForm() {
   //Submission modal
   const onSubmitModalClose = () => {
     dispatch(formActions.toggleModalClose());
-    dispatch(formActions.resetForm({ exit: false }));
   };
 
   //Form submission handler - submits to database in the submitted questions database
@@ -53,6 +52,7 @@ function QuestionForm() {
       const successResponse = validToken.data;
       const success = JSON.parse(successResponse).success;
       if (success) {
+        console.log(formDetailsState);
         validateForm(dispatch, formDetailsState, validationState)
           .then(() => sendRequest(formDetailsState, dispatch))
           .catch(() => {
@@ -80,6 +80,7 @@ function QuestionForm() {
   };
   //Exit button handler
   const exitButtonHandler = () => {
+    dispatch(formActions.toggleModalClose());
     dispatch(formActions.resetForm({ exit: true }));
   };
 

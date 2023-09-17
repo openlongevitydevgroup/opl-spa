@@ -8,6 +8,7 @@ import apiReferences from "../../../../api/apiReferences";
 
 function ReferencesInput() {
   const dispatch = useDispatch();
+  // Extracting state values using selectors
   const referencesState = useSelector(
     (state) => state.form.formDetails.references
   );
@@ -16,25 +17,27 @@ function ReferencesInput() {
   );
   const isMobileState = useSelector((state) => state.question.isMobile);
 
-  //Change useState input value to redux
-
+  // Local state management for various validations and UI interactions
   const [isValidating, setIsValidating] = useState(false);
   const [invalidReferences, setInvalidReferences] = useState([]);
   const [convertedReferences, setConvertedReferences] = useState([]);
   const [unconvertedReferences, setUnconvertedReferences] = useState([]);
   const [invalidPrefixes, setInvalidPrefixes] = useState(false);
   const [referencesIsValid, setReferencesIsValid] = useState(true);
-  //State for if all references are valid and there are no invalid references
   const [allValid, setAllValid] = useState(false);
 
+  // Utility function to check if a reference has a valid prefix
   const validPrefixes = (reference) => {
-    const prefixRegex = /^(doi|pmid):/i; // Case-insensitive matching
+    const prefixRegex = /^(doi|pmid):/i;
     return prefixRegex.test(reference);
   };
 
+  // Handler that gets triggered on text area changes
   const onChangeHandler = (e) => {
     const inputValue = e.target.value;
+    // Updating the global state
     dispatch(formActions.setInputReferences({ value: inputValue }));
+    // Resetting previous validation states
     setInvalidReferences([]);
     setInvalidPrefixes(false);
     setIsValidating(true);
@@ -55,11 +58,7 @@ function ReferencesInput() {
         (reference) => !validPrefixes(reference)
       );
 
-      if (invalidPrefixesArr.length > 0) {
-        setInvalidPrefixes(true);
-      } else {
-        setInvalidPrefixes(false);
-      }
+      setInvalidPrefixes(invalidPrefixesArr.length > 0);
 
       if (!invalidPrefixes) {
         try {
@@ -67,7 +66,6 @@ function ReferencesInput() {
             splitReferences,
             invalidPrefixes
           );
-
           if (invalid.length === 0) {
             setReferencesIsValid(true);
             dispatch(formActions.setReferences({ references: valid }));
@@ -85,8 +83,12 @@ function ReferencesInput() {
     setIsValidating(newTimer);
   };
 
+  // Effect to handle reference validation upon user input or data changes
   useEffect(() => {
     const timeout = setTimeout(() => {
+      if (inputReferences.trim().length === 0) {
+        dispatch(formValidationActions.checkReferences({ validStatus: true }));
+      }
       if (!referencesIsValid) return;
 
       async function getReferenceDetails() {
@@ -117,27 +119,24 @@ function ReferencesInput() {
         }
       }
       getReferenceDetails();
-      //Send the converted references to the store of valid references
+
       dispatch(
         formActions.setValidReferences({ validReferences: convertedReferences })
       );
 
-      //Set all valid
       setAllValid(
-        invalidReferences.length === 0 &&
+        (invalidReferences.length === 0 &&
           !invalidPrefixes &&
-          unconvertedReferences.length === 0
-          ? true
-          : false
+          unconvertedReferences.length === 0) ||
+          referencesState.length === 0
       );
+
       if (allValid) {
         dispatch(
           formValidationActions.checkReferences({ validStatus: allValid })
         );
         console.log(referencesState);
       }
-
-      //
     }, 1000);
 
     return function () {
@@ -145,6 +144,7 @@ function ReferencesInput() {
     };
   }, [referencesState, referencesIsValid, invalidReferences]);
 
+  // Determine if there are any invalid references
   const isInvalid =
     invalidReferences.length > 0 ||
     invalidPrefixes ||

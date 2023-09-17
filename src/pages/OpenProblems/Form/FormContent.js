@@ -4,10 +4,15 @@ import Select from "./Inputs/Select";
 import ReferencesInput from "./Inputs/ReferencesInput";
 import ContactForm from "./ContactInformationForm";
 import { useLoaderData } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { formActions } from "../../../state/Question/questionFormSlice";
 function FormContent() {
   const allProblems = useLoaderData();
   const openProblems = allProblems.latest;
+  const dispatch = useDispatch();
+  const clearFormHandler = () => {
+    dispatch(formActions.resetForm({ exit: false }));
+  };
   return (
     <div className="question-inputs w-full">
       <Select openProblems={openProblems} id="parent-question" />
@@ -29,6 +34,12 @@ function FormContent() {
         <hr />
         <ContactForm />
       </div>
+      <button
+        onClick={clearFormHandler}
+        className="py-4 text-sm text-theme-blue underline md:text-base"
+      >
+        Clear Form
+      </button>
     </div>
   );
 }

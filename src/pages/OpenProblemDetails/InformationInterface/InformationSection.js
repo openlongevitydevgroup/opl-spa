@@ -26,7 +26,7 @@ function InformationSection(props) {
         </>
       )}
 
-      {!isRoot && <Classification />}
+      {/* {!isRoot && <Classification />} */}
       <References id={id} />
     </>
   );

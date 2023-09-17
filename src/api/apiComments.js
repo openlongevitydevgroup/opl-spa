@@ -17,10 +17,10 @@ const apiComments = {
   getComments: async (params) => {
     const submissionId = params.submissionId;
     try {
-      const { data } = await apiClient.get(
+      const response = await apiClient.get(
         `posts/get/${submissionId}/comments`
       );
-      return data;
+      return response;
     } catch (error) {
       return error;
     }
@@ -28,10 +28,10 @@ const apiComments = {
   getRootComments: async (params) => {
     const submissionId = params.submissionId;
     try {
-      const { data } = await apiClient.get(
+      const response = await apiClient.get(
         `posts/get/${submissionId}/comments`
       );
-      return data;
+      return response;
     } catch (error) {
       return error;
     }

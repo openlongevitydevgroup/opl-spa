@@ -5,6 +5,8 @@ function textArea(props) {
     <textarea
       className={props.className}
       placeholder={props.placeHolder}
+      value={props.value}
+      onChange={props.onChange}
     ></textarea>
   );
 }
@@ -15,6 +17,7 @@ export function TextAreaNoChangeHandler(props) {
       className={props.className}
       placeholder={props.placeHolder}
       onChange={props.onChange}
+      value={props.value}
     ></textarea>
   );
 }

@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
-import TextArea from "../../../../../components/UI/Inputs/TextArea";
+import TextAreaChangeHandler from "../../../../../components/UI/Inputs/TextArea";
 import TextInput from "../../../../../components/UI/Inputs/TextInput";
-import { useState} from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import submitComment from "../../../functions/submitComment";
 
@@ -24,23 +24,31 @@ function AddCommentComponent(props) {
       full_text: comment,
       alias: alias,
     };
-    submitComment(submissionId, data, dispatch);
+    try {
+      await submitComment(submissionId, data, dispatch);
+      setComment("");
+      setAlias("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="comment-section w-full py-2">
       <form action="" className="flex flex-col items-center justify-center">
-        <TextArea
+        <TextAreaChangeHandler
           className="w-10/12 border border-solid border-theme-blue bg-gray-100 p-2"
           setState={setComment}
           placeHolder="Reply to this post."
+          value={comment}
         />
         <div className="alias flex w-10/12 flex-row gap-2 py-2 pt-4">
           <p className="text-theme-blue">Reply as: </p>
           <TextInput
-            className="border border-theme-blue bg-gray-100 px-2 text-sm"
+            className="border border-theme-blue bg-gray-100  text-sm"
             setState={setAlias}
             placeHolder="Optional."
+            value={alias}
           />
         </div>
 

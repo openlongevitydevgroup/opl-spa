@@ -19,6 +19,7 @@ function Comments(props) {
   const { apiData: rootComments } = useGetApi(api.getRootComments, {
     submissionId,
   });
+  console.log(rootComments);
   const [toAddComment, addComment] = useState(false);
 
   const onClickHandler = () => {

@@ -3,7 +3,8 @@ import References from "./Sections/References";
 import ConnectedProblems from "./Sections/ConnectedProblems";
 import Proposals from "../Proposals/Proposals";
 import ProposalHeader from "../Proposals/ProposalHeader";
-
+import Submissions from "../Proposals/Submissions/Submissions";
+import ProposalForm from "../Proposals/ProposalForm/ProposalForm";
 function InformationSection(props) {
   const children = props.children;
   const id = props.id;
@@ -16,8 +17,11 @@ function InformationSection(props) {
       {!isRoot && (
         <>
           <ProposalHeader />
-          <div className="research-and-proposals">
-            <Proposals />
+          <div className="proposals">
+            <Proposals>
+              <Submissions id={id} />
+              <ProposalForm />
+            </Proposals>
           </div>
         </>
       )}

@@ -2,9 +2,9 @@ import { useLoaderData } from "react-router-dom";
 import { useRef } from "react";
 import InformationSection from "./InformationInterface/InformationSection";
 import { Link } from "react-router-dom";
-import ProposalHeader from "./Proposals/ProposalHeader";
-import Proposals from "./Proposals/Proposals";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { detailsActions } from "../../state/Details/detailsSlice";
 function Details() {
   const { data } = useLoaderData();
   const openProblemDetails = data.open_problem;
@@ -15,6 +15,13 @@ function Details() {
   const parent = data.parent_data;
   const isRoot = parent ? false : true;
 
+  const dispatch = useDispatch();
+
+  // Dispatch loader data into redux store to be used by other components
+  useEffect(() => {
+    dispatch(detailsActions.resetState());
+    dispatch(detailsActions.setOpenProblem({ id: id }));
+  }, [id]);
   // Select the title of the open problem to use as the anchor for the scrollToView function
   const ref = useRef(null);
 
@@ -25,6 +32,7 @@ function Details() {
         <Link
           to="/open-problems"
           className="pt-2 text-base text-theme-blue underline hover:font-semibold md:text-lg"
+          onClick={() => dispatch(detailsActions.resetState())}
         >
           {" "}
           Return{" "}
@@ -48,10 +56,6 @@ function Details() {
         />
       </div>
       <hr className="border-1 mt-10 border-theme-blue" />
-      {/* <ProposalHeader />
-      <div className="research-and-proposals">
-        <Proposals />
-      </div> */}
     </div>
   );
 }

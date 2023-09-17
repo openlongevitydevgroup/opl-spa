@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { generalActions } from "../../../../../state/generalStateSlice";
 
-function Comments(props) {
+function Comments() {
   const dispatch = useDispatch();
   // const submissionId = props.submissionId;
   const modalState = useSelector((state) => state.general.modal);

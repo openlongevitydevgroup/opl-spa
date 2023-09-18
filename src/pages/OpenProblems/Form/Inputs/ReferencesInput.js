@@ -142,7 +142,15 @@ function ReferencesInput() {
     return function () {
       clearTimeout(timeout);
     };
-  }, [referencesState, referencesIsValid, invalidReferences]);
+  }, [
+    referencesState,
+    referencesIsValid,
+    invalidReferences,
+    allValid,
+    convertedReferences,
+    dispatch,
+    inputReferences,
+  ]);
 
   // Determine if there are any invalid references
   const isInvalid =

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import AnnotationInterface from "./AnnotationInterface/AnnotationInterface";
 import apiAnnotations from "../../api/apiAnnotations";
 import dispatchAnnotationDetails from "./functions/dispatchAnnotationDetails";
@@ -29,7 +29,7 @@ function AnnotationDetails() {
       }
     }
     getAnnotation();
-  }, []);
+  }, [category, dispatch, id]);
   return (
     <div>
       <hr className="border-theme-blue" />

@@ -18,7 +18,7 @@ export function useGetApi(api, params) {
       }
     }
     getApiData();
-  }, []);
+  }, [api, params]);
   return { isLoading, apiData, error };
 }
 

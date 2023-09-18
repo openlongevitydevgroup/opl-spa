@@ -21,7 +21,7 @@ function Details() {
   useEffect(() => {
     dispatch(detailsActions.resetState());
     dispatch(detailsActions.setOpenProblem({ id: id }));
-  }, [id]);
+  }, [id, dispatch]);
   // Select the title of the open problem to use as the anchor for the scrollToView function
   const ref = useRef(null);
 

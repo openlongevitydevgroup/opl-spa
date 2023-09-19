@@ -1,6 +1,6 @@
 import { HashLink } from "react-router-hash-link";
 import apiAnnotations from "../../../../../api/apiAnnotations";
-import { useGetApi } from "../../../../../utils/hooks/useApi";
+import useGetApi from "../../../../../utils/hooks/useApi";
 function TheoryListComponent(props) {
   const key = props.key;
   return (

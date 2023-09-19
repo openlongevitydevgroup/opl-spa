@@ -20,7 +20,7 @@ function MuiListComponent(props) {
   return (
     <>
       <ListItemButton
-      key={id}
+        key={id + "bttn"}
         className="w-100 my-2 flex bg-white"
         onClick={onClickHandler}
         sx={{
@@ -46,17 +46,19 @@ function MuiListComponent(props) {
           <ExpandMore />
         )}
       </ListItemButton>
-      <div className=" border-dashed border-l border-theme-blue ">
-      <Collapse
-        in={isExpanded}
-        timeout="auto"
-        unmountOnExit
-        sx={{ px: "2rem" }}
+      <div
+        className=" border-l border-dashed border-theme-blue "
+        key={id + "accordion"}
       >
-        <ListAccordionContent problem={problem} />
-      </Collapse>
+        <Collapse
+          in={isExpanded}
+          timeout="auto"
+          unmountOnExit
+          sx={{ px: "2rem" }}
+        >
+          <ListAccordionContent problem={problem} />
+        </Collapse>
       </div>
-
     </>
   );
 }

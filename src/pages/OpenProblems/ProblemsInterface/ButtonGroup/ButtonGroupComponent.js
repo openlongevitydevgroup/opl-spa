@@ -9,7 +9,6 @@ import apiSubmissions from "../../../../api/apiSubmissions";
 import { useEffect, useState } from "react";
 function ButtonGroupComponent(props) {
   const { problem_id: problemId, title } = props.problem;
-  console.log(problemId);
   const isRoot = props.isRoot;
   const dispatch = useDispatch();
 

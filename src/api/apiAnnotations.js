@@ -34,7 +34,7 @@ const apiAnnotations = {
     const annotationId = params.annotationId;
     try {
       const response = await apiClient.get(
-        `annotations/${annotation}/filer/by-annotation:${annotationId}`
+        `annotations/${annotation}/filter/by-annotation:${annotationId}`
       );
       return response;
     } catch (error) {

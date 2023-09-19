@@ -2,21 +2,21 @@ import { annotationActions } from "../../../state/Annotation/annotationSlice";
 function dispatchAnnotationDetails(dispatch, category, data) {
   dispatch(annotationActions.setState({ key: "annotation", value: category }));
   switch (category) {
-    case "theory":
+    case "subjects":
       dispatch(
         annotationActions.setState({
           key: "details",
           value: {
-            id: data.theory_id,
-            title: data.theory_title,
-            description: data.theory_description,
-            parent: data.theory_id,
+            id: data.id,
+            title: data.title,
+            description: data.description,
+            parent: data.parent,
           },
         })
       );
       break;
 
-    case "gene":
+    case "genes":
       dispatch(
         annotationActions.setState({
           key: "details",
@@ -41,6 +41,7 @@ function dispatchAnnotationDetails(dispatch, category, data) {
         })
       );
   }
+  dispatch(annotationActions.setState({ key: "annotation", value: category }));
 }
 
 export default dispatchAnnotationDetails;

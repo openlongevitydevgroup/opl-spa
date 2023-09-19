@@ -13,6 +13,7 @@ import apiProblems from "./api/apiProblems";
 import Details from "./pages/OpenProblemDetails/Details";
 import AnnotationDetails from "./pages/AnnotationDetails/AnnotationDetails";
 import "./index.css";
+import apiAnnotations from "./api/apiAnnotations";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to={"open-problems"} /> },
@@ -31,7 +32,17 @@ const router = createBrowserRouter([
   {
     path: "annotation",
     element: <RootOpenProblems />,
-    children: [{ path: ":category/:id", element: <AnnotationDetails /> }],
+    children: [
+      {
+        path: ":category/:id",
+        element: <AnnotationDetails />,
+        loader: ({ params }) =>
+          apiAnnotations.getAnnotationDetails({
+            annotation: params.category,
+            annotationId: params.id,
+          }),
+      },
+    ],
   },
 ]);
 //Uncompleted home pages:

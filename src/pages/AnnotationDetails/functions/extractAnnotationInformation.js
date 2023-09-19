@@ -10,8 +10,8 @@ function extractAnnotationInformation(annotation, category) {
       break;
 
     case "theory":
-      title = annotation.theory_title;
-      id = annotation.theory_id;
+      title = annotation.title;
+      id = annotation.id;
       break;
 
     default:

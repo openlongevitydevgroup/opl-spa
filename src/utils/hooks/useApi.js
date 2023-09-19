@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // To replace useApi
-export function useGetApi(api, params) {
+function useGetApi(api, params) {
   const [apiData, setApiData] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);

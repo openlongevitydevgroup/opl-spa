@@ -1,6 +1,6 @@
 import axios from "axios"
 import { detailsActions } from "../../../state/Details/detailsSlice";
-import { postSubmission } from "../../../api/apiSubmissions"
+import postSubmission from "../../../api/apiSubmissions"
 
 const submit = async (data, dispatch) => {
     const openProblemId = data.openProblem

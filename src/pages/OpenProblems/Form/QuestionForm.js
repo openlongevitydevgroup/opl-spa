@@ -9,6 +9,7 @@ import validateForm from "./functions/validateForm";
 import ReCAPTCHA from "react-google-recaptcha";
 import apiProblems from "../../../api/apiProblems";
 import sendRequest from "./functions/sendRequest";
+import { RECAPTCHA_SITE_KEY } from "../../../config";
 
 function QuestionForm() {
   // States for recaptcha
@@ -104,7 +105,7 @@ function QuestionForm() {
         <FormContent />
         <ReCAPTCHA
           className="recaptcha"
-          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+          sitekey={RECAPTCHA_SITE_KEY}
           ref={captchaRef}
         />
         <div>

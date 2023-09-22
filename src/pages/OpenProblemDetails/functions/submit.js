@@ -1,5 +1,7 @@
 import axios from "axios"
 import { detailsActions } from "../../../state/Details/detailsSlice";
+import { postSubmission } from "../../../api/apiSubmissions"
+
 const submit = async (data, dispatch) => {
     const openProblemId = data.openProblem
     const date = new Date();
@@ -14,7 +16,7 @@ const submit = async (data, dispatch) => {
         is_active: false,
     }
     try{
-        const response = await axios.post(`${process.env.REACT_APP_GET_SUBMISSION_ENDPOINT}/${openProblemId}/submit`, requestData); 
+        const response = await postSubmission({ data: requestData, problemId: openProblemId }); 
         if(response.status == 201){
             dispatch(detailsActions.toggleModalOpen())
             dispatch(detailsActions.setSubmitState({title:"Post submitted" ,message:"This post has been submitted for review", status:"success"}))

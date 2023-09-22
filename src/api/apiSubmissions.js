@@ -19,6 +19,16 @@ const apiSubmissions = {
       return error;
     }
   },
+  postSubmission: async (params) => {
+    const data = params.data;
+    const problemId = params.problemId;
+    try {
+      const response = await apiClient.post(`posts/${problemId}/submit`, data);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
 };
 
 export default apiSubmissions;

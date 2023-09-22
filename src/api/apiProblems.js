@@ -1,4 +1,5 @@
 import apiClient from "./apiClient";
+import { RECAPTCHA_SECRET_KEY } from "../config";
 
 const apiProblems = {
   postProblem: async (params) => {
@@ -61,7 +62,7 @@ const apiProblems = {
     }
   },
   verifyToken: async (params) => {
-    const SECRET_KEY = process.env.REACT_APP_RECAPTCHA_SECRET_KEY;
+    const SECRET_KEY = RECAPTCHA_SECRET_KEY;
     const token = params.token;
     try {
       const response = await apiClient.post("open-problems/verify-token", {

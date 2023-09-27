@@ -1,9 +1,10 @@
 export const get_web_api_url = (loc) => {
   switch (loc.hostname) {
-    case "localhost":
-    case "127.0.0.1":
+    case "localhost" || "127.0.0.1":
       return "http://localhost:8000/api";
-    default:
+    case "dev.longevityknowledge.app":
+      return "https://dev-api.longevityknowledge.app/api";
+    case "longevityknowledge.app":
       return "https://admin.longevityknowledge.app/api";
   }
 };

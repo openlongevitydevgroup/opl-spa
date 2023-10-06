@@ -1,7 +1,6 @@
 import InterfaceTemplate from "../../../../components/Template/InterfaceTemplate";
 import { useLoaderData } from "react-router-dom";
-import Genes from "./ClassificationComponents/Genes";
-import Theory from "./ClassificationComponents/Theory";
+import ClassificationComponent from "./ClassificationComponents/ClassificationComponent";
 function TableRow(props) {
   return (
     <>
@@ -15,18 +14,34 @@ function Classification() {
   const openProblem = data.open_problem;
   const openProblemId = openProblem.problem_id;
   const contact = data.contact;
-
+  const CLASSIFICATION_COMPONENTS = [
+    { title: "Subjects", annotation: "subject" },
+    { title: "Species", annotation: "species" },
+    { title: "Genes", annotation: "gene" },
+    { title: "Compounds", annotation: "compound" },
+  ];
   return (
     <InterfaceTemplate title={"Classification"}>
       <div className="classification-table">
         <table className="border-1 w-full border p-2 text-left">
           <tbody>
             <TableRow>
-              <th className="w-2/5 pl-4">ID</th>
-              <td>{openProblem["problem_id"]}</td>
+              <th className="pl-4">ID</th>
+              <td className="pl-4">{openProblem["problem_id"]}</td>
             </TableRow>
-            <TableRow>
-              <th className="pl-4">Category</th>
+            {CLASSIFICATION_COMPONENTS.map((component) => (
+              <TableRow>
+                <th className="pl-4">{component.title}</th>
+                <td className="pl-4">
+                  <ClassificationComponent
+                    annotation={component.annotation}
+                    problemId={openProblemId}
+                  />
+                </td>
+              </TableRow>
+            ))}
+            {/* <TableRow>
+              <th className="pl-4">SubjectS</th>
               <td>
                 <Theory id={openProblemId} />
               </td>
@@ -48,10 +63,10 @@ function Classification() {
             <TableRow>
               <th className="pl-4">Compounds</th>
               <td>-</td>
-            </TableRow>
+            </TableRow> */}
             <TableRow>
               <th className="pl-4">Submitted by</th>
-              <td>
+              <td className="pl-4">
                 {contact ? contact.first_name + " " + contact.last_name : "-"}
               </td>
             </TableRow>

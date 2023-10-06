@@ -17,7 +17,7 @@ function RelatedProblems(props) {
 
   // Only making the API call when params is not null (i.e., id is available)
   useEffect(() => {
-    if (id) {
+    if (id && category) {
       async function getApiData() {
         try {
           const response = await apiAnnotations.getProblemsForAnnotation({
@@ -35,7 +35,7 @@ function RelatedProblems(props) {
       }
       getApiData();
     }
-  }, [id]);
+  }, [id, category]);
 
   return (
     <InterfaceTemplate title="Related Problems">

@@ -1,74 +1,89 @@
 import InterfaceTemplate from "../../../../components/Template/InterfaceTemplate";
 import { useLoaderData } from "react-router-dom";
 import ClassificationComponent from "./ClassificationComponents/ClassificationComponent";
-function TableRow(props) {
-  return (
-    <>
-      <tr className="odd:bg-gray-200 even:bg-white">{props.children}</tr>
-    </>
-  );
+import getAnnotations from "../../functions/getAnnotations";
+import { useEffect, useState } from "react";
+import setUserName from "../../functions/setUserName";
+
+function TableRow({ children }) {
+  return <tr className="odd:bg-gray-200 even:bg-white">{children}</tr>;
 }
 
 function Classification() {
   const { data } = useLoaderData();
-  const openProblem = data.open_problem;
-  const openProblemId = openProblem.problem_id;
-  const contact = data.contact;
+  const openProblemId = data.open_problem.problem_id;
+  const contactParams = data.contact
+    ? { firstName: data.contact.first_name, lastName: data.contact.last_name }
+    : null;
+  const userName = setUserName(contactParams);
+
+  const [annotationData, setAnnotationData] = useState(null);
+  const [error, setError] = useState(null);
+
   const CLASSIFICATION_COMPONENTS = [
     { title: "Subjects", annotation: "subject" },
     { title: "Species", annotation: "species" },
     { title: "Genes", annotation: "gene" },
     { title: "Compounds", annotation: "compound" },
   ];
+
+  useEffect(() => {
+    async function fetchAnnotationData() {
+      try {
+        const fetchedData = await getAnnotations(
+          CLASSIFICATION_COMPONENTS.map((item) => item.annotation),
+          openProblemId
+        );
+        const allAnnotations = CLASSIFICATION_COMPONENTS.map((component) => {
+          const matchingAnnotation = fetchedData.find(
+            (annotation) => annotation.annotation === component.annotation
+          );
+          return {
+            ...component,
+            status: matchingAnnotation?.status,
+            data: matchingAnnotation?.data,
+          };
+        });
+        setAnnotationData(allAnnotations);
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+    fetchAnnotationData();
+  }, []);
+
+  if (error) {
+    return (
+      <InterfaceTemplate>
+        <p>Unable to load section: {error}</p>
+      </InterfaceTemplate>
+    );
+  }
+
   return (
-    <InterfaceTemplate title={"Classification"}>
-      <div className="classification-table">
+    <InterfaceTemplate title="Classification">
+      <div className="classification-table py-2">
         <table className="border-1 w-full border p-2 text-left">
           <tbody>
             <TableRow>
               <th className="pl-4">ID</th>
-              <td className="pl-4">{openProblem["problem_id"]}</td>
+              <td className="pl-4">{openProblemId}</td>
             </TableRow>
-            {CLASSIFICATION_COMPONENTS.map((component) => (
-              <TableRow>
-                <th className="pl-4">{component.title}</th>
-                <td className="pl-4">
-                  <ClassificationComponent
-                    annotation={component.annotation}
-                    problemId={openProblemId}
-                  />
-                </td>
-              </TableRow>
-            ))}
-            {/* <TableRow>
-              <th className="pl-4">SubjectS</th>
-              <td>
-                <Theory id={openProblemId} />
-              </td>
-            </TableRow>
+            {annotationData &&
+              annotationData.map((component) => (
+                <TableRow key={component.annotation}>
+                  <th className="pl-4">{component.title}</th>
+                  <td className="pl-4">
+                    <ClassificationComponent
+                      problemId={openProblemId}
+                      annotationData={component}
+                    />
+                  </td>
+                </TableRow>
+              ))}
             <TableRow>
-              <th className="pl-4">Species</th>
-              <td>-</td>
-            </TableRow>
-            <TableRow>
-              <th className="pl-4">Genes</th>
-              <td>
-                <Genes id={openProblemId} />
-              </td>
-            </TableRow>
-            <TableRow>
-              <th className="pl-4">Proteins</th>
-              <td>-</td>
-            </TableRow>
-            <TableRow>
-              <th className="pl-4">Compounds</th>
-              <td>-</td>
-            </TableRow> */}
-            <TableRow>
-              <th className="pl-4">Submitted by</th>
-              <td className="pl-4">
-                {contact ? contact.first_name + " " + contact.last_name : "-"}
-              </td>
+              <th className="pl-4">Submitted by:</th>
+              <td className="pl-4">{userName ? userName : "-"}</td>
             </TableRow>
           </tbody>
         </table>

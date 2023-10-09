@@ -9,10 +9,14 @@ function extractAnnotationInformation(annotation, category) {
       id = annotation.geneId;
       break;
 
-    case "theory":
+    case "subject":
       title = annotation.title;
       id = annotation.id;
       break;
+
+    case "compound":
+      title = annotation.compound_name;
+      id = annotation.compound_id;
 
     default:
       // Handle other cases or provide a default value
@@ -21,7 +25,7 @@ function extractAnnotationInformation(annotation, category) {
       break;
   }
 
-  return { title, id };
+  return { title, id, category };
 }
 
 export default extractAnnotationInformation;

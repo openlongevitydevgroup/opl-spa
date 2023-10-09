@@ -1,47 +1,32 @@
-import useGetApi from "../../../../../utils/hooks/useApi";
-import apiAnnotations from "../../../../../api/apiAnnotations";
-import { useEffect, useState } from "react";
+import { HashLink } from "react-router-hash-link";
 import extractAnnotationInformation from "../../../../AnnotationDetails/functions/extractAnnotationInformation";
+function ClassificationComponent({ annotationData }) {
+  const { annotation: category, status, data } = annotationData;
+  let content;
 
-function ClassificationComponent(props) {
-  // props for params needed for the api call
-  const problemId = props.problemId;
-  const annotation = props.annotation.toLowerCase();
-  const params = { annotation, problemId };
-
-  // Get the list of annotation titles after getting api data.
-  const [annotations, setAnnotations] = useState([]);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    async function getAnnotationsForProblem() {
-      try {
-        const { data } = await apiAnnotations.getAnnotationsForProblem(params);
-        const annotationArray = data.map((item) => item[annotation]);
-        setAnnotations(annotationArray);
-      } catch (error) {
-        setError(error.message);
-      }
-    }
-    getAnnotationsForProblem();
-  }, []);
+  if (status === 200 && data && data.length > 0) {
+    const annotationInformation = data.map((item) =>
+      extractAnnotationInformation(item[category], category)
+    );
+    content = annotationInformation.map((annotation) => (
+      <li
+        className="underline hover:font-semibold hover:text-theme-blue"
+        key={annotation.id}
+      >
+        <HashLink to={`/annotation/${category}/${annotation.id}`}>
+          {annotation.title}
+        </HashLink>
+      </li>
+    ));
+  } else if (status === 204 || !data || data.length === 0) {
+    content = <li> - </li>;
+  } else {
+    content = <li>Error has occurred: {data.error}</li>; // Assuming 'data.error' contains the error message
+  }
 
   return (
     <div className="classification-data">
-      <ul>
-        {error && <p> Error has occurred: {error}</p>}
-        {annotations ? (
-          annotations.map((annotation) => (
-            <p
-              className="underline hover:font-semibold hover:text-theme-blue"
-              key={annotation.title}
-            >
-              {annotation.title}
-            </p>
-          ))
-        ) : (
-          <p> - </p>
-        )}
-      </ul>
+      <ul>{content}</ul>
     </div>
   );
 }

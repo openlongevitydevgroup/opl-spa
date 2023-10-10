@@ -41,6 +41,15 @@ const apiAnnotations = {
       return error;
     }
   },
+  getAnnotationEntries: async (params) => {
+    const annotation = params.annotation;
+    try {
+      const response = await apiClient.get(`annotations/${annotation}/`);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 export default apiAnnotations;

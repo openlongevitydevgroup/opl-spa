@@ -17,7 +17,8 @@ function SearchBar() {
   };
 
   //Search bar - dealing with submitted query - basic functionality.
-  const searchFunction = () => {
+  const searchFunction = (e) => {
+    e.preventDefault();
     dispatch(questionActions.toggleListState());
     if (queryState.trim().length === 0) {
       dispatch(formActions.toggleFormClose());
@@ -41,7 +42,7 @@ function SearchBar() {
   };
 
   return (
-    <Form onSubmit={searchFunction}>
+    <form onSubmit={searchFunction} className="mb-0 mt-0">
       <TextField
         className="z-0"
         name="search-query"
@@ -50,9 +51,9 @@ function SearchBar() {
         fullWidth={true}
         size="small"
         variant="filled"
-        margin="normal"
+        margin="none"
       />
-    </Form>
+    </form>
   );
 }
 

@@ -1,7 +1,7 @@
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { Button} from "@mui/material";
-import { Collapse } from '@mui/material';
+import { Button } from "@mui/material";
+import { Collapse } from "@mui/material";
 import { useState } from "react";
 
 function InterfaceTemplate(props) {
@@ -14,18 +14,16 @@ function InterfaceTemplate(props) {
   };
   return (
     <div className="classification mt-8 w-full border border-gray-100 bg-white px-8 py-2 shadow-lg ">
-      <div className="header flex flex-row justify-between">
+      <div className="header flex flex-row">
         <h1 className="py-2 text-lg text-theme-blue md:text-2xl">{title}</h1>
         <Button onClick={onClickHandler}>
           {openSection ? <IndeterminateCheckBoxIcon /> : <AddBoxIcon />}
         </Button>
       </div>
       <hr className="py-2" />
-      <div className="h-max"
-      >
+      <div className="h-max">
         <Collapse in={openSection} timeout="auto" unmountOnExit>
-        {props.children}
-
+          {props.children}
         </Collapse>
       </div>
     </div>

@@ -18,7 +18,7 @@ function useGetApi(api, params) {
       }
     }
     getApiData();
-  }, [api, params]);
+  }, [params]);
   return { isLoading, apiData, error };
 }
 

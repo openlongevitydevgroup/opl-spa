@@ -20,7 +20,7 @@ function OpenProblems() {
   // Set openProblems
 
   return (
-    <div className="overflow-auto">
+    <div className="w-full overflow-auto">
       {/* <div className="py-2 pb-6 text-center text-sm md:text-lg">
         <p>
           <strong>

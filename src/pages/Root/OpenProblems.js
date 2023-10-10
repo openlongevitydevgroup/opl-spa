@@ -37,11 +37,11 @@ function RootOpenProblems() {
         </Container> */}
       {/* </section> */}
       <main
-        className={`w-full ${
+        className={`h-screen w-full ${
           viewWidth > 450 ? "px-8" : "px-2"
         } overflow-auto py-6 pb-4`}
       >
-        <div className="flex flex-row justify-between">
+        <div className="flex w-full flex-row space-x-4">
           <SideNav />
           <Outlet />
         </div>

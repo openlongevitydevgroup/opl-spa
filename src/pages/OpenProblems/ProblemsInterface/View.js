@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import QuestionList from "./List/QuestionList";
 
 function View() {
@@ -7,15 +7,15 @@ function View() {
 
   if (viewState === "tree") {
     return (
-      <Fragment>
+      <>
         <QuestionList />
-      </Fragment>
+      </>
     );
   } else {
     return (
-      <Fragment>
+      <>
         <QuestionList />
-      </Fragment>
+      </>
     );
   }
 }

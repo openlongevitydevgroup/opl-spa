@@ -21,7 +21,7 @@ function OpenProblems() {
 
   return (
     <div className="overflow-auto">
-      <div className="py-2 pb-6 text-center text-sm md:text-lg">
+      {/* <div className="py-2 pb-6 text-center text-sm md:text-lg">
         <p>
           <strong>
             Our initial list of open problems in ageing and longevity science
@@ -33,15 +33,15 @@ function OpenProblems() {
             categorizing these scientific challenges.
           </strong>{" "}
         </p>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <p className="pb-2 text-sm md:text-base">
           {" "}
           If you want to add an open problem that falls under the problems
           provided, select the open problem and click the "add" button.
           Otherwise use the submit open problem button in the bar below.
         </p>
-      </div>
+      </div> */}
       <SearchBar />
       <Statbar className="statbar" />
       <ProblemsInterface />

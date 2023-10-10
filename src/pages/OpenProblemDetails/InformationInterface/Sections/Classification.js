@@ -9,48 +9,55 @@ function TableRow({ children }) {
   return <tr className="odd:bg-gray-200 even:bg-white">{children}</tr>;
 }
 
+const CLASSIFICATION_COMPONENTS = [
+  { title: "Subjects", annotation: "subject" },
+  { title: "Species", annotation: "species" },
+  { title: "Genes", annotation: "gene" },
+  { title: "Compounds", annotation: "compound" },
+];
+
+const fetchAnnotationData = async (components, problemId) => {
+  const fetchedData = await getAnnotations(
+    components.map((item) => item.annotation),
+    problemId
+  );
+  return components.map((component) => {
+    const matchingAnnotation = fetchedData.find(
+      (annotation) => annotation.annotation === component.annotation
+    );
+    return {
+      ...component,
+      status: matchingAnnotation?.status,
+      data: matchingAnnotation?.data,
+    };
+  });
+};
+
 function Classification() {
   const { data } = useLoaderData();
-  const openProblemId = data.open_problem.problem_id;
-  const contactParams = data.contact
-    ? { firstName: data.contact.first_name, lastName: data.contact.last_name }
-    : null;
-  const userName = setUserName(contactParams);
+  const openProblemId = data.open_problem?.problem_id;
+  const contactParams = {
+    firstName: data.contact?.first_name,
+    lastName: data.contact?.last_name,
+  };
+  const userName = setUserName(contactParams) ?? "-";
 
   const [annotationData, setAnnotationData] = useState(null);
   const [error, setError] = useState(null);
 
-  const CLASSIFICATION_COMPONENTS = [
-    { title: "Subjects", annotation: "subject" },
-    { title: "Species", annotation: "species" },
-    { title: "Genes", annotation: "gene" },
-    { title: "Compounds", annotation: "compound" },
-  ];
-
   useEffect(() => {
-    async function fetchAnnotationData() {
+    (async function () {
       try {
-        const fetchedData = await getAnnotations(
-          CLASSIFICATION_COMPONENTS.map((item) => item.annotation),
+        const annotations = await fetchAnnotationData(
+          CLASSIFICATION_COMPONENTS,
           openProblemId
         );
-        const allAnnotations = CLASSIFICATION_COMPONENTS.map((component) => {
-          const matchingAnnotation = fetchedData.find(
-            (annotation) => annotation.annotation === component.annotation
-          );
-          return {
-            ...component,
-            status: matchingAnnotation?.status,
-            data: matchingAnnotation?.data,
-          };
-        });
-        setAnnotationData(allAnnotations);
+        setAnnotationData(annotations);
       } catch (err) {
         setError(err.message);
       }
-    }
-    fetchAnnotationData();
-  }, []);
+    })();
+  }, [openProblemId]);
 
   if (error) {
     return (
@@ -69,21 +76,20 @@ function Classification() {
               <th className="pl-4">ID</th>
               <td className="pl-4">{openProblemId}</td>
             </TableRow>
-            {annotationData &&
-              annotationData.map((component) => (
-                <TableRow key={component.annotation}>
-                  <th className="pl-4">{component.title}</th>
-                  <td className="pl-4">
-                    <ClassificationComponent
-                      problemId={openProblemId}
-                      annotationData={component}
-                    />
-                  </td>
-                </TableRow>
-              ))}
+            {annotationData?.map((component) => (
+              <TableRow key={component.annotation}>
+                <th className="pl-4">{component.title}</th>
+                <td className="pl-4">
+                  <ClassificationComponent
+                    problemId={openProblemId}
+                    annotationData={component}
+                  />
+                </td>
+              </TableRow>
+            ))}
             <TableRow>
               <th className="pl-4">Submitted by:</th>
-              <td className="pl-4">{userName ? userName : "-"}</td>
+              <td className="pl-4">{userName}</td>
             </TableRow>
           </tbody>
         </table>

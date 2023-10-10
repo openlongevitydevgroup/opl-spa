@@ -37,7 +37,7 @@ function Statbar() {
     getLength();
   }, [openProblems, selectedSorting]);
   return (
-    <Box className="h-full">
+    <Box className="h-max">
       <Paper className="flex h-12 w-full items-center justify-between">
         <div className="h-full w-1/4">
           <StatbarButtonGroupView />

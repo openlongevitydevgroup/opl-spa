@@ -3,7 +3,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-// import RootLayout from "./pages/Root/RootLayout";
+import RootLayout from "./pages/Root/RootLayout";
 // import Home from './pages/Home/Home'
 // import About from './pages/About/About'
 import RootOpenProblems from "./pages/Root/OpenProblems";

@@ -7,6 +7,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import getDetails from "../../../../utils/functions/getDetails";
 
 function ListComponent(props) {
+  // THIS IS NOT USED //
   //Current questipn information
   const problemId = props.question.problem_id;
   const title = props.question.title;

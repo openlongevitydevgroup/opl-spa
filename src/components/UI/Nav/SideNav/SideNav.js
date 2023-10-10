@@ -9,6 +9,7 @@ function SideNav() {
       </h1>
       <div className="flex flex-col  py-6 ">
         <SideNavMenu section="subject" />
+        <SideNavMenu section="gene" />
       </div>
     </div>
   );

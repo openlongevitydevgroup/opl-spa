@@ -18,7 +18,6 @@ function SearchBar() {
 
   //Search bar - dealing with submitted query - basic functionality.
   const searchFunction = (e) => {
-    e.preventDefault();
     dispatch(questionActions.toggleListState());
     if (queryState.trim().length === 0) {
       dispatch(formActions.toggleFormClose());

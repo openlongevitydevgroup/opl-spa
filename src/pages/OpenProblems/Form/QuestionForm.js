@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 import { Button } from "@mui/material";
 import { formActions } from "../../../state/Question/questionFormSlice";
 import FormContent from "./FormContent";
-import ModalT from "../../../components/UI/Modal/Modal";
+import Modal from "../../../components/UI/Modal/Modal";
 import validateForm from "./functions/validateForm";
 import ReCAPTCHA from "react-google-recaptcha";
 import apiProblems from "../../../api/apiProblems";
@@ -114,7 +114,7 @@ function QuestionForm() {
         </div>
 
         {formModalState && (
-          <ModalT
+          <Modal
             open={formModalState}
             close={onSubmitModalClose}
             height={350}
@@ -129,7 +129,7 @@ function QuestionForm() {
                 <Button onClick={onSubmitModalClose}>Exit</Button>
               </div>
             </div>
-          </ModalT>
+          </Modal>
         )}
       </Form>
     </div>

@@ -4,7 +4,7 @@ import SubmissionModalContent from "../../components/UI/Modal/SubmissionModalCon
 import Statbar from "./Statbar/Statbar";
 import SearchBar from "./SearchBar/SearchBar";
 import ProblemsInterface from "./ProblemsInterface/ProblemsInterface";
-import ModalT from "../../components/UI/Modal/Modal";
+import Modal from "../../components/UI/Modal/Modal";
 import { useEffect } from "react";
 import { getProblems } from "../../utils/functions/getOpenProblems";
 function OpenProblems() {
@@ -45,12 +45,12 @@ function OpenProblems() {
       <SearchBar />
       <Statbar className="statbar" />
       <ProblemsInterface />
-      <ModalT open={modalState} close={modalCloseHandler}>
+      <Modal open={modalState} close={modalCloseHandler}>
         <SubmissionModalContent
           questionDetails={questionDetails}
           close={modalCloseHandler}
         />
-      </ModalT>
+      </Modal>
     </div>
   );
 }

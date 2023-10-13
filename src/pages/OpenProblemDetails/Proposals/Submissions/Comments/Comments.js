@@ -2,7 +2,7 @@ import useGetApi from "../../../../../utils/hooks/useApi";
 import api from "../../../../../api/apiComments";
 import CommentComponent from "./CommentComponent";
 import AddCommentComponent from "./AddCommentComponent";
-import ModalT from "../../../../../components/UI/Modal/Modal";
+import Modal from "../../../../../components/UI/Modal/Modal";
 import SubmissionModalContent from "../../../../../components/UI/Modal/SubmissionModalContent";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,12 +48,12 @@ function Comments() {
         </div>
       </div>
       {modalState.isOpen && (
-        <ModalT open={modalState.isOpen}>
+        <Modal open={modalState.isOpen}>
           <SubmissionModalContent
             close={modalCloseHandler}
             submitStatus={modalState.content}
           />
-        </ModalT>
+        </Modal>
       )}
     </div>
   );

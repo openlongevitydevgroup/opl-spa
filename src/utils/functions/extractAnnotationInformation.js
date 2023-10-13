@@ -7,6 +7,7 @@ function extractAnnotationInformation(annotation, category) {
     case "gene":
       title = annotation.gene_name;
       id = annotation.gene_id;
+      parent = null;
       break;
 
     case "subject":
@@ -18,11 +19,13 @@ function extractAnnotationInformation(annotation, category) {
     case "compound":
       title = annotation.compound_name;
       id = annotation.compound_id;
+      parent = null;
 
     default:
       // Handle other cases or provide a default value
       title = "N/A";
       id = "N/A";
+      parent = null;
       break;
   }
 

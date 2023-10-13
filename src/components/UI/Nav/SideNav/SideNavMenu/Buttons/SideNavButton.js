@@ -1,15 +1,16 @@
 import { useState } from "react";
-
+import { IconButton } from "@mui/material";
+import withRipple from "../../../../../../utils/hoc/withRipple";
 function SideNavButton({ children, classNames, onClick }) {
   const [isActive, setActive] = useState(false);
   const onClickHandler = () => {
-    setActive(!isActive);
-    onClick(); //Addditional onClick from the parent;
+    setActive((prev) => !prev);
+    onClick && onClick({ isActive, setActive }); //Addditional onClick from the parent with optional argument for its active state
   };
   return (
     <button
       onClick={onClickHandler}
-      className={`w-full py-2 text-center transition-colors duration-300 hover:bg-gray-300 ${
+      className={`w-full bg-opacity-80 py-2 transition-colors duration-300 hover:bg-gray-200 ${
         isActive ? "bg-gray-200" : null
       } ${classNames}`}
     >
@@ -18,4 +19,4 @@ function SideNavButton({ children, classNames, onClick }) {
   );
 }
 
-export default SideNavButton;
+export default withRipple(SideNavButton);

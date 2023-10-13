@@ -7,7 +7,7 @@ import SourcesInput from "./Sources/SourcesInput";
 import ContactInformation from "./ContactInformation";
 import { Button } from "@mui/material";
 import { detailsActions } from "../../../../state/Details/detailsSlice";
-import ModalT from "../../../../components/UI/Modal/Modal";
+import Modal from "../../../../components/UI/Modal/Modal";
 import SubmissionModalContent from "../../../../components/UI/Modal/SubmissionModalContent";
 import { useLoaderData } from "react-router-dom";
 function ProposalForm() {
@@ -17,32 +17,32 @@ function ProposalForm() {
   const onClickHandler = (e) => {
     e.preventDefault();
     validation(formValues)
-    .then((errors) => {
-      if (errors.length === 0) {
-        submit(formValues, dispatch);
-        dispatch(detailsActions.clearFormValues());
-      } else {
-        dispatch(detailsActions.toggleModalOpen())
+      .then((errors) => {
+        if (errors.length === 0) {
+          submit(formValues, dispatch);
+          dispatch(detailsActions.clearFormValues());
+        } else {
+          dispatch(detailsActions.toggleModalOpen());
+          dispatch(
+            detailsActions.setSubmitState({
+              title: "Unsuccessful submission",
+              message: errors.join("\n"),
+              status: "failed",
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error during validation:", error);
+        dispatch(detailsActions.toggleModalOpen());
         dispatch(
           detailsActions.setSubmitState({
             title: "Unsuccessful submission",
-            message: errors.join("\n"),
+            message: "An unexpected error occurred during validation.",
             status: "failed",
           })
         );
-      }
-    })
-    .catch((error) => {
-      console.error("Error during validation:", error);
-      dispatch(detailsActions.toggleModalOpen());
-      dispatch(
-        detailsActions.setSubmitState({
-          title: "Unsuccessful submission",
-          message: "An unexpected error occurred during validation.",
-          status: "failed",
-        })
-      );
-    });
+      });
   };
 
   //Set open problem id in form state on load
@@ -70,29 +70,29 @@ function ProposalForm() {
       </h1>
       <form>
         <div className="text-input py-2">
-        <TextInput />
+          <TextInput />
         </div>
 
         <hr />
         <div className="sources-information">
-        <SourcesInput />
+          <SourcesInput />
         </div>
         <div className="contact-info">
-        <ContactInformation />
-
+          <ContactInformation />
         </div>
         <div className="submit-btn flex justify-center px-6 py-2 pb-4">
-          <Button onClick={onClickHandler} variant="contained">Post your solution</Button>
+          <Button onClick={onClickHandler} variant="contained">
+            Post your solution
+          </Button>
         </div>
-
       </form>
       {modalState && (
-        <ModalT open={modalState}>
+        <Modal open={modalState}>
           <SubmissionModalContent
             submitStatus={submitStatus}
             close={onClickHandlerModal}
           />
-        </ModalT>
+        </Modal>
       )}
     </div>
   );

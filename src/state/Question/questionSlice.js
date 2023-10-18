@@ -2,23 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // This slice and these actions are related to how the quetsions are viewed including search results from the search bar.
 
-const DEFAULT_STATE = {
+export const DEFAULT_STATE = {
   viewType: "table",
   searchQuery: "",
   filteredResults: null,
   filterOpen: false,
   filters: {
     sorting: "latest",
+    subject: [],
+    gene: [],
+    compound: [],
+    species: [],
   },
-  modalOpen: false,
-  modalDetails: {
-    title: null,
-    description: null,
-    species: null,
-    citation: null,
-  },
-  viewWidth: null,
-  isMobile: false,
   openProblem: {},
   allProblems: null,
 
@@ -26,6 +21,21 @@ const DEFAULT_STATE = {
 };
 
 const reducers = {
+  removeFilters(state, actions) {
+    const selectedFilter = actions.payload.filter;
+    const idToRemove = Number(actions.payload.id);
+    const currentArray = state.filters[selectedFilter];
+    const removedArray = currentArray.filter((item) => item.id !== idToRemove);
+    state.filters[selectedFilter] = removedArray;
+  },
+  updateFilters(state, actions) {
+    //The headless UI that uses this always returns an Array
+    const newArray = actions.payload.value;
+
+    //To ensure that there are always unique values:
+    const unique = Array.from(new Set(newArray));
+    state.filters[actions.payload.filter] = unique;
+  },
   toggleTreeState(state) {
     //Set the view type of the question to a hierarchical list
     state.viewType = "tree";
@@ -45,30 +55,10 @@ const reducers = {
   setSorting(state, actions) {
     state.filters.sorting = actions.payload.value;
   },
-  //Turn on and off question modal
-  toggleModalOpen(state) {
-    state.modalOpen = true;
-  },
-  toggleModalClose(state) {
-    state.modalOpen = false;
-  },
-  // Set the modal content
-  setModalDetails(state, actions) {
-    state.modalDetails = actions.payload.modalDetails;
-  },
-
-  // Set the width state of the viewport
-  setWidth(state, actions) {
-    state.viewWidth = actions.payload.viewWidth;
-  },
-
-  // To determine whether current width is mobile
-  setIsMobile(state) {
-    state.isMobile = state.viewWidth < 450 ? true : false;
-  },
   setState(state, actions) {
     state[actions.payload.key] = actions.payload.value;
   },
+
   setOpenProblems(state, actions) {
     state.openProblems = {
       top: actions.payload.top,

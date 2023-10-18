@@ -20,17 +20,21 @@ const reducers = {
   setIsMobile(state) {
     state.isMobile = state.viewWidth < 450 ? true : false;
   },
-  toggleModal(state){
-    state.modal.isOpen = !state.modal.isOpen; 
-  }, 
-  setModalContent(state,actions){
+  toggleModal(state, actions) {
+    if (actions.payload.bool) {
+      const boolVal = actions.payload.bool;
+      state.modal.isOpen = boolVal;
+      return;
+    }
+    state.modal.isOpen = !state.modal.isOpen;
+  },
+  setModalContent(state, actions) {
     state.modal.content = actions.payload.content;
-  }, 
+  },
   // Generic reducer for setting a state
-  setState(state,actions){
+  setState(state, actions) {
     state[actions.payload.key] = actions.payload.value;
-  }, 
-  
+  },
 };
 
 const generalSlice = createSlice({

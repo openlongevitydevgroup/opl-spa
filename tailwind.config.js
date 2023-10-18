@@ -26,6 +26,10 @@ export default {
       colors: {
         "bg-grey": "#f5f5f5",
         "theme-blue": "#4675CE",
+        "theme-blue-light": "#1976d21c",
+        "theme-blue-shade": "#1A2C4D",
+        secondary: "#1976D2",
+        accent: "#B98A31",
       },
     },
   },

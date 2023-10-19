@@ -2,6 +2,7 @@
 import { Combobox, Transition } from "@headlessui/react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Fuse from "fuse.js";
 
 // Internal Components and Functions
 import UpDownIcon from "../../../Icons/UpDown";
@@ -15,10 +16,12 @@ const defaultParams = {
   h: 4,
 };
 const CheckIcon = withSVG(CheckSvg, defaultParams);
+
 function MenuList({ items, category, title }) {
   // States
   const [menuOpen, setMenuOpen] = useState(false);
-  const [listItems, setListItems] = useState([]);
+  const [fuseInstance, createFuseInstance] = useState(null); //For fuzzy queries
+  const [filteredItems, setFilteredItems] = useState([]); //For the queried results
   const [query, setQuery] = useState("");
   const selectedItems = useSelector(
     (state) => state.question.filters[category]
@@ -32,24 +35,39 @@ function MenuList({ items, category, title }) {
   };
 
   const onChangeHandler = (e) => {
-    const inputValue = e.target.value.trim();
-    if (inputValue === "") {
-      setMenuOpen(false);
-    } else {
-      setQuery(inputValue.toLowerCase());
-      setMenuOpen(true);
+    const inputValue = e.target.value.trim().toLowerCase();
+    if (fuseInstance) {
+      if (inputValue === "") {
+        setMenuOpen(false);
+        setFilteredItems(
+          items.map((item) => extractAnnotationInformation(item, category))
+        ); // Reset to original items
+      } else {
+        setMenuOpen(true);
+        const results = fuseInstance
+          .search(inputValue)
+          .map((result) => result.item);
+        setFilteredItems(results);
+      }
     }
+
+    setQuery(inputValue);
   };
 
-  // Effects
+  // Effect to obtain all the items from the API call
   useEffect(() => {
     if (items) {
       const list = items.map((item) =>
         extractAnnotationInformation(item, category)
       );
-      setListItems(list);
+      const fuseInstance = new Fuse(list, {
+        keys: ["title"],
+        threshold: 0.3,
+      });
+      setFilteredItems(list);
+      createFuseInstance(fuseInstance);
     }
-  }, [items, category]);
+  }, [items]);
 
   return (
     <div className="w-full text-sm" key={title}>
@@ -68,7 +86,7 @@ function MenuList({ items, category, title }) {
         <div className="flex items-center ring-0 focus:outline-none py-2">
           <Combobox.Input
             onChange={onChangeHandler}
-            className="w-full rounded-md focus:outline-none p-0.5 px-2 shadow-md border border-theme-blue-shade"
+            className="w-full rounded-md focus:outline-none p-0.5 px-2 shadow-md border border-theme-blue"
           />
           <button className="ml-2 focus:outline-none" onClick={openHandler}>
             <UpDownIcon />
@@ -83,21 +101,29 @@ function MenuList({ items, category, title }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          {listItems.length > 0 ? (
-            <div className="py-2 gap-y-2 max-h-[250px] overflow-auto">
-              <Combobox.Options>
-                {listItems.map((item) => (
-                  <Combobox.Option
-                    key={item.id}
-                    className="overflow-auto hover:cursor-pointer hover:bg-gray-200 bg-opacity-70 p-2 text-xs text-theme-blue flex flex-row justify-between"
-                    value={item}
-                  >
-                    {item.title}
-                    {selectedItems.includes(item) && <CheckIcon />}
-                  </Combobox.Option>
-                ))}
-              </Combobox.Options>
-            </div>
+          {items.length > 0 ? (
+            <>
+              {filteredItems.length === 0 && query ? (
+                <div className="py-2">
+                  <p>Cannot find results for "{query}"</p>
+                </div>
+              ) : (
+                <div className="py-2 gap-y-2 max-h-[250px] overflow-auto">
+                  <Combobox.Options>
+                    {filteredItems.map((item) => (
+                      <Combobox.Option
+                        key={item.id}
+                        className="overflow-auto hover:cursor-pointer hover:bg-gray-200 bg-opacity-70 p-2 text-xs text-theme-blue flex flex-row justify-between"
+                        value={item}
+                      >
+                        {item.title}
+                        {selectedItems.includes(item) && <CheckIcon />}
+                      </Combobox.Option>
+                    ))}
+                  </Combobox.Options>
+                </div>
+              )}
+            </>
           ) : (
             <div className="py-2">
               <p> No submitted entries for now</p>

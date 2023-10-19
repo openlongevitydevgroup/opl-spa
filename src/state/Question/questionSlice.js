@@ -16,8 +16,6 @@ export const DEFAULT_STATE = {
   },
   openProblem: {},
   allProblems: null,
-
-  // rootProblems: null,
 };
 
 const reducers = {

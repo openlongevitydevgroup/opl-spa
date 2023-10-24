@@ -2,31 +2,6 @@ import apiClient from "./apiClient";
 import { RECAPTCHA_SECRET_KEY } from "../config";
 
 const apiProblems = {
-  postProblem: async (params) => {
-    const data = params.data;
-    try {
-      const response = await apiClient.post("open-problems/submit", data);
-      return response;
-    } catch (error) {
-      return error;
-    }
-  },
-  getAllProblems: async () => {
-    try {
-      const response = await apiClient.get("open-problems");
-      return response;
-    } catch (error) {
-      return error;
-    }
-  },
-  getRootProblems: async () => {
-    try {
-      const response = await apiClient.get("open-problems/root");
-      return response;
-    } catch (error) {
-      return error;
-    }
-  },
   getDetails: async (params) => {
     const id = params.id;
     try {
@@ -36,26 +11,21 @@ const apiProblems = {
       return error;
     }
   },
-  sortedDescendantsDescending: async () => {
+  getProblems: async (params) => {
+    const queryParams = params.queryParams;
     try {
-      const response = await apiClient.get("open-problems/sorted/descendants");
+      const response = await apiClient.get("open-problems", {
+        params: queryParams,
+      });
       return response;
     } catch (error) {
       return error;
     }
   },
-  sortedSubmissionsDescending: async () => {
-    //This may not be required anymore as we are not using it currently
+  postProblem: async (params) => {
+    const data = params.data;
     try {
-      const response = await apiClient.get("open-problems/sorted/submissions");
-      return response;
-    } catch (error) {
-      return error;
-    }
-  },
-  sortedSubmissionAnswered: async () => {
-    try {
-      const response = await apiClient.get("open-problems/sorted/answered");
+      const response = await apiClient.post("open-problems/submit", data);
       return response;
     } catch (error) {
       return error;

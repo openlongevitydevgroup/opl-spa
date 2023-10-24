@@ -39,7 +39,7 @@ function Statbar() {
   }, [openProblems, selectedSorting]);
   return (
     <Box className="h-max">
-      <div className="flex h-12 w-full items-center justify-between shadow-md shadow-theme-blue-shade ">
+      <div className="flex h-12 w-full items-center justify-between shadow shadow-theme-blue ">
         <div className="h-full w-1/4">
           <StatbarButtonGroupView />
         </div>

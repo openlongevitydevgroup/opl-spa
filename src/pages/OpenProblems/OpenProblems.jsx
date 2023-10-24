@@ -7,6 +7,8 @@ import ProblemsInterface from "./ProblemsInterface/ProblemsInterface";
 import Modal from "../../components/UI/Modal/Modal";
 import { useEffect } from "react";
 import { getProblems } from "../../utils/functions/getOpenProblems";
+import SideNav from "../../components/UI/Nav/SideNav/SideNav";
+import config from "../../utils/configs/SideNavConfig";
 function OpenProblems() {
   const modalState = useSelector((state) => state.question.modalOpen);
   const questionDetails = useSelector((state) => state.question.modalDetails);
@@ -20,7 +22,7 @@ function OpenProblems() {
   // Set openProblems
 
   return (
-    <div className="w-full overflow-auto">
+    <div className="w-full overflow-auto flex flex-row p-6  space-x-4">
       {/* <div className="py-2 pb-6 text-center text-sm md:text-lg">
         <p>
           <strong>
@@ -42,9 +44,15 @@ function OpenProblems() {
           Otherwise use the submit open problem button in the bar below.
         </p>
       </div> */}
-      <SearchBar />
-      <Statbar className="statbar" />
-      <ProblemsInterface />
+      <div className="side-nav w-1/4">
+        <SideNav config={config} />
+      </div>
+      <div className="main w-3/4">
+        {" "}
+        <SearchBar label={"Search for an open problem"} />
+        <Statbar className="statbar" />
+        <ProblemsInterface />
+      </div>
       <Modal open={modalState} close={modalCloseHandler}>
         <SubmissionModalContent
           questionDetails={questionDetails}

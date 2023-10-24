@@ -20,3 +20,14 @@ export async function getProblems() {
   }
   return sortedData;
 }
+
+export async function getOpenProblems({ params }) {
+  const sorting = params.sorting;
+  try {
+    const apiCall = sortingObj[sorting];
+    const { data } = await apiCall();
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

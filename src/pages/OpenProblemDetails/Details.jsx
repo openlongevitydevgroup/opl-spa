@@ -26,7 +26,7 @@ function Details() {
   const ref = useRef(null);
 
   return (
-    <div>
+    <div className="p-6">
       <hr className="border-1 border-theme-blue" />
       <div className="return-bttn">
         <Link

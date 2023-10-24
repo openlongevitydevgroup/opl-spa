@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Nav2 } from "../../components/UI/Nav/Nav";
 import Footer from "./Footer/Footer";
-import SideNav from "../../components/UI/Nav/SideNav/SideNav";
 import { generalActions } from "../../state/generalStateSlice";
 function RootOpenProblems() {
   const dispatch = useDispatch();
@@ -39,10 +38,7 @@ function RootOpenProblems() {
           viewWidth > 450 ? "px-8" : "px-2"
         } overflow-auto py-6 pb-4`}
       >
-        <div className="flex w-full flex-row space-x-4">
-          <SideNav />
-          <Outlet />
-        </div>
+        <Outlet />
       </main>
       <footer className="h-3/12">
         <Footer />

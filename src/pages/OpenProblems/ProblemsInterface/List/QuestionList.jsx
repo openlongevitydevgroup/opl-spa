@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import MuiListComponent from "./MuiListComponent";
 import apiProblems from "../../../../api/apiProblems";
-import config from "../../../../utils/configs/SideNavConfig";
 import { questionActions } from "../../../../state/Question/questionSlice";
 import sortQuery from "../../../../utils/functions/dataManipulation/sortQuery";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
+import {
+  checkFilters,
+  applyFilters,
+  applyQueryString,
+} from "./utils/listFilteringFunctions";
+
 function QuestionList() {
-  const filteredQuestions = useSelector(
-    (state) => state.question.filteredResults
-  );
+  const problemsArray = useSelector((state) => state.question.filteredResults);
   const filters = useSelector((state) => state.question.filters);
+  const searchQuery = useSelector((state) => state.question.searchQuery);
   const selectedSorting = useSelector(
     (state) => state.question.filters.sorting
   );
@@ -19,55 +24,44 @@ function QuestionList() {
   const [loading, setLoading] = useState(true);
   // We need to create a useEffect function to track filter states and order the openProblems accordingly
   //Use a config file to determine what annotations are being searched for
-  const annotationConfig = config;
   const dispatch = useDispatch();
 
   //Use effect runs in order specified so we should check if filters have been applied
   useEffect(() => {
-    function checkFilters(object) {
-      for (let key in object) {
-        if (Array.isArray(object[key]) && object[key].length > 0) {
-          dispatch(
-            questionActions.setState({ key: "filterOpen", value: true })
-          );
-          return;
-        }
-      }
-      dispatch(questionActions.setState({ key: "filterOpen", value: false }));
-      return;
-    }
-    checkFilters(annotationConfig);
+    const trueAction = { action: questionActions.setState, params: true };
+    const falseAction = { ...trueAction, params: false };
+    checkFilters(filters, dispatch, trueAction, falseAction);
   }, [filters]);
 
   useEffect(() => {
     setLoading(true);
     //Process the query parameters in appropriate format for get request
-    const queryParams = sortQuery(filters);
-    //Get the problems to apply these filters on
-    async function applyFilters(queryParams) {
-      //Get the correct array
-      //Then filter by annotations
-      try {
-        const response = await apiProblems.getProblems({ queryParams });
-        if (response.status === 200) {
-          const filteredProblems = response.data;
-          dispatch(
-            questionActions.setState({
-              key: "filteredResults",
-              value: filteredProblems,
-            })
-          );
-          setLoading(false);
-        }
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    }
+    const api = {
+      apiCall: apiProblems.getProblems,
+      queryParams: sortQuery(filters),
+    };
+    const action = {
+      function: questionActions.setState,
+      params: { key: "filteredResults", value: null }, //Default to null
+    };
+    const setStates = { setError, setLoading };
     if (filtersOn || selectedSorting) {
-      applyFilters(queryParams);
+      applyFilters(api, dispatch, action, setStates);
     }
   }, [filtersOn, filters, selectedSorting]);
+  // Finally we sort the list based on the query string.
+  useEffect(() => {
+    if (!problemsArray) return; //Guard clause to prevent executing when problems haven't been fetched yet
+    const fuseOptions = {
+      threshold: 0.5,
+      keys: ["title"], //For now we search by title - may extrend to other values
+    };
+
+    const results = applyQueryString(fuseOptions, problemsArray, searchQuery);
+    dispatch(
+      questionActions.setState({ key: "filteredProblems", value: results })
+    );
+  }, [problemsArray, searchQuery]);
 
   if (error) {
     return (
@@ -79,7 +73,7 @@ function QuestionList() {
 
   if (loading) {
     return (
-      <div className="w-full h-full flex items-center justify-center ">
+      <div className="w-full h-full flex items-center justify-center translate-y-1/2">
         <Spinner />
       </div>
     );
@@ -87,16 +81,19 @@ function QuestionList() {
 
   if (filtersOn || selectedSorting) {
     return (
-      <ul className="problem-list">
-        {filteredQuestions &&
-          filteredQuestions.length > 0 &&
-          filteredQuestions.map((item) => (
-            <MuiListComponent key={item.id} problem={item}></MuiListComponent>
+      <ul className="problem-list ">
+        {problemsArray &&
+          problemsArray.length > 0 &&
+          problemsArray.map((item) => (
+            <MuiListComponent key={item.problem_id} problem={item} />
           ))}
-        {filteredQuestions && filteredQuestions.length === 0 && (
-          <div>
+        {problemsArray && problemsArray.length === 0 && (
+          <div className="py-4">
             {" "}
-            <p> No Open Problems matching this query.</p>
+            <p className="text-center">
+              {" "}
+              No Open Problems matching this query.
+            </p>
           </div>
         )}
       </ul>

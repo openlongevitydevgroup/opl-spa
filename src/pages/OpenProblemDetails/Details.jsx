@@ -7,12 +7,13 @@ import { useDispatch } from "react-redux";
 import { detailsActions } from "../../state/Details/detailsSlice";
 function Details() {
   const { data } = useLoaderData();
-  const openProblemDetails = data.open_problem;
-  const description = data.open_problem.description;
-  const id = openProblemDetails.problem_id;
-  const title = openProblemDetails.title;
-  const children = openProblemDetails.children;
-  const parent = data.parent_data;
+  console.log(data);
+  const openProblemDetails = data;
+  const description = data.description;
+  const id = data.problem_id;
+  const title = data.title;
+  const children = data.children;
+  const parent = data.parent_problem;
   const isRoot = parent ? false : true;
 
   const dispatch = useDispatch();

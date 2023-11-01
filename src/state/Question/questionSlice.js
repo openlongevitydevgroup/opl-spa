@@ -29,7 +29,6 @@ const reducers = {
   updateFilters(state, actions) {
     //The headless UI that uses this always returns an Array
     const newArray = actions.payload.value;
-
     //To ensure that there are always unique values:
     const unique = Array.from(new Set(newArray));
     state.filters[actions.payload.filter] = unique;
@@ -46,23 +45,11 @@ const reducers = {
     //Sets the search query from search bar
     state.searchQuery = actions.payload.query;
   },
-  setSearchResults(state, actions) {
-    //Gets the search results from the database using the query
-    state.filteredResults = actions.payload.results;
-  },
   setSorting(state, actions) {
     state.filters.sorting = actions.payload.value;
   },
   setState(state, actions) {
     state[actions.payload.key] = actions.payload.value;
-  },
-
-  setOpenProblems(state, actions) {
-    state.openProblems = {
-      top: actions.payload.top,
-      latest: actions.payload.latest,
-      answered: actions.payload.answered,
-    };
   },
 };
 

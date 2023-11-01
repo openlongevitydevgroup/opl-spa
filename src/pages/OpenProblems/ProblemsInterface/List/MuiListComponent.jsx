@@ -7,7 +7,7 @@ import ListAccordionContent from "../Accordion/ListAccordionContent";
 import { HashLink } from "react-router-hash-link";
 function MuiListComponent(props) {
   const problem = props.problem;
-  const { id, description, children } = problem;
+  const { problem_id:id, description, children } = problem;
   const [isExpanded, setExpanded] = useState(false);
   const onClickHandler = () => {
     if (children || description) {

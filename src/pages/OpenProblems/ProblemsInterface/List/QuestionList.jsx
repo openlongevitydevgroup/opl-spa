@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import MuiListComponent from "./MuiListComponent";
 import apiProblems from "../../../../api/apiProblems";
 import { questionActions } from "../../../../state/Question/questionSlice";
@@ -13,7 +12,10 @@ import {
 } from "./utils/listFilteringFunctions";
 
 function QuestionList() {
-  const problemsArray = useSelector((state) => state.question.filteredResults);
+  const problemsArray = useSelector((state) => state.question.allProblems);
+  const displayedProblems = useSelector(
+    (state) => state.question.filteredResults
+  );
   const filters = useSelector((state) => state.question.filters);
   const searchQuery = useSelector((state) => state.question.searchQuery);
   const selectedSorting = useSelector(
@@ -42,7 +44,7 @@ function QuestionList() {
     };
     const action = {
       function: questionActions.setState,
-      params: { key: "filteredResults", value: null }, //Default to null
+      params: { key: "allProblems", value: null }, //Default to null
     };
     const setStates = { setError, setLoading };
     if (filtersOn || selectedSorting) {
@@ -56,17 +58,23 @@ function QuestionList() {
       threshold: 0.5,
       keys: ["title"], //For now we search by title - may extrend to other values
     };
-
     const results = applyQueryString(fuseOptions, problemsArray, searchQuery);
-    dispatch(
-      questionActions.setState({ key: "filteredProblems", value: results })
-    );
-  }, [problemsArray, searchQuery]);
+    //If more than one results then we populate the store else we keep it as null
+    if (results.length > 0) {
+      dispatch(
+        questionActions.setState({ key: "filteredResults", value: results })
+      );
+    } else {
+      dispatch(
+        questionActions.setState({ key: "filteredResults", value: null })
+      );
+    }
+  }, [searchQuery]);
 
   if (error) {
     return (
       <div>
-        <p className="text-2xl"> {error.message}</p>
+        z<p className="text-2xl"> {error.message}</p>
       </div>
     );
   }
@@ -76,6 +84,15 @@ function QuestionList() {
       <div className="w-full h-full flex items-center justify-center translate-y-1/2">
         <Spinner />
       </div>
+    );
+  }
+  if (displayedProblems) {
+    return (
+      <ul>
+        {displayedProblems.map((item) => (
+          <MuiListComponent key={item.problem_id} problem={item} />
+        ))}
+      </ul>
     );
   }
 

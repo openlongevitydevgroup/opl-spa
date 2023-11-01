@@ -13,7 +13,6 @@ export function checkFilters(filterObj, dispatch, trueAction, falseAction) {
     if (Array.isArray(filterObj[key]) && filterObj[key].length > 0) {
       //We check for arrays and ids within the arrays to determine applied filters, execute relevant function here
       dispatch(trueAction.action(trueAction.params));
-      console.log(true);
       return;
     }
     dispatch(falseAction.action(falseAction.params));
@@ -33,8 +32,9 @@ export async function applyFilters(api, dispatch, action, setStates) {
   //Obtain correct array from api and then apply the filters
   try {
     const response = await apiCall({ queryParams });
+    const data = response.data;
     if (response.status === 200) {
-      dispatch(action.function({ ...action.params, value: response.data }));
+      dispatch(action.function({ ...action.params, value: data }));
       setLoading(false);
     }
   } catch (error) {

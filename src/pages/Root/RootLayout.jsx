@@ -1,12 +1,20 @@
 import { Nav2 } from "../../components/UI/Nav/Nav";
 import { Outlet } from "react-router-dom";
-import "./RootLayout.css";
+import Footer from "./Footer/Footer";
 function RootLayout() {
   return (
     <>
-      <Nav2 />
-      <Outlet />
-      <footer></footer>
+    <div className="nav h-max">
+    <Nav2 />
+    </div>
+    <main className="inline-block h-screen w-full">
+    <Outlet />
+
+    </main>
+      <section className="footer h-3/12">
+      <Footer/>
+
+      </section>
     </>
   );
 }

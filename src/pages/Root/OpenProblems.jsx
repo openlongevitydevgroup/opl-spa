@@ -25,14 +25,6 @@ function RootOpenProblems() {
       <div className="nav h-3/12">
         <Nav2 />
       </div>
-      {/* <section className="h-6/12 px-12"> */}
-      {/* <Container className="root-container">
-          <h1 className="py-2 text-center text-3xl md:text-5xl" id="title">
-            {" "}
-            Open Problems in Longevity{""}
-          </h1>
-        </Container> */}
-      {/* </section> */}
       <main
         className={`h-screen w-full ${
           viewWidth > 450 ? "px-8" : "px-2"

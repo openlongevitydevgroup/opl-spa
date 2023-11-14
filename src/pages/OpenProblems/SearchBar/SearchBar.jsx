@@ -1,64 +1,60 @@
-import { TextField } from "@mui/material";
-import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
 import { questionActions } from "../../../state/Question/questionSlice";
-import { formActions } from "../../../state/Question/questionFormSlice";
-import { useDispatch, useSelector } from "react-redux";
-import Fuse from "fuse.js";
-function SearchBar() {
-  const allProblems = useLoaderData();
-  const openProblems = allProblems.latest;
-  const queryState = useSelector((state) => state.question.searchQuery);
+import { useDispatch } from "react-redux";
 
+const SearchBar = ({ label, type = "text", value, ...rest }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const isActive = isFocused || value;
   const dispatch = useDispatch();
-  //   Fuse for finding problems based on title for now
-  const fuseOptions = {
-    keys: ["title"],
-    threshold: 0.3,
+
+  const onChange = (e) => {
+    const string = e.target.value;
+    if (string.trim().length > 0) {
+      setIsFocused(true);
+    } else {
+      setIsFocused(false);
+    }
+    dispatch(questionActions.setState({ key: "searchQuery", value: string }));
   };
 
-  //Search bar - dealing with submitted query - basic functionality.
-  const searchFunction = (e) => {
-    dispatch(questionActions.toggleListState());
-    if (queryState.trim().length === 0) {
-      dispatch(formActions.toggleFormClose());
-      dispatch(questionActions.setSearchResults({ results: null }));
+  const onBlur = (e) => {
+    const string = e.target.value; 
+    if (string.trim().length > 0) {
+      setIsFocused(true);
     } else {
-      const fuse = new Fuse(openProblems, fuseOptions);
-      const searchResults = fuse.search(queryState);
-      dispatch(questionActions.setSearchResults({ results: searchResults }));
+      setIsFocused(false);
     }
-  };
-  const searchOnChange = (e) => {
-    const query = e.target.value;
-    dispatch(questionActions.setQuery({ query: query }));
-
-    if (query.trim().length === 0) {
-      dispatch(questionActions.setSearchResults({ results: null }));
-      dispatch(formActions.toggleFormClose());
-    } else {
-      searchFunction();
-    }
-  };
+  }
 
   return (
-    <form onSubmit={searchFunction} className="mb-0 mt-0 ">
-      <TextField
-        className="z-0"
-        name="search-query"
-        label="Search for an open problem"
-        onChange={searchOnChange}
-        fullWidth={true}
-        size="small"
-        variant="filled"
-        margin="none"
-        sx={{
-          boxShadow:
-            "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
-          "--box-shadow-color": "#3498db", // You can define the theme color here
-        }}
+    <div className="relative w-full py-1">
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setIsFocused(true)}
+        onBlur={onBlur}
+        className={`w-full px-4 py-2 bg-gray-300 bg-opacity-30 shadow border-b rounded-t-md outline-none transition-all duration-300 ${
+          isActive ? "pt-4" : ""
+        } ${
+          isFocused ? "border-indigo-500 shadow-theme-blue" : "border-gray-300"
+        } `}
+        {...rest}
       />
-    </form>
+      {label && (
+        <label
+          className={`absolute left-3 bg-inherit transition-all duration-300 pointer-events-none  px-1 ${
+            isActive
+              ? "top-1 text-xs text-indigo-500"
+              : "top-5 text-sm text-gray-500"
+          }`}
+          style={{ transformOrigin: "0 0" }}
+        >
+          {label}
+        </label>
+      )}
+    </div>
   );
-}
+};
 
 export default SearchBar;

@@ -6,7 +6,7 @@ function extractAnnotationInformation(annotation, category) {
   switch (category) {
     case "gene":
       title = annotation.gene_name;
-      id = annotation.gene_id;
+      id = annotation.id;
       parent = null;
       break;
 
@@ -18,7 +18,7 @@ function extractAnnotationInformation(annotation, category) {
 
     case "compound":
       title = annotation.compound_name;
-      id = annotation.compound_id;
+      id = annotation.id;
       parent = null;
 
     default:

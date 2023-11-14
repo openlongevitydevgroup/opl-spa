@@ -1,18 +1,19 @@
 import { useLoaderData } from "react-router-dom";
 import { useRef } from "react";
-import InformationSection from "./InformationInterface/InformationSection";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { detailsActions } from "../../state/Details/detailsSlice";
+
+import InformationSection from "./InformationInterface/InformationSection";
+import Likes from "../../components/Likes/Likes";
 function Details() {
   const { data } = useLoaderData();
-  const openProblemDetails = data.open_problem;
-  const description = data.open_problem.description;
-  const id = openProblemDetails.problem_id;
-  const title = openProblemDetails.title;
-  const children = openProblemDetails.children;
-  const parent = data.parent_data;
+  const description = data.description;
+  const id = data.problem_id;
+  const title = data.title;
+  const children = data.children;
+  const parent = data.parent_problem;
   const isRoot = parent ? false : true;
 
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function Details() {
   const ref = useRef(null);
 
   return (
-    <div>
+    <div className="p-4 mx-12 px-6">
       <hr className="border-1 border-theme-blue" />
       <div className="return-bttn">
         <Link
@@ -38,7 +39,8 @@ function Details() {
           Return{" "}
         </Link>
       </div>
-      <div ref={ref} className="title flex flex-row pt-8 ">
+      <div ref={ref} className="title flex flex-row items-center pt-8 gap-2">
+        <Likes />
         <h1 className="text-lg md:text-2xl" id={`title${id}`}>
           <u>{title}</u>{" "}
         </h1>

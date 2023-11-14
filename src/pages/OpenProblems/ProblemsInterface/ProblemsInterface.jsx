@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
-import View from "./View";
+import QuestionList from "./List/QuestionList";
 import QuestionForm from "../Form/QuestionForm";
 import SortingInputs from "./Sorting/SortingInputs";
 function ProblemsInterface() {
   const formState = useSelector((state) => state.form);
-  // const viewWidth = useSelector((state) => state.question.viewWidth);
   return (
     <div className="flex flex-col">
       {!formState.submitFormOpen && (
@@ -23,7 +22,7 @@ function ProblemsInterface() {
             }
           />
         ) : (
-          <View></View>
+          <QuestionList />
         )}
       </div>
     </div>

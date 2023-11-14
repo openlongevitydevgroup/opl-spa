@@ -47,7 +47,7 @@ function ProposalForm() {
 
   //Set open problem id in form state on load
   const { data } = useLoaderData();
-  const openProblemId = data.open_problem.problem_id;
+  const openProblemId = data.problem_id;
   useEffect(() => {
     dispatch(detailsActions.setOpenProblem({ id: openProblemId }));
   }, []);

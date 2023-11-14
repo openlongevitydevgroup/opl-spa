@@ -50,6 +50,24 @@ const apiAnnotations = {
       return error;
     }
   },
+  sendFilters: async (params) => {
+    const filters = params.filters;
+    try {
+      const response = await apiClient.post("annotations/filter", filters);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+  // applyFilters: async (params) => {
+  //   const queryUrl = params.queryUrl;
+  //   try {
+  //     const response = await apiClient.get(`${queryUrl}`);
+  //     return response;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // },
 };
 
 export default apiAnnotations;

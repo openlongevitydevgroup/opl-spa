@@ -7,9 +7,7 @@ import ListAccordionContent from "../Accordion/ListAccordionContent";
 import { HashLink } from "react-router-hash-link";
 function MuiListComponent(props) {
   const problem = props.problem;
-  const id = problem.problem_id;
-  const description = problem.description;
-  const children = problem.children;
+  const { problem_id:id, description, children } = problem;
   const [isExpanded, setExpanded] = useState(false);
   const onClickHandler = () => {
     if (children || description) {
@@ -18,9 +16,8 @@ function MuiListComponent(props) {
   };
 
   return (
-    <>
+    <li key={id}>
       <ListItemButton
-        key={id + "bttn"}
         className="w-100 my-2 flex bg-white"
         onClick={onClickHandler}
         sx={{
@@ -46,10 +43,7 @@ function MuiListComponent(props) {
           <ExpandMore />
         )}
       </ListItemButton>
-      <div
-        className=" border-l border-dashed border-theme-blue "
-        key={id + "accordion"}
-      >
+      <div className=" border-l border-dashed border-theme-blue ">
         <Collapse
           in={isExpanded}
           timeout="auto"
@@ -59,7 +53,7 @@ function MuiListComponent(props) {
           <ListAccordionContent problem={problem} />
         </Collapse>
       </div>
-    </>
+    </li>
   );
 }
 
